@@ -1,0 +1,10 @@
+# Input directory, for now at least
+input/
+
+# Output directory 
+output/
+
+# Pycache dir(s) & compiled python files anywhere in the repo
+*.pyc
+**/__pycache__
+ 
