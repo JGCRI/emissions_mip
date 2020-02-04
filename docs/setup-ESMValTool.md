@@ -4,7 +4,7 @@
 # Installing on NERSC Cori
 PNNL's CESM run outputs are located on the National Energy Research Scientific Computing Center's [Cori supercomputer](https://www.nersc.gov/systems/cori/). Since the directory holding the output for all four EMIP experiments is ~90 GB and Cori has much more computing power than your local machine, it's best to set up ESMValTool on Cori and run it from there.
 
-## Configuring Conda
+## Configure Conda
 The most straight-forward installation method for ESMValTool is through [conda](https://esmvaltool.readthedocs.io/en/latest/getting_started/install.html#conda-installation). Both Python and Conda are already [installed on Cori](https://docs.nersc.gov/programming/high-level-environments/python/#anaconda-python).
 
 Below is a quick walkthrough of how to create a conda environment on Cori:
@@ -64,7 +64,7 @@ ESMValTool uses [Julia](https://julialang.org), which is not currently installed
 5. Restart bash. This can be accomplished with the command `exec bash`. If `which julia` fails, restart your SSH session.
 
 
-## Installing ESMValTool - Conda
+## Install ESMValTool - Conda
 Once you have Conda and Julia installed on your Linux subsystem, you can install ESMValTool via the [Conda installation method](https://esmvaltool.readthedocs.io/en/latest/getting_started/install.html#conda-installation).
 
 From your Linux command prompt, run the following command to install ESMValTool:
@@ -104,11 +104,9 @@ Once you have your Windows 10 Linux subsystem up and running, you'll need to ins
 See the [Install Julia](#install-julia) section above.
 
 
-## Installing ESMValTool - Conda
-See [Installing ESMValTool - Conda](#installing-esmvaltool---conda) above.
+## Install ESMValTool - Conda
+See [Install ESMValTool - Conda](#install-esmvaltool---conda) above.
 
-# Installing ESMValTool - From Source
-Are you a glutton for pain? Do you hate yourself? Well then [installing ESMValTool from source](https://esmvaltool.readthedocs.io/en/latest/getting_started/install.html#install-from-source) is for you! I don't recommend this method of installation unless you *really* know what you're doing, have a lot of time on your hands, and have some deep-seated self-loathing tendencies. Shoot the moon, bud.
-
+---
 
  Note to my colleagues/successor: `mnichol3` isn't my actual Cori username. OPSEC baybee. 
