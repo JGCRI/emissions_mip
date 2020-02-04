@@ -9,7 +9,7 @@ See these articles for how to install and activate the Windows 10 Linux Subsyste
 ## Install Anaconda 
 Once you have your Windows 10 Linux subsystem up and running, you'll need to install [Anaconda](https://www.anaconda.com/distribution/) on to it
 
-1. Navigate to the [Anaconda download page](https://www.anaconda.com/distribution/) page and select `Linux`. Right-click the appropriate download link for your system's hardware, and select `Copy link address` from the dropdown menu (see image below).
+1. Navigate to the [Anaconda download page](https://www.anaconda.com/distribution/) page and select `Linux`. Right-click the appropriate download link for your system's hardware, and select `Copy link address` from the dropdown menu (see image below; I'm running 64-bit Windows so I selected `64-Bit x86 Installer`).
 ![conda download](imgs/cond-dl.png)
 
 2. Open a Linux command prompt and enter the following:
@@ -28,7 +28,7 @@ Once you have your Windows 10 Linux subsystem up and running, you'll need to ins
 ## Install Julia
 ESMValTool uses [Julia](https://julialang.org/downloads/), so we have to install that as well.
 
-1. Similarly to downloading the Conda installation script, copy the link address of the appropriate Julia installation package. For Ubuntu Linux, the `Generic Linux Binaries for x86` installation package will work just fine.
+1. Similarly to downloading the Conda installation script, copy the link address of the appropriate Julia installation package. For Ubuntu Linux, the `Generic Linux Binaries for x86` installation package will work just fine (assuming you're running the 64-bit version of Windows).
 ![julia download](imgs/julia-dl.png)
 
    Download the Julia installation package from the Linux command prompt using `wget`:
