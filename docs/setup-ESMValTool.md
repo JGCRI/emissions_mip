@@ -72,6 +72,11 @@ From your Linux command prompt, run the following command to install ESMValTool:
 conda install -c esmvalgroup -c conda-forge esmvaltool
 ```
 
+<br>
+
+---
+
+<br>
 
 # Installing ESMValTool on Windows 10
 Since ESMValTool only supports Unix-based systems, you'll have to install and activate the Windows 10 Linux Subsystem on your machine, then use that to install ESMValTool.
