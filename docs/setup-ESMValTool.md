@@ -5,9 +5,9 @@
 PNNL's CESM run outputs are located on the National Energy Research Scientific Computing Center's [Cori supercomputer](https://www.nersc.gov/systems/cori/). Since the directory holding the output for all four EMIP experiments is ~90 GB and Cori has much more computing power than your local machine, it's best to set up ESMValTool on Cori and run it from there.
 
 ## Configure Conda
-The most straight-forward installation method for ESMValTool is through [conda](https://esmvaltool.readthedocs.io/en/latest/getting_started/install.html#conda-installation). Both Python and Conda are already [installed on Cori](https://docs.nersc.gov/programming/high-level-environments/python/#anaconda-python).
+The most straight-forward installation method for ESMValTool is through [Conda](https://esmvaltool.readthedocs.io/en/latest/getting_started/install.html#conda-installation). Both Python and Conda are already [installed on Cori](https://docs.nersc.gov/programming/high-level-environments/python/#anaconda-python).
 
-Below is a quick walkthrough of how to create a conda environment on Cori:
+Below is a quick walkthrough of how to create a Conda environment on Cori:
 
 * Load the Python module
   ```
@@ -15,7 +15,7 @@ Below is a quick walkthrough of how to create a conda environment on Cori:
   ```
   The default Python module is `python/3.7-anaconda-2019.10`, so loading the Python module loads Conda as well.
   
-* Create a new conda environment (see [conda docs](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-with-commands) for more details)
+* Create a new Conda environment (see [Conda docs](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-with-commands) for more details)
   ```
   conda create -n emip python=3.6
   ```
