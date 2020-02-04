@@ -52,3 +52,6 @@ From your Linux command prompt, run the following command to install ESMValTool:
 ```
 conda install -c esmvalgroup -c conda-forge esmvaltool
 ```
+
+## Installing ESMValTool - From Source
+Are you a glutton for pain? Do you hate yourself? Well then [installing ESMValTool from source](https://esmvaltool.readthedocs.io/en/latest/getting_started/install.html#install-from-source) is for you! I don't recommend this method of installation unless you *really* know what you're doing, have a lot of time on your hands, and have some deep-seated self-loathing tendencies. Shoot the moon, bud.
