@@ -4,7 +4,7 @@
 # Installing on NERSC Cori
 PNNL's CESM run outputs are located on the National Energy Research Scientific Computing Center's [Cori supercomputer](https://www.nersc.gov/systems/cori/). Since the directory holding the output for all four EMIP experiments is ~90 GB and Cori has much more computing power than your local machine, it's best to set up ESMValTool on Cori and run it from there.
 
-## Configure Conda
+## 1. Configure Conda
 The most straight-forward installation method for ESMValTool is through [Conda](https://esmvaltool.readthedocs.io/en/latest/getting_started/install.html#conda-installation). Both Python and Conda are already [installed on Cori](https://docs.nersc.gov/programming/high-level-environments/python/#anaconda-python).
 
 Below is a quick walkthrough of how to create a Conda environment on Cori:
@@ -34,7 +34,7 @@ Below is a quick walkthrough of how to create a Conda environment on Cori:
   
   **Note**: Unlike above, once a Conda environment is activated, it *can* be deactivated via the normal `conda deactivate` command. This command is preferred over `source deactivate`. See the [Cori Python docs](https://docs.nersc.gov/programming/high-level-environments/python/#conda-environments) for details
 
-## Install Julia
+## 2. Install Julia
 ESMValTool uses [Julia](https://julialang.org), which is not currently installed as a module on Cori, so we'll have to install it ourselves.
 
 1. To download the Julia installation package, navigate to the [Julia downloads page](https://julialang.org/downloads/). Cori runs SUSE Linux Enterprise Server 15, but the `Generic Linux Binaries for x86` installation package will work just fine. Right-click the link and select `copy link address` from the dropdown menu.
@@ -64,7 +64,7 @@ ESMValTool uses [Julia](https://julialang.org), which is not currently installed
 5. Restart bash. This can be accomplished with the command `exec bash`. If `which julia` fails, restart your SSH session.
 
 
-## Install ESMValTool - Conda
+## 3. Install ESMValTool - Conda
 Once you have Conda and Julia installed on your Linux subsystem, you can install ESMValTool via the [Conda installation method](https://esmvaltool.readthedocs.io/en/latest/getting_started/install.html#conda-installation).
 
 From your Linux command prompt, run the following command to install ESMValTool:
@@ -76,12 +76,12 @@ conda install -c esmvalgroup -c conda-forge esmvaltool
 # Installing ESMValTool on Windows 10
 Since ESMValTool only supports Unix-based systems, you'll have to install and activate the Windows 10 Linux Subsystem on your machine, then use that to install ESMValTool.
 
-## Install the Windows 10 Linux Subsystem
+## 1. Install the Windows 10 Linux Subsystem
 See these articles for how to install and activate the Windows 10 Linux Subsystem:
 * [Windows Subsystem for Linux Installation Guide for Windows 10](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 * [How to install Windows 10’s Linux Subsystem on your PC](https://www.onmsft.com/how-to/how-to-install-windows-10s-linux-subsystem-on-your-pc)
 
-## Install Anaconda 
+## 2. Install Anaconda 
 Once you have your Windows 10 Linux subsystem up and running, you'll need to install [Anaconda](https://www.anaconda.com/distribution/) on to it
 
 1. Navigate to the [Anaconda download page](https://www.anaconda.com/distribution/) page and select `Linux`. Right-click the appropriate download link for your system's hardware, and select `Copy link address` from the dropdown menu (see image below; I'm running 64-bit Windows so I selected `64-Bit x86 Installer`).
@@ -100,11 +100,11 @@ Once you have your Windows 10 Linux subsystem up and running, you'll need to ins
    ```
    An in-depth guide for installing Conda on Linux can be found [here](https://www.digitalocean.com/community/tutorials/how-to-install-anaconda-on-ubuntu-18-04-quickstart).
    
-## Install Julia
+## 3. Install Julia
 See the [Install Julia](#install-julia) section above.
 
 
-## Install ESMValTool - Conda
+## 4. Install ESMValTool - Conda
 See [Install ESMValTool - Conda](#install-esmvaltool---conda) above.
 
 ---
