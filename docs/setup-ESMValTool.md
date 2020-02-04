@@ -1,12 +1,12 @@
-# Setting Up Software Packages for E-MIP
-
-## ESMValTool
+# ESMValTool
 [ESMValTool](https://github.com/ESMValGroup/ESMValTool) is a software package that provides diagnostic and performance metrics tools for evaluating Earth system models in CMIP. However, the current version of ESMValTool only supports Unix(-like) operating systems. If you, like me, aren't provided easy access to an Unix-based system, but have Windows 10, there is still hope. 
 
-### Install the Windows 10 Linux Subsystem
-k
+## Install the Windows 10 Linux Subsystem
+See these articles for how to install and activate the Windows 10 Linux Subsystem:
+* [Windows Subsystem for Linux Installation Guide for Windows 10](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+* [How to install Windows 10’s Linux Subsystem on your PC](https://www.onmsft.com/how-to/how-to-install-windows-10s-linux-subsystem-on-your-pc)
 
-### Install Anaconda 
+## Install Anaconda 
 Once you have your Windows 10 Linux subsystem up and running, you'll need to install [Anaconda](https://www.anaconda.com/distribution/) on to it
 
 1. Navigate to the [Anaconda download page](https://www.anaconda.com/distribution/) page and select `Linux`. Right-click the appropriate download link for your system's hardware, and select `Copy link address` from the dropdown menu.
@@ -24,7 +24,7 @@ Once you have your Windows 10 Linux subsystem up and running, you'll need to ins
    ```
    An in-depth guide for installing Conda on Linux can be found [here](https://www.digitalocean.com/community/tutorials/how-to-install-anaconda-on-ubuntu-18-04-quickstart).
    
-### Install Julia
+## Install Julia
 ESMValTool uses [Julia](https://julialang.org/downloads/), so we have to install that as well.
 
 1. Similarly to downloading the Conda installation script, copy the link address of the appropriate Julia installation package and download it from the Linux command prompt using `wget`:
