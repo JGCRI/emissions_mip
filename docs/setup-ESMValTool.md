@@ -2,7 +2,7 @@
 [ESMValTool](https://github.com/ESMValGroup/ESMValTool) is a software package that provides diagnostic and performance metrics tools for evaluating Earth system models in CMIP. However, the current version of ESMValTool only supports Unix(-like) operating systems. If you aren't provided easy access to an Unix-based system, but have Windows 10, there is still hope. 
 
 # Installing on NERSC Cori
-PNNL's CESM run outputs are located on the National Energy Research Scientific Computing Center's [Cori supercomputer](https://www.nersc.gov/systems/cori/). Since the directory holding the output for all four EMIP experiments is ~90 GB and Cori has much more computing power than your local machine, it's best to set up ESMValTool on Cori and run it from there.
+PNNL's CESM run outputs are located on the National Energy Research Scientific Computing Center's (NERSC) [Cori supercomputer](https://www.nersc.gov/systems/cori/). Since the directory holding the output for all four EMIP experiments is ~90 GB and Cori has much more computing power than your local machine, it's best to set up ESMValTool on Cori and run it from there.
 
 ## 1. Configure Conda
 The most straight-forward installation method for ESMValTool is through [Conda](https://esmvaltool.readthedocs.io/en/latest/getting_started/install.html#conda-installation). Both Python and Conda are already [installed on Cori](https://docs.nersc.gov/programming/high-level-environments/python/#anaconda-python).
