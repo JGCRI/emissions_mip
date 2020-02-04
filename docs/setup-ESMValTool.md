@@ -31,6 +31,7 @@ ESMValTool uses [Julia](https://julialang.org/downloads/), so we have to install
    ```
    wget <copied-julia-url>
    ```
+   For Ubuntu Linux, the `Generic Linux Binaries for x86` installation package will work just fine. 
    
    Unlike Conda, Julia downloads a `tar.gz` file instead of a script. 
    
