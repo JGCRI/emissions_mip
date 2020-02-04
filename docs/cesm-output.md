@@ -29,3 +29,23 @@ Note: `/global/cscratch1/sd/mwu1/CESM_runs` also contains two test run subdirect
 |:----:|:-----------:|:-----------:|:---------------------------|:----------------:|:---------------------:|
 | 1    | 611         | Monthly     | `%c.cam2.h%t.%y-%m.nc`     | double           | 1                     |
 | 7    | 37          | Yearly      | `%c.cam2.i.%y-%m-%d-%s.nc` | double           | 1                     |
+
+### Naming Convention
+* Default first history file series
+  
+  `case_id.cam2.h0.yyyy-mm.nc`
+  
+  where:
+  * `case_id` is the case-name
+  * `yyyy` is the current year of the output
+  * `mm` is the current month of the output
+  
+  **Ex**: if `case_id` = "cambld", and the current date is September, 1989, the filename will be:
+  
+     `cambld.cam2.h0.1989-09.nc`
+
+## CAM Restart Files
+* `$CASE.cam2.r.yyyy-mm-dd-ssss.nc` - master restart file
+* `$CASE.cam2.ra.yyyy-mm-dd-ssss.nc` - absorptivity/emissivity restart file
+* `$CASE.cam2.rh0.yyyy-mm-dd-ssss.nc` - history buffer restart file for first history file
+* `$CASE.cam2.rh1.yyyy-mm-dd-ssss.nc` - history buffer restart file for second history file
