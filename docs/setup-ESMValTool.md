@@ -43,3 +43,12 @@ ESMValTool uses [Julia](https://julialang.org/downloads/), so we have to install
    ```
    
 3. Follow the [Linux installation instructions](https://julialang.org/downloads/platform/) to add Julia to your Linux path
+
+
+## Installing ESMValTool - Conda
+Once you have Conda and Julia installed on your Linux subsystem, you can install ESMValTool via the [Conda installation method](https://esmvaltool.readthedocs.io/en/latest/getting_started/install.html#conda-installation).
+
+From your Linux command prompt, run the following command to install ESMValTool:
+```
+conda install -c esmvalgroup -c conda-forge esmvaltool
+```
