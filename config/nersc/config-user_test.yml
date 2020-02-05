@@ -12,11 +12,11 @@
 
 # Rootpaths to the data from different projects (lists are also possible)
 rootpath:
-  CMIP5: ~/emip/input
-  CMIP6: ~/emip/input
-  OBS: ~/emip/input
-  RAWOBS: ~/emip/input
-  default: ~/emip/input
+  CMIP5: ~/emip-evt/input
+  CMIP6: ~/emip-evt/input
+  OBS: ~/emip-evt/input
+  RAWOBS: ~/emip-evt/input
+  default: ~/emip-evt/input
 
 # Directory structure for input data: [default]/BADC/DKRZ/ETHZ/etc
 # See config-developer.yml for definitions.
@@ -37,10 +37,10 @@ drs:
 max_parallel_tasks: 1
 
 # Destination directory
-output_dir: ~/emip/output
+output_dir: ~/emip-evt/output
 
 # Auxiliary data directory (used for some additional datasets)
-auxiliary_data_dir: ~/emip/auxiliary_data
+auxiliary_data_dir: ~/emip-evt/auxiliary_data
 
 # Diagnostics create plots? [true]/false
 write_plots: true
