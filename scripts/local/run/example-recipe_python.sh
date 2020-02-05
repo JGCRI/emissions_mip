@@ -3,7 +3,7 @@
 # I'm too lazy to keep typing the long paths associated with my Win10 linux subsys
 
 # ============================ Variable definitions ============================
-CONDA_ENV="emip"
+CONDA_ENV="esmvaltool"
 F_CONFIG="~/esmvaltool/config/config-user_default.yml"
 F_RECIPE="~/esmvaltool/recipes/examples/recipe_python.yml"
 # ==============================================================================
