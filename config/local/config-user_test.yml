@@ -1,22 +1,32 @@
 ###############################################################################
 # User's configuration file for the ESMValTool
+#
+# A simple first config file to get aquainted with ESMValTool and CAM5 output
+# as part of the Emissions-MIP
+#
+# Matt Nicholson
+# Pacific Northwest National Laboratory - Joint Global Change Research Institute
+# 5 Feb 2020
 ###############################################################################
 ---
 
-# Rootpaths to the data from different projects (lists are also possible)
+# Rootpaths to the data from different projects
 rootpath:
-  CMIP5: [~/cmip5_inputpath1, ~/cmip5_inputpath2]
-  CMIP6: [~/cmip6_inputpath1, ~/cmip6_inputpath2]
-  OBS: ~/obs_inputpath
-  RAWOBS: ~/rawobs_inputpath
+  CMIP5: ~/esmvaltool/input
   default: ~/esmvaltool/input
 
 # Directory structure for input data: [default]/BADC/DKRZ/ETHZ/etc
 # See config-developer.yml for definitions.
+#
+# Since the CMIP5 root path structure (below) is set to 'default',
+# the input data MUST by located in the same top-level directory set by
+# rootpath:default
+# See: 
+# (https://esmvaltool.readthedocs.io/projects/esmvalcore/en/latest/esmvalcore/
+#  datafinder.html#explaining-config-user-drs-cmip5-or-config-user-drs-cmip6)
 drs:
   CMIP5: default
-  CMIP6: default
-
+ 
 # Run at most this many tasks in parallel null/[1]/2/3/4/..
 # Set to null to use the number of available CPUs.
 # Make sure your system has enough memory for the specified number of tasks.
