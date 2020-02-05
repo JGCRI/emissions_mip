@@ -16,7 +16,7 @@
 
 # ============================ Variable Definitions ============================
 DIR_BASE_WIN="/mnt/c/Users/nich980/code/emip"
-DIR_BASE_LINUX="~/esmvaltool"
+DIR_BASE_LINUX=~/"esmvaltool"
 
 EXT_YML="*.yml"
 EXT_SH="*.sh"
@@ -27,7 +27,7 @@ EXT_SH="*.sh"
 echo "Copying new config files..."
 
 dir_origin="$DIR_BASE_WIN/config/local/$EXT_YML"
-dir_dest="$DIR_BASE_LINUX/config"
+dir_dest="$DIR_BASE_LINUX/config/"
 
 cp -uv $dir_origin $dir_dest
 
@@ -37,6 +37,6 @@ cp -uv $dir_origin $dir_dest
 echo "Copying new bash scripts..."
 
 dir_origin="$DIR_BASE_WIN/scripts/run/$EXT_SH"
-dir_dest="$DIR_BASE_LINUX/scripts/run"
+dir_dest="$DIR_BASE_LINUX/scripts/run/"
 
 cp -uv $dir_origin $dir_dest
