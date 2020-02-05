@@ -7,11 +7,11 @@
 
 # Rootpaths to the data from different projects (lists are also possible)
 rootpath:
-  CMIP5: ~/esmvaltool/input
-  OBS: ~/esmvaltool/input
-  RAWOBS: ~/esmvaltool/input
-  default: ~/esmvaltool/input
-  CORDEX: ~/esmvaltool/input
+  CMIP5: [~/cmip5_inputpath1, ~/cmip5_inputpath2]
+  OBS: ~/obs_inputpath
+  RAWOBS: ~/rawobs_inputpath
+  default: ~/default_inputpath
+  CORDEX: ~/default_inputpath
 
 # Directory structure for input data: [default]/BADC/DKRZ/ETHZ/etc
 # See config-developer.yml for definitions.
@@ -39,10 +39,10 @@ exit_on_warning: false
 output_file_type: pdf
 
 # Destination directory
-output_dir: ~/esmvaltool/output
+output_dir: ~/output
 
 # Auxiliary data directory (used for some additional datasets)
-auxiliary_data_dir: ~/esmvaltool/auxiliary_data
+auxiliary_data_dir: ~/auxiliary_data
 
 # Use netCDF compression true/[false]
 compress_netcdf: false
