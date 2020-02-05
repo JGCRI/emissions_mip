@@ -72,11 +72,7 @@ From your Linux command prompt, run the following command to install ESMValTool:
 conda install -c esmvalgroup -c conda-forge esmvaltool
 ```
 
-<br>
 
----
-
-<br>
 
 # Installing ESMValTool on Windows 10
 Since ESMValTool only supports Unix-based systems, you'll have to install and activate the Windows 10 Linux Subsystem on your machine, then use that to install ESMValTool.
@@ -110,8 +106,35 @@ See the [Install Julia](#install-julia) section above.
 
 
 ## 4. Install ESMValTool - Conda
-See [Install ESMValTool - Conda](#install-esmvaltool---conda) above.
+See [Install ESMValTool - Conda](#3-install-esmvaltool---conda) above.
 
----
 
- Note to my colleagues/successor: `mnichol3` isn't my actual Cori username. OPSEC baybee. 
+
+# Troubleshooting
+
+## ESMValCore Distribution Error
+Checking the ESMValTool installation (from your activated Conda env) with `esmvaltool -h` yields the following error:
+```
+pkg_resources.DistributionNotFound: The 'ESMValCore==2.0.0b1' distribution was not found and is required by the application
+```
+
+### Possible Causes
+1. The `ESMValCore` package is not installed in your current Conda environment
+2. The version of the `ESMValCore` package installed in your current environment is not compatible with your environment's version of `ESMValTool`. For example, you could have `ESMValCore v2.0.0b1` installed while the `ESMValTool` package wants `ESMValCore v2.0.0b5`. Yes, that miniscule version difference can make it break (speaking from experience).
+
+### Solutions
+1. Check that the `ESMValCore` package is installed with `conda list`. If the package is installed in your active Conda environment, the following row should appear in the list of packages:
+    ```
+    esmvalcore                2.0.0b5                    py_0    esmvalgroup
+    ```
+    If the `ESMValCore` package is not present in your environment, install it via:
+    ```
+    conda install -c esmvalgroup -c conda-forge esmvalcore
+    ```
+ 2. Create a new Conda environment for `ESMValTool`. Clone the [GitHub repo](https://github.com/ESMValGroup/ESMValTool) and create a new Conda environment from the included `environment.yml` file. 
+     
+     From the root `ESMValTool` directory:
+     ```
+     conda env create --name <env_name> --file environment.yml
+     ```
+     Once your new environment is created, activate it and re-install `ESMValTool` via the [Conda method](#3-install-esmvaltool---conda)
