@@ -9,7 +9,7 @@ rootpath:
   CMIP6: [~/cmip6_inputpath1, ~/cmip6_inputpath2]
   OBS: ~/obs_inputpath
   RAWOBS: ~/rawobs_inputpath
-  default: ~/esmvaltool/input
+  default: ~/default_inputpath
 
 # Directory structure for input data: [default]/BADC/DKRZ/ETHZ/etc
 # See config-developer.yml for definitions.
@@ -23,10 +23,10 @@ drs:
 max_parallel_tasks: 1
 
 # Destination directory
-output_dir: ~/esmvaltool/output
+output_dir: ~/emip/output
 
 # Auxiliary data directory (used for some additional datasets)
-auxiliary_data_dir: ~/esmvaltool/auxiliary_data
+auxiliary_data_dir: ~/emip/auxiliary_data
 
 # Diagnostics create plots? [true]/false
 write_plots: true
@@ -41,7 +41,7 @@ log_level: info
 exit_on_warning: false
 
 # Plot file format? [ps]/pdf/png/eps/epsi
-output_file_type: png
+output_file_type: pdf
 
 # Use netCDF compression true/[false]
 compress_netcdf: false
