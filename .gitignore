@@ -1,3 +1,6 @@
+# Input subdir that holds ESMValTool example recipes
+input/default
+
 # Output directory 
 output/
 
