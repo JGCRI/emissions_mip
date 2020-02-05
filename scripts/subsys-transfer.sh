@@ -36,7 +36,7 @@ cp -uv $dir_origin $dir_dest
 # Dest: ~/esmvaltool/scripts
 echo "Copying new bash scripts..."
 
-dir_origin="$DIR_BASE_WIN/scripts/$EXT_SH"
-dir_dest="$DIR_BASE_LINUX/scripts"
+dir_origin="$DIR_BASE_WIN/scripts/run/$EXT_SH"
+dir_dest="$DIR_BASE_LINUX/scripts/run"
 
 cp -uv $dir_origin $dir_dest
