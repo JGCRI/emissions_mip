@@ -112,6 +112,31 @@ See [Install ESMValTool - Conda](#3-install-esmvaltool---conda) above.
 
 # Troubleshooting
 
+## General Installation Failure
+Due to the many moving parts and languages involved in the installation of ESMValTool, installation can faile for a number of reasons. 
+
+For example, there could be broken Python dependencies:
+```
+ERROR: LoadError: Unsatisfiable requirements detected for package ArgParse [c7e460c6]:
+ ArgParse [c7e460c6] log:
+ ├─possible versions are: [0.6.1-0.6.2, 1.0.0-1.0.1] or uninstalled
+ ├─restricted to versions 1.0.1 by an explicit requirement, leaving only versions 1.0.1
+ └─restricted by compatibility requirements with RainFARM [e9a4e08f] to versions: 0.6.1-0.6.2 — no versions left
+   └─RainFARM [e9a4e08f] log:
+     ├─possible versions are: 1.0.1-1.0.2 or uninstalled
+     └─restricted to versions * by an explicit requirement, leaving only versions 1.0.1-1.0.2
+```
+Failures have also been encountered in the invocation of Julia during installation.
+
+### Solution
+If you used the [Conda method](#3-install-esmvaltool---conda) of installation, try downloading the repository directly from the [ESMValTool Github](https://github.com/ESMValGroup/ESMValTool) through the `git clone` command or by downloading the repo as a zip file from GitHub. 
+
+To build and install ESMValTool from source, navigate to the root project directory (`ESMValTool/`) and create a new Conda environment from the provided `environment.yml` file:
+```
+conda env create -f environment.yml
+```
+This command will create a new Conda environment named `esmvaltool`. Activate this new environment (`conda activate esmvaltool`) and re-try the [Conda installation method](#3-install-esmvaltool---conda).
+
 ## ESMValCore Distribution Error
 Checking the ESMValTool installation (from your activated Conda env) with `esmvaltool -h` yields the following error:
 ```
