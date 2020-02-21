@@ -75,7 +75,7 @@ class NCFile:
         self._parse_meta(nc)
         self._parse_vars(nc, nc_vars)
         
-    def _parse_vars(self, nc_file, nc_vars):
+    def _parse_vars(self, nc_file, new_vars):
         """
         Create NCVar object(s) for specified netCDF variable(s) and add them to
         the instance's nc_vars dictionary
@@ -83,11 +83,14 @@ class NCFile:
         Parameters
         -----------
         nc_file : netCDF4.Dataset object
-        nc_vars : str, list of str
+        new_vars : str, list of str
             Names of variables to extract from the netCDF file
         """
-        if not isinstance(nc_vars, list):
-            nc_vars = [nc_vars]
+        nc_vars = ['lev', 'time', 'date', 'lat', 'lon']
+        if not isinstance(new_vars, list):
+            nc_vars = default_vars.append(new_vars)
+        else:
+            nc_vars.extend(new_vars)
         nc_vars = {key: NCVar(nc_file, key, self.nc_fname) for key in nc_vars}
         self.nc_vars = nc_vars
     

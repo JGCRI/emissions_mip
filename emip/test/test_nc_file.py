@@ -17,9 +17,11 @@ class TestNCFile(unittest.TestCase):
     
     def setUp(self):
         # Vars needed for initialization
+        default_vars = ['lev', 'time', 'date', 'lat', 'lon']
         self.f_in = r"C:\Users\nich980\data\emip\model-output\FAMIPC5\FAMIPC5.cam.h0.2010-07.nc"
-        self.vars = ['so4_a1', 'so4_a2', 'SFso4_a1', 'SFso4_a2']
-        self.nc_file = nc_file.NCFile(self.f_in, self.vars)
+        self.nc_vars = ['so4_a1', 'so4_a2', 'SFso4_a1', 'SFso4_a2']
+        self.vars_all = sorted([*default_vars, *self.nc_vars])
+        self.nc_file = nc_file.NCFile(self.f_in, self.nc_vars)
         
     def test_NCFile_1(self):
         """NCFile constructor returns an NCFile obj
@@ -32,7 +34,7 @@ class TestNCFile(unittest.TestCase):
         """NCFile contains the correct variables and they were properly 
         initialized
         """
-        self.assertEqual(self.vars, list(self.nc_file.nc_vars.keys()))
+        self.assertEqual(self.vars_all, sorted(list(self.nc_file.nc_vars.keys())))
         for var, var_obj in self.nc_file.nc_vars.items():
             repr_str = "<NCVar object - {}-{}>".format(var_obj.parent, var_obj.name)
             self.assertEqual(repr(var_obj), repr_str)
