@@ -6,6 +6,13 @@
 #
 # Matt Nicholson
 # 24 Feb 2020
+#
+#SBATCH -A ceds
+#SBATCH -t 4:00:00
+#SBATCH -N 1
+#SBATCH -p shared
+#SBATCH --mail-user matthew.nicholson@pnnl.gov
+#SBATCH --mail-type END
 
 # Activate the Conda env -------------------------------------------------------
 conda activate e3sm_to_cmip
@@ -34,6 +41,6 @@ cd $DIR_ROOT
 for MODEL in "${MODELS[@]}"; do
    echo "Processing $MODEL..."
    CURR_IN="$DIR_PREFIX/$MODEL/$DIR_INPUT"
-   CURR_OUT="$DIR_PREFIX/$DIR_OUTPUT"
-   e3sm_to_cmip -v $VAR -i $CURR_IN -o $CURR_OUT --tables $DIR_TABLES --handlers $DIR_HANDLER --user-input $DIR_USR_IN
+   CURR_OUT="$DIR_PREFIX/$MODEL/$DIR_OUTPUT"
+   e3sm_to_cmip -v $VAR -i $CURR_IN -o $CURR_OUT -t $DIR_TABLES -H $DIR_HANDLER -u $DIR_USR_IN
 done
