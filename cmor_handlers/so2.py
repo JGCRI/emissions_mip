@@ -1,7 +1,9 @@
 """
 e3sm_to_cmip cmor handler script
 
-Variable: SO2 (Concentration of SO2, in mol/mol)
+Convert SO2 (E3SM) to so2 (CMIP)
+
+Input Variable: SO2 (Mole fraction for Sulfur Dioxide in air, in mol/mol)
 
 Matt Nicholson
 24 Feb 2020
@@ -15,7 +17,7 @@ from e3sm_to_cmip.lib import handle_variables
 RAW_VARIABLES = [str('SO2')]
 VAR_NAME = str('so2')
 VAR_UNITS = str("mol/mol")
-TABLE = str('CMIP6_Amon.json')
+TABLE = str('CMIP6_AERmon.json')
 LEVELS = {
     'name': str('lev'),
     'units': str('hPa'),
