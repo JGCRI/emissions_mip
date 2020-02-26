@@ -6,6 +6,14 @@
 #
 # Matt Nicholson
 # 24 Feb 2020
+#
+#SBATCH -A ceds
+#SBATCH -t 4:00:00
+#SBATCH -N 1
+#SBATCH -p shared
+#SBATCH --mail-user matthew.nicholson@pnnl.gov
+#SBATCH --mail-type END
+
 
 # Activate the Conda env -------------------------------------------------------
 conda activate e3sm_to_cmip
