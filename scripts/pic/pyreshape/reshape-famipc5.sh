@@ -11,7 +11,7 @@
 #SBATCH --mail-type END
 
 # Activate the Conda env -------------------------------------------------------
-conda activate pyreshape
+source activate pyreshaper
 
 # Load required modules --------------------------------------------------------
 module purge
