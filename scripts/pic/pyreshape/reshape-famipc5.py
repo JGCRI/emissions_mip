@@ -4,6 +4,7 @@ Convert CESM FAMIPC5 time-slice output to time-series output via PyReshape
 Matt Nicholson
 28 Feb 2020
 """
+import os
 from pyreshaper import specification, reshaper
 
 import conversion_utils
