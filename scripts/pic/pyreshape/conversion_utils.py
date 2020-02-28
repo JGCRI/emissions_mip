@@ -53,4 +53,18 @@ def parse_file_date(fname):
     else:
         raise ValueError('Unable to extract date from CESM history filename')
     return ret_val
-        
+
+def fetch_fnames(dir, f_type):
+    """
+    Get a list of filenames of a specified type from a specified directory
+    
+    Params
+    ------
+    dir : str
+        Path of the directory to look in
+    f_type : str
+        Type of file to search for. Ex: 'cam', 'cice', 'clm2', etc
+    """
+    fnames = [f for f in os.listdir(dir) if f_type in f and os.path.isfile(os.path.join(dir, f))]
+    return sorted(fnames)
+    

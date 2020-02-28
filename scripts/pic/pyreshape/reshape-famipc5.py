@@ -13,13 +13,14 @@ import conversion_utils
 class dirs:
     ROOT   = '/pic/projects/GCAM/mnichol/emip'
     INPUT  = 'model-output/pnnl-cesm/FAMIPC5/run'
-    OUTPUT = 'model-output/pnnl-cesm/FAMIPC5/cmip6'
+    OUTPUT = 'model-output/pnnl-cesm/FAMIPC5/timeseries'
     
 # Change working directory to root project path
 os.chdir(dirs.ROOT)
 
 # Define which model output history files we want to convert
-input_fnames = ['FAMIPC5.cam.h0.2010-09.nc', 'FAMIPC5.cam.h0.2010-10.nc']
+# input_fnames = ['FAMIPC5.cam.h0.2010-09.nc', 'FAMIPC5.cam.h0.2010-10.nc']
+input_fnames = conversion_utils.fetch_fnames(dirs.INPUT, 'cam')
 input_files  = [os.path.join(dirs.INPUT, f) for f in input_fnames]
 
 # Converted time-series file prefix & suffix
