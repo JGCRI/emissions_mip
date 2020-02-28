@@ -25,9 +25,9 @@ def parse_output_suffix(input_files):
     str
     """
     d_first = parse_file_date(input_files[0])
-    d_first = d_first.repalce('-', '')
+    d_first = d_first.replace('-', '')
     d_last  = parse_file_date(input_files[-1])
-    d_last  = d_last.repalce('-', '')
+    d_last  = d_last.replace('-', '')
     ret_val = '.{}-{}.nc'.format(d_first, d_last)
     return ret_val
 
