@@ -20,7 +20,7 @@ os.chdir(dirs.ROOT)
 
 # Define which model output history files we want to convert
 # input_fnames = ['FAMIPC5.cam.h0.2010-09.nc', 'FAMIPC5.cam.h0.2010-10.nc']
-input_fnames = conversion_utils.fetch_fnames(dirs.INPUT, 'cam')
+input_fnames = conversion_utils.fetch_fnames(dirs.INPUT, 'FAMIPC5', 'cam')
 input_files  = [os.path.join(dirs.INPUT, f) for f in input_fnames]
 
 # Converted time-series file prefix & suffix
