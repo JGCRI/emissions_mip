@@ -58,6 +58,7 @@ def fetch_files(dir):
     """
     pattern = re.compile(r'^\w+\.cam\.\w+\.\d{6}-\d{6}\.nc$')
     files = [f for f in os.listdir(dir) if pattern.match(f) and os.path.isfile(os.path.join(dir, f))]
+    print('{} files found in {}'.format(len(files), dir))
     return files
     
     
@@ -71,6 +72,11 @@ def rename_files(dir, files)
         Path of the directory that holds the files to rename
     files : list of str
         List of filenames in the directory that need to be renamed
+        
+    Returns
+    --------
+    list of str
+        List of paths of renamed files
     """
     def _rename_file(dir, fname):
         f_old = os.path.join(dir, fname)
@@ -87,6 +93,11 @@ def rename_files(dir, files)
     
     
 def main():
+    welcome = """
+    ****************************************************************************
+    ************ Renaming CESM Timeseries files for fun and profit! ************
+    ****************************************************************************
+    """
     args  = init_parser()
     files = fetch_files(args.dir)
     rename_files(args.dir, files)
