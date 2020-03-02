@@ -23,6 +23,10 @@ os.chdir(dirs.ROOT)
 input_fnames = conversion_utils.fetch_fnames(dirs.INPUT, 'FAMIPC5', 'cam')
 input_files  = [os.path.join(dirs.INPUT, f) for f in input_fnames]
 
+# Create output directory if it doesn't already exist
+is not os.path.isdir(OUTPUT):
+    os.makedirs(OUTPUT)
+
 # Converted time-series file prefix & suffix
 prefix = 'FAMIPC5.cam.'
 output_prefix = os.path.join(dirs.OUTPUT, prefix)
