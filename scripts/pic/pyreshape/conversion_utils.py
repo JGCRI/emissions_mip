@@ -32,6 +32,7 @@ def parse_output_suffix(input_files):
     ret_val = '.{}-{}.nc'.format(d_first, d_last)
     return ret_val
 
+
 def parse_file_date(fname):
     """
     Extract the date from a CESM history file filename. Fails if unable to extract
@@ -54,6 +55,7 @@ def parse_file_date(fname):
     else:
         raise ValueError('Unable to extract date from CESM history filename: {}'.format(fname))
     return ret_val
+
 
 def fetch_fnames(dir, model_run, f_type):
     """
