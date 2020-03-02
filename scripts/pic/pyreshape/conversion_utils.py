@@ -24,6 +24,7 @@ def parse_output_suffix(input_files):
     -------
     str
     """
+    input_files = sorted(input_files)
     d_first = parse_file_date(input_files[0])
     d_first = d_first.replace('-', '')
     d_last  = parse_file_date(input_files[-1])
@@ -51,10 +52,10 @@ def parse_file_date(fname):
     if (match):
         ret_val = match.group(1)
     else:
-        raise ValueError('Unable to extract date from CESM history filename')
+        raise ValueError('Unable to extract date from CESM history filename: {}'.format(fname))
     return ret_val
 
-def fetch_fnames(dir, f_type):
+def fetch_fnames(dir, model_run, f_type):
     """
     Get a list of filenames of a specified type from a specified directory
     
@@ -62,9 +63,12 @@ def fetch_fnames(dir, f_type):
     ------
     dir : str
         Path of the directory to look in
+    model_run : str
+        Model run that produced the history files. Ex: 'FAMIPC5'
     f_type : str
         Type of file to search for. Ex: 'cam', 'cice', 'clm2', etc
     """
-    fnames = [f for f in os.listdir(dir) if f_type in f and os.path.isfile(os.path.join(dir, f))]
+    pattern = re.compile(r'^' + re.escape(model_run) + r'\.' + re.escape(f_type) + r'\.h0\.(\d{4}-\d{2})\.nc$')
+    fnames = [f for f in os.listdir(dir) if pattern.match(f) and os.path.isfile(os.path.join(dir, f))]
     return sorted(fnames)
     
