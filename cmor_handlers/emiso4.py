@@ -25,7 +25,7 @@ RAW_VARIABLES = ['SFso4_a1', 'SFso4_a2', 'SFso4_a3',
                  'so4_a1_CLXF', 'so4_a2_CLXF', 'so4_a3_CLXF']
 VAR_NAME = 'emiso4'
 VAR_UNITS = 'kg m-2 s-1'
-TABLE = str('CMIP6_AERmon.json')
+TABLE = 'CMIP6_AERmon.json'
 LEVELS = {
     'name' : 'lev',
     'units': 'hPa',

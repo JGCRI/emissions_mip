@@ -14,10 +14,10 @@ import cmor
 from e3sm_to_cmip.lib import handle_variables
 
 # list of raw variable names needed
-RAW_VARIABLES = [str('SO2')]
-VAR_NAME = str('so2')
-VAR_UNITS = str("mol mol-1")
-TABLE = str('CMIP6_AERmon.json')
+RAW_VARIABLES = ['SO2']
+VAR_NAME = 'so2'
+VAR_UNITS = 'mol mol-1'
+TABLE = 'CMIP6_AERmon.json'
 LEVELS = {
     'name' : 'lev',
     'units': 'hPa',
