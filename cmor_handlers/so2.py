@@ -19,8 +19,8 @@ VAR_NAME = str('so2')
 VAR_UNITS = str("mol mol-1")
 TABLE = str('CMIP6_AERmon.json')
 LEVELS = {
-    'name': str('lev'),
-    'units': str('hPa'),
+    'name' : 'lev',
+    'units': 'hPa',
     'e3sm_axis_name': 'lev'
 }
 
