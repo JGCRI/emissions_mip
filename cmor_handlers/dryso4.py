@@ -53,12 +53,17 @@ def handle(infiles, tables, user_input_path, **kwargs):
     """
     Parameters
     ----------
-        infiles (List): a list of strings of file names for the raw input data
-        tables (str): path to CMOR tables
-        user_input_path (str): path to user input json file
+    infiles : list of str
+        A list of strings of file names for the raw input data
+    tables : str
+        Path to CMOR tables
+    user_input_path : str
+        Path to user input json file
+            
     Returns
     -------
-        var name (str): the name of the processed variable after processing is complete
+    var name : str
+        Name of the processed variable after processing is complete
     """
     return handle_variables(
         metadata_path=user_input_path,
