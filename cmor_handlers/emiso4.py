@@ -37,10 +37,10 @@ def write_data(varid, data, timeval, timebnds, index, **kwargs):
     """
     emiso4 = SFso4_a1 + SFso4_a2 + SFso4_a3 + so4_a1_CLXF + so4_a2_CLXF + so4_a3_CLXF
     """
-    outdata = data['SFso4_a1'][index, :]
-    for var in RAW_VARIABLES[1:]:
-        outdata = outdata + data[var][index, :]
-        
+    outdata = data['SFso4_a1'][index, :] + data['SFso4_a2'][index, :] +
+              data['SFso4_a3'][index, :] + data['so4_a1_CLXF'][index, :] +
+              data['so4_a2_CLXF'][index, :] + data['so4_a3_CLXF'][index, :] +
+    
     cmor.write(
         varid,
         outdata,
