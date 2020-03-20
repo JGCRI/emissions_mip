@@ -1,12 +1,19 @@
 """
 e3sm_to_cmip cmor handler script
 
-Convert SO2 (E3SM) to so2 (CMIP)
+Handler for Total Direct Emission Rate of SO4 (emiso4)
 
-Input Variable: SO2 (Mole fraction for Sulfur Dioxide in air, in mol/mol)
+Input Variable(s)
+------------------
+* SFso4_a1    : Surface flux of so4_a1, in kg m-2 s-1
+* SFso4_a2    : Surface flux of so4_a2, in kg m-2 s-1
+* SFso4_a3    : Surface flux of so4_a3, in kg m-2 s-1
+* so4_a1_CLXF : Vertically intergrated external forcing for so4_a1, in molec cm-2 s-1
+* so4_a2_CLXF : Vertically intergrated external forcing for so4_a2, in molec cm-2 s-1
+* so4_a3_CLXF : Vertically intergrated external forcing for so4_a3, in molec cm-2 s-1
 
 Matt Nicholson
-24 Feb 2020
+3 Mar 2020
 """
 from __future__ import absolute_import, division, print_function, unicode_literals
 
@@ -14,9 +21,10 @@ import cmor
 from e3sm_to_cmip.lib import handle_variables
 
 # list of raw variable names needed
-RAW_VARIABLES = ['SO2']
-VAR_NAME = 'so2'
-VAR_UNITS = 'mol mol-1'
+RAW_VARIABLES = ['SFso4_a1', 'SFso4_a2', 'SFso4_a3',
+                 'so4_a1_CLXF', 'so4_a2_CLXF', 'so4_a3_CLXF']
+VAR_NAME = 'emiso4'
+VAR_UNITS = 'kg m-2 s-1'
 TABLE = 'CMIP6_AERmon.json'
 LEVELS = {
     'name' : 'lev',
@@ -27,11 +35,15 @@ LEVELS = {
 
 def write_data(varid, data, timeval, timebnds, index, **kwargs):
     """
-    SO2 --> so2
+    emiso4 = SFso4_a1 + SFso4_a2 + SFso4_a3 + so4_a1_CLXF + so4_a2_CLXF + so4_a3_CLXF
     """
+    outdata = data['SFso4_a1'][index, :] + data['SFso4_a2'][index, :] +
+              data['SFso4_a3'][index, :] + data['so4_a1_CLXF'][index, :] +
+              data['so4_a2_CLXF'][index, :] + data['so4_a3_CLXF'][index, :] +
+    
     cmor.write(
         varid,
-        data['SO2'][index, :],
+        outdata,
         time_vals=timeval,
         time_bnds=timebnds)
 # ------------------------------------------------------------------

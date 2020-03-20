@@ -1,12 +1,10 @@
 """
 e3sm_to_cmip cmor handler script
 
-Convert SO2 (E3SM) to so2 (CMIP)
-
-Input Variable: SO2 (Mole fraction for Sulfur Dioxide in air, in mol/mol)
+Handler for Aerosol optical depth 550 nm from SO4 (od550so4)
 
 Matt Nicholson
-24 Feb 2020
+20 Mar 2020
 """
 from __future__ import absolute_import, division, print_function, unicode_literals
 
@@ -14,12 +12,12 @@ import cmor
 from e3sm_to_cmip.lib import handle_variables
 
 # list of raw variable names needed
-RAW_VARIABLES = ['SO2']
-VAR_NAME = 'so2'
-VAR_UNITS = 'mol mol-1'
+RAW_VARIABLES = ['AODSO4']
+VAR_NAME = 'od550so4'
+VAR_UNITS = '1'
 TABLE = 'CMIP6_AERmon.json'
 LEVELS = {
-    'name' : 'lev',
+    'name': 'lev',
     'units': 'hPa',
     'e3sm_axis_name': 'lev'
 }
@@ -27,11 +25,13 @@ LEVELS = {
 
 def write_data(varid, data, timeval, timebnds, index, **kwargs):
     """
-    SO2 --> so2
+    od550so4 = AODSO4
     """
+    outdata = data['AODSO4'][index, :]
+        
     cmor.write(
         varid,
-        data['SO2'][index, :],
+        outdata,
         time_vals=timeval,
         time_bnds=timebnds)
 # ------------------------------------------------------------------
@@ -41,17 +41,12 @@ def handle(infiles, tables, user_input_path, **kwargs):
     """
     Parameters
     ----------
-    infiles : list of str
-        A list of strings of file names for the raw input data
-    tables : str
-        Path to CMOR tables
-    user_input_path : str
-        Path to user input json file
-            
+        infiles (List): a list of strings of file names for the raw input data
+        tables (str): path to CMOR tables
+        user_input_path (str): path to user input json file
     Returns
     -------
-    var name : str
-        Name of the processed variable after processing is complete
+        var name (str): the name of the processed variable after processing is complete
     """
     return handle_variables(
         metadata_path=user_input_path,

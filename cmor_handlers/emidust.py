@@ -1,12 +1,10 @@
 """
 e3sm_to_cmip cmor handler script
 
-Convert SO2 (E3SM) to so2 (CMIP)
-
-Input Variable: SO2 (Mole fraction for Sulfur Dioxide in air, in mol/mol)
+Handler for dust emissions (emidust)
 
 Matt Nicholson
-24 Feb 2020
+3 Mar 2020
 """
 from __future__ import absolute_import, division, print_function, unicode_literals
 
@@ -14,9 +12,10 @@ import cmor
 from e3sm_to_cmip.lib import handle_variables
 
 # list of raw variable names needed
-RAW_VARIABLES = ['SO2']
-VAR_NAME = 'so2'
-VAR_UNITS = 'mol mol-1'
+RAW_VARIABLES = ['dst_a1DDF', 'dst_a3DDF',
+                 'dst_c1DDF', 'dst_c3DDF']
+VAR_NAME = 'emidust'
+VAR_UNITS = 'kg m-2 s-1'
 TABLE = 'CMIP6_AERmon.json'
 LEVELS = {
     'name' : 'lev',
@@ -27,11 +26,14 @@ LEVELS = {
 
 def write_data(varid, data, timeval, timebnds, index, **kwargs):
     """
-    SO2 --> so2
+    emidust = dst_a1DDF + dst_a3DDF + dst_c1DDF + dst_c3DDF
     """
+    outdata = data['dst_a1DDF'][index, :] + data['dst_a3DDF'][index, :] +
+              data['dst_c1DDF'][index, :] + data['dst_c3DDF'][index, :]
+    
     cmor.write(
         varid,
-        data['SO2'][index, :],
+        outdata,
         time_vals=timeval,
         time_bnds=timebnds)
 # ------------------------------------------------------------------
