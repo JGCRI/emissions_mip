@@ -16,10 +16,10 @@ RAW_VARIABLES = ['ncl_a1DDF', 'ncl_a2DDF', 'ncl_a3DDF'
                  'ncl_c1DDF', 'ncl_c2DDF', 'ncl_c3DDF']
 VAR_NAME = 'dryss'
 VAR_UNITS = 'kg m-2 s-1'
-TABLE = str('CMIP6_AERmon.json')
+TABLE = 'CMIP6_AERmon.json'
 LEVELS = {
-    'name': str('lev'),
-    'units': str('hPa'),
+    'name': 'lev',
+    'units': 'hPa',
     'e3sm_axis_name': 'lev'
 }
 
@@ -29,9 +29,9 @@ def write_data(varid, data, timeval, timebnds, index, **kwargs):
     dryss = ncl_a1DDF + ncl_a2DDF + ncl_a3DDF +
             ncl_c1DDF + ncl_c2DDF + ncl_c3DDF
     """
-    outdata = data['ncl_a1DDF'][index, :]
-    for var in RAW_VARIABLES[1:]:
-        outdata = outdata + data[var][index, :]
+    outdata = data['ncl_a1DDF'][index, :] + data['ncl_a2DDF'][index, :] +
+              data['ncl_a3DDF'][index, :] + data['ncl_c1DDF'][index, :] +
+              data['ncl_c2DDF'][index, :] + data['ncl_c3DDF'][index, :]
         
     cmor.write(
         varid,

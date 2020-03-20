@@ -23,10 +23,10 @@ RAW_VARIABLES = ['bc_a1DDF', 'bc_a4DDF',
                  'bc_c1DDF', 'bc_c4DDF']
 VAR_NAME = 'drybc'
 VAR_UNITS = 'kg m-2 s-1'
-TABLE = str('CMIP6_AERmon.json')
+TABLE = 'CMIP6_AERmon.json'
 LEVELS = {
-    'name': str('lev'),
-    'units': str('hPa'),
+    'name': 'lev',
+    'units': 'hPa',
     'e3sm_axis_name': 'lev'
 }
 
@@ -35,9 +35,8 @@ def write_data(varid, data, timeval, timebnds, index, **kwargs):
     """
     drybc = bc_a1DDF + bc_c1DDF + bc_a4DDF + bc_c4DDF
     """
-    outdata = data['bc_a1DDF'][index, :]
-    for var in RAW_VARIABLES[1:]:
-        outdata = outdata + data[var][index, :]
+    outdata = data['bc_a1DDF'][index, :] + data['bc_c1DDF'][index, :] +
+              data['bc_a4DDF'][index, :] + data['bc_c4DDF'][index, :]
         
     cmor.write(
         varid,

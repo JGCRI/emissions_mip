@@ -3,17 +3,8 @@ e3sm_to_cmip cmor handler script
 
 Handler for Wet Deposition Rate of SO4 (wetso4)
 
-Input Variable(s)
-------------------
-* so4_a1SFWET : Wet deposition flux at surface of so4_a1, in kg m-2 s-1
-* so4_a2SFWET : Wet deposition flux at surface of so4_a2, in kg m-2 s-1
-* so4_a3SFWET : Wet deposition flux at surface of so4_a3, in kg m-2 s-1
-* so4_c1SFWET : Wet deposition flux at surface of so4_c1, in kg m-2 s-1
-* so4_c2SFWET : Wet deposition flux at surface of so4_c2, in kg m-2 s-1
-* so4_c3SFWET : Wet deposition flux at surface of so4_c3, in kg m-2 s-1
-
 Matt Nicholson
-3 Mar 2020
+20 Mar 2020
 """
 from __future__ import absolute_import, division, print_function, unicode_literals
 
@@ -27,7 +18,7 @@ VAR_NAME = 'wetso4'
 VAR_UNITS = 'kg m-2 s-1'
 TABLE = 'CMIP6_AERmon.json'
 LEVELS = {
-    'name' : 'lev',
+    'name': 'lev',
     'units': 'hPa',
     'e3sm_axis_name': 'lev'
 }
@@ -35,11 +26,12 @@ LEVELS = {
 
 def write_data(varid, data, timeval, timebnds, index, **kwargs):
     """
-    wetso4 = so4_a1SFWET + so4_c1SFWET + so4_a2SFWET + so4_c2SFWET + so4_a3SFWET + so4_c3SFWET
+    wetso4 = so4_a1SFWET + so4_a2SFWET + so4_a3SFWET + so4_c1SFWET +
+             so4_c2SFWET + so4_c3SFWET
     """
-    outdata = data['so4_a1SFWET'][index, :]
-    for var in RAW_VARIABLES[1:]:
-        outdata = outdata + data[var][index, :]
+    outdata = data['so4_a1SFWET'][index, :] + data['so4_a2SFWET'][index, :] +
+              data['so4_a3SFWET'][index, :] + data['so4_c1SFWET'][index, :] +
+              data['so4_c2SFWET'][index, :] + data['so4_c3SFWET'][index, :]
         
     cmor.write(
         varid,
@@ -53,17 +45,12 @@ def handle(infiles, tables, user_input_path, **kwargs):
     """
     Parameters
     ----------
-    infiles : list of str
-        A list of strings of file names for the raw input data
-    tables : str
-        Path to CMOR tables
-    user_input_path : str
-        Path to user input json file
-            
+        infiles (List): a list of strings of file names for the raw input data
+        tables (str): path to CMOR tables
+        user_input_path (str): path to user input json file
     Returns
     -------
-    var name : str
-        Name of the processed variable after processing is complete
+        var name (str): the name of the processed variable after processing is complete
     """
     return handle_variables(
         metadata_path=user_input_path,
