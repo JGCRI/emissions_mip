@@ -41,6 +41,6 @@ cd $DIR_ROOT
 
 echo "Processing FAMIPC5..."
 
-DIR_INPUT="model-output/pnnl-cesm/FAMIPC5/run"
-DIR_OUTPUT="model-output/pnnl-cesm/FAMIPC5/cmip6"
+DIR_INPUT="model-output/pnnl-cesm/FAMIPC5/timeseries"
+DIR_OUTPUT="model-output/pnnl-cesm/FAMIPC5/cmip"
 e3sm_to_cmip -v $VARS_DRY -i $DIR_INPUT -o $DIR_OUTPUT -t $DIR_TABLES -H $DIR_HANDLER -u $DIR_USR_IN
