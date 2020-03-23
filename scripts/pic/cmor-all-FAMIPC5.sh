@@ -29,6 +29,13 @@ DIR_TABLES="lib/cmor/cmor/Tables"             # Cmor repo Tables directory
 DIR_HANDLER="lib/e3sm_to_cmip/cmor_handlers"  # $DIR_ROOT/lib/e3sm_to_cmip/cmor_handlers
 DIR_USR_IN="lib/e3sm_to_cmip/user_input/e3sm_user_config_emip.json"  # User-defined CMIP6 metadata file
 
+VARS_DRY=('drybc' 'drydust' 'dryso4' 'dryss')
+VARS_EMI=('emibc' 'emidust' 'emiso2' 'emiss')
+VARS_MMR=('mmrbc' 'mmrdust' 'mmrso4' 'mmrss')
+VARS_OD=('od550aer' 'od550dust' 'od550so4' 'od550ss')
+VARS_LUT=('rlut' 'rsut')
+VARS_WET=('wetbc' 'wetdust' 'wetso4' 'wetss')
+
 # Formulate the function call & pray -------------------------------------------
 cd $DIR_ROOT
 
@@ -36,4 +43,4 @@ echo "Processing FAMIPC5..."
 
 DIR_INPUT="model-output/pnnl-cesm/FAMIPC5/run"
 DIR_OUTPUT="model-output/pnnl-cesm/FAMIPC5/cmip6"
-e3sm_to_cmip -v 'all' -i $DIR_INPUT -o $DIR_OUTPUT -t $DIR_TABLES -H $DIR_HANDLER -u $DIR_USR_IN
+e3sm_to_cmip -v $VARS_DRY -i $DIR_INPUT -o $DIR_OUTPUT -t $DIR_TABLES -H $DIR_HANDLER -u $DIR_USR_IN
