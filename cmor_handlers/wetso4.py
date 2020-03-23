@@ -29,8 +29,8 @@ def write_data(varid, data, timeval, timebnds, index, **kwargs):
     wetso4 = so4_a1SFWET + so4_a2SFWET + so4_a3SFWET + so4_c1SFWET +
              so4_c2SFWET + so4_c3SFWET
     """
-    outdata = data['so4_a1SFWET'][index, :] + data['so4_a2SFWET'][index, :] +
-              data['so4_a3SFWET'][index, :] + data['so4_c1SFWET'][index, :] +
+    outdata = data['so4_a1SFWET'][index, :] + data['so4_a2SFWET'][index, :] + \
+              data['so4_a3SFWET'][index, :] + data['so4_c1SFWET'][index, :] + \
               data['so4_c2SFWET'][index, :] + data['so4_c3SFWET'][index, :]
         
     cmor.write(

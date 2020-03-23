@@ -27,7 +27,7 @@ def write_data(varid, data, timeval, timebnds, index, **kwargs):
     """
     emiss = SFncl_a1 + SFncl_a2 + SFncl_a3
     """
-    outdata = data['SFncl_a1'][index, :] + data['SFncl_a2'][index, :] +
+    outdata = data['SFncl_a1'][index, :] + data['SFncl_a2'][index, :] + \
               data['SFncl_a3'][index, :]
     
     cmor.write(

@@ -28,7 +28,7 @@ def write_data(varid, data, timeval, timebnds, index, **kwargs):
     """
     drydust = dst_a1DDF + dst_a3DDF + dst_c1DDF + dst_c3DDF
     """
-    outdata = data['dst_a1DDF'][index, :] + data['dst_a3DDF'][index, :] +
+    outdata = data['dst_a1DDF'][index, :] + data['dst_a3DDF'][index, :] + \
               data['dst_c1DDF'][index, :] + data['dst_c3DDF'][index, :]
         
     cmor.write(
