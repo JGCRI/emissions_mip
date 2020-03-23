@@ -15,7 +15,7 @@
 #SBATCH --mail-type END
 
 # Activate the Conda env -------------------------------------------------------
-conda activate e3sm_to_cmip
+source activate e3sm_to_cmip
 
 # Load required modules --------------------------------------------------------
 module purge
