@@ -86,9 +86,9 @@ def rename_files(dir, files)
         splits[3] = splits[3].replace('-', '_')
         fname_new = '{}_{}.nc'.format(splits[2], splits[3].replace('-', '_'))
         print('{} --> {}'.format(fname, fname_new))
-        f_new = os.path.join(dir, fname_new)
+        fname_new = os.path.join(dir, fname_new)
         os.rename(fname_old, fname_new)
-        return f_new
+        return fname_new
     new_fnames = [_rename_file(dir, f) for f in files]
     return new_fnames
     
