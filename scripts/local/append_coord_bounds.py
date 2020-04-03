@@ -63,9 +63,9 @@ log_levels = {'debug': logging.DEBUG,
               }
               
 # Remove previous log if it exists as the logging module prefers appending to 
-# previous log files instead of overwriting
-if os.path.isfile('append_coord_bounds.log'):
-    os.remove('append_coord_bounds.log')
+# previous log files instead of overwriting. Leave commented out to append to log
+# if os.path.isfile('append_coord_bounds.log'):
+    # os.remove('append_coord_bounds.log')
     
 log_format = logging.Formatter("%(asctime)s %(levelname)6s: %(message)s", "%Y-%m-%d %H:%M:%S")
 # File handler
@@ -74,6 +74,7 @@ file_handler.setFormatter(log_format)
 # Console handler
 console_handler = logging.StreamHandler()
 console_handler.setFormatter(log_format)
+# Configure logger
 logger = logging.getLogger('main')
 logger.setLevel(log_levels[LOG_LEVEL])
 logger.addHandler(file_handler)
@@ -106,4 +107,5 @@ except RuntimeError as err:
     logger.error(err)
     logger.info('Overwriting existing lon_bnds values')
 nc.variables['lon_bnds'][:, :] = lon_bnds[:, :]
-
+nc.close()
+logger.info('Finshed! Closing {}'.format(f_in))
