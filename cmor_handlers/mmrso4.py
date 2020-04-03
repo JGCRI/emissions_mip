@@ -28,8 +28,8 @@ def write_data(varid, data, timeval, timebnds, index, **kwargs):
     """
     mmrso4 = so4_a1 + so4_a2 + so4_a3 + so4_c1 + so4_c2 + so4_c3
     """
-    outdata = data['so4_a1'][index, :] + data['so4_a2'][index, :] +
-              data['so4_a3'][index, :] + data['so4_c1'][index, :] +
+    outdata = data['so4_a1'][index, :] + data['so4_a2'][index, :] + \
+              data['so4_a3'][index, :] + data['so4_c1'][index, :] + \
               data['so4_c2'][index, :] + data['so4_c3'][index, :]
     
     cmor.write(

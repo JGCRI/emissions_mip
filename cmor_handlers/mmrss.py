@@ -28,8 +28,8 @@ def write_data(varid, data, timeval, timebnds, index, **kwargs):
     """
     mmrss = ncl_a1 + ncl_a2 + ncl_a3 + ncl_c1 + ncl_c2 + ncl_c3
     """
-    outdata = data['ncl_a1'][index, :] + data['ncl_a2'][index, :] +
-              data['ncl_a3'][index, :] + data['ncl_c1'][index, :] +
+    outdata = data['ncl_a1'][index, :] + data['ncl_a2'][index, :] + \
+              data['ncl_a3'][index, :] + data['ncl_c1'][index, :] + \
               data['ncl_c2'][index, :] + data['ncl_c3'][index, :]
     
     cmor.write(

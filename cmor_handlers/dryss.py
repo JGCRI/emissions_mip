@@ -29,8 +29,8 @@ def write_data(varid, data, timeval, timebnds, index, **kwargs):
     dryss = ncl_a1DDF + ncl_a2DDF + ncl_a3DDF +
             ncl_c1DDF + ncl_c2DDF + ncl_c3DDF
     """
-    outdata = data['ncl_a1DDF'][index, :] + data['ncl_a2DDF'][index, :] +
-              data['ncl_a3DDF'][index, :] + data['ncl_c1DDF'][index, :] +
+    outdata = data['ncl_a1DDF'][index, :] + data['ncl_a2DDF'][index, :] + \
+              data['ncl_a3DDF'][index, :] + data['ncl_c1DDF'][index, :] + \
               data['ncl_c2DDF'][index, :] + data['ncl_c3DDF'][index, :]
         
     cmor.write(
