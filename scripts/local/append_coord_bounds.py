@@ -14,7 +14,8 @@ import sys
 import numpy as np
 import logging
 from netCDF4 import Dataset
-
+    
+    
 def create_bounds(coord_vals, coord_name):
     """
     Create a bounds variable for a given coordinate
@@ -67,16 +68,20 @@ if os.path.isfile('append_coord_bounds.log'):
     os.remove('append_coord_bounds.log')
     
 log_format = logging.Formatter("%(asctime)s %(levelname)6s: %(message)s", "%Y-%m-%d %H:%M:%S")
-handler = logging.FileHandler('append_coord_bounds.log')
-handler.setFormatter(log_format)
+# File handler
+file_handler = logging.FileHandler('append_coord_bounds.log')
+file_handler.setFormatter(log_format)
+# Console handler
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(log_format)
 logger = logging.getLogger('main')
 logger.setLevel(log_levels[LOG_LEVEL])
-logger.addHandler(handler)
+logger.addHandler(file_handler)
+logger.addHandler(console_handler)
 logger.info("Log created!\n")
 
 # --- Read the netCDF file
-f_in = r'C:\Users\nich980\data\emip\model-output\bc_a1DDF_199901_201412.nc'
-# f_in = sys.argv[1]
+f_in = sys.argv[1]
 logger.info('Reading {}'.format(f_in))
 nc = Dataset(f_in, 'r+')
 
