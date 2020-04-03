@@ -4,6 +4,9 @@ input/default
 # Output directory 
 output/
 
+# Any and all logs
+*.log
+
 # Pycache dir(s) & compiled python files anywhere in the repo
 *.pyc
 **/__pycache__
