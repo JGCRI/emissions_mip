@@ -14,8 +14,9 @@ Matt Nicholson
 import os
 import sys
 import re
-    
-    
+import logging
+
+
 def fetch_files(in_dir):
     """
     Get a list of files in the specified directory
@@ -76,5 +77,4 @@ if __name__ == '__main__':
     input_dir = sys.argv[1]
     files = fetch_files(input_dir)
     rename_files(input_dir, files)
-    
-    
+      
