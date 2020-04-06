@@ -25,7 +25,7 @@ input_fnames = conversion_utils.fetch_fnames(dirs.INPUT, 'FAMIPC5_MERRA2_SO4_NSE
 input_files  = [os.path.join(dirs.INPUT, f) for f in input_fnames]
 
 # Create output directory if it doesn't already exist
-is not os.path.isdir(OUTPUT):
+if not os.path.isdir(OUTPUT):
     os.makedirs(OUTPUT)
 
 # Converted time-series file prefix & suffix
