@@ -111,6 +111,25 @@ def get_var(nc_dataset, var_name):
     return var
     
     
+def get_var_val(nc_dataset, var_name):
+    """
+    Retrieve the value of a variable from a netCDF Dataset object
+    
+    Parameters
+    -----------
+    nc_dataset : NetCDF4 Dataset object
+        NetCDF Dataset to retrieve the variable from.
+    var_name : str
+        Variable to retrieve from the netCDF Dataset.
+        
+    Returns
+    -------
+    NumPy array
+    """
+    val = nc_dataset.variables[var_name][:]
+    return val
+    
+    
 def get_var_from_file(nc_fname, var_name):
     """
     Read and retrieve a variable from a netCDF file

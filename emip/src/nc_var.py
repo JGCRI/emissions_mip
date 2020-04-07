@@ -71,3 +71,20 @@ def get_group(nc_var):
     """
     attrs = nc_var.ncattrs()
     return attrs
+    
+    
+def get_val(nc_var):
+    """
+    Get the value of a netCDF variable
+    
+    Parameters
+    ----------
+    nc_var : NetCDF4 Variable object
+        Variable to retrieve the value of.
+    
+    Returns
+    -------
+    NumPy array
+    """
+    return nc_var[:]
+    
