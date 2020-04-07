@@ -15,7 +15,10 @@ class dirs:
     INPUT  = 'model-output/pnnl-cesm/FAMIPC5/run'
     OUTPUT = 'model-output/pnnl-cesm/FAMIPC5/timeseries'
     
+print('Hello from reshape-famipc5.py!')
+
 # Change working directory to root project path
+print('Changing working directory to {}'.format(dirs.ROOT))
 os.chdir(dirs.ROOT)
 
 # Define which model output history files we want to convert
@@ -25,6 +28,7 @@ input_files  = [os.path.join(dirs.INPUT, f) for f in input_fnames]
 
 # Create output directory if it doesn't already exist
 if not os.path.isdir(dirs.OUTPUT):
+    print('Creating directory {}'.format(dirs.OUTPUT))
     os.makedirs(dirs.OUTPUT)
 
 # Converted time-series file prefix & suffix
