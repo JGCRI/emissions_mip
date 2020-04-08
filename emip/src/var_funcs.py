@@ -11,7 +11,7 @@ import nc_io
 
 def global_mean_mon(nc_dataset, var_name):
     """
-    Get the monthly global means of a variable.
+    Get the monthly global means of a variable for all available months.
     
     Parameters
     ----------
