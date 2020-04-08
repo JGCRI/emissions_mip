@@ -17,7 +17,7 @@ def time_val_to_date(time_var, time_val):
     time_var : NetCDF4 Variable object
         NetCDF time variable.
     time_val : float
-        Time variable value.
+        Time variable value to convert to date.
     
     Returns
     -------
@@ -49,8 +49,8 @@ def date_to_time_val(time_var, date):
     t_0 = datetime.datetime.strptime(t_0, '%Y-%m-%d')
     t_1 = datetime.datetime.strptime(date, '%Y-%m-%d')
     d_t = abs((t_1 - t_0).days)
-    time_val = (np.abs(time_var[:] - d_t)).argmin()
-    return time_val
+    idx = (np.abs(time_var[:] - d_t)).argmin()
+    return time_var[:][idx]
     
     
 def time_var_to_dates(time_var):
@@ -67,7 +67,7 @@ def time_var_to_dates(time_var):
     List of str
         List of dates. Format: YYYY-MM-DD.
     """
-    dates = [0] * len(time_var[:].shape[0])
+    dates = [0] * time_var[:].shape[0]
     for idx, time_val in enumerate(time_var[:]):
         curr_val = time_val_to_date(time_var, time_val)
         dates[idx] = curr_val
