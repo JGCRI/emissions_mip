@@ -14,7 +14,6 @@ import numpy as np
 sys.path.insert(1, '..')
 
 import nc_file
-import testing_utils
 
 
 class TestNCIO(unittest.TestCase):
