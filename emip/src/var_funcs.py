@@ -16,7 +16,7 @@ def global_mean_mon(nc_dataset, var_name):
     Parameters
     ----------
     nc_dataset : NetCDF4 Dataset object
-        Dataset holding to variable to average.
+        Dataset holding the variable to average.
     var_name : str
         Variable to average.
     

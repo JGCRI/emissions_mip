@@ -16,7 +16,7 @@ sys.path.insert(1, '..')
 import nc_file
 
 
-class TestNCIO(unittest.TestCase):
+class TestNetcdf(unittest.TestCase):
     
     def setUp(self):
         self.nc_fname = 'dryso4_AERmon_GISS-E2-1-G_piClim-SO2_r1i1p5f103_gn_200001-201412.nc'

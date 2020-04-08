@@ -7,7 +7,7 @@ Matt Nicholson
 import os
 
 class DIRS:
-	proj_root = '/pic/projects/GCAM/mnichol/emip'
+    proj_root = '/pic/projects/GCAM/mnichol/emip'
     model_output = os.path.join(proj_root, 'model-output')
     prefix_colum = ('columbia/gpfsm/dnb53/projects/p117/pub/CMIP6/AerChemMIP/NASA-GISS'
                     'GISS-E2-1-G/piClim-SO2/r1i1p5f103/AERmon')

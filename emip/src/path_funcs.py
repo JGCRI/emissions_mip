@@ -43,17 +43,17 @@ def get_cwd():
     return os.getcwd()
     
     
-def get_var_path(var_name, inst):
+def get_var_path(inst, var_name):
     """
     Contruct the CMORized path of an output variable netCDF file.
     
     Parameters
     ----------
-    var_name : str
-        Name of the output variable corresponding to the file.
     inst : str
         Institution that produced the model output. Corresponds to the directory
         to start searching in. Ex: 'nasa', 'pnnl', 'colum' or 'columbia'.
+    var_name : str
+        Name of the output variable corresponding to the file.
         
     Return
     ------
