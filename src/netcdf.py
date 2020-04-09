@@ -8,7 +8,7 @@ import netCDF4
 import os
 import numpy as np
 
-import nc_variable
+import netcdf_variable
 import date_utils
 
 class Netcdf:
