@@ -116,9 +116,9 @@ class Netcdf:
             nc_vars = [nc_vars]
         elif nc_vars == None:
             nc_vars = list(nc_dataset.variables.keys())
-        time_var = nc.dataset.variables['time']
-        date_start = date_utils.time_val_to_date(time_var, time_var[0].data)
-        date_end   = date_utils.time_val_to_date(time_var, time_var[-1].data)
+        time_var = nc_dataset.variables['time']
+        date_start = date_utils.time_val_to_date(time_var, float(time_var[0].data))
+        date_end   = date_utils.time_val_to_date(time_var, float(time_var[-1].data))
         for var in nc_vars:
             var_obj = nc_dataset.variables[var]
             new_var = nc_variable.NetcdfVariable(var_obj)
