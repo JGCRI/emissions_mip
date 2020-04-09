@@ -9,6 +9,7 @@ import os
 import numpy as np
 
 import nc_variable
+import date_utils
 
 class Netcdf:
     
@@ -115,9 +116,15 @@ class Netcdf:
             nc_vars = [nc_vars]
         elif nc_vars == None:
             nc_vars = list(nc_dataset.variables.keys())
+        time_var = nc.dataset.variables['time']
+        date_start = date_utils.time_val_to_date(time_var, time_var[0].data)
+        date_end   = date_utils.time_val_to_date(time_var, time_var[-1].data)
         for var in nc_vars:
             var_obj = nc_dataset.variables[var]
             new_var = nc_variable.NetcdfVariable(var_obj)
+            new_var.parent_file = self.filename
+            new_var.date_first  = date_start
+            new_var.date_last   = date_end
             self.variables[var] = new_var
     
     def _read_nc(self, nc_file):
