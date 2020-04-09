@@ -23,6 +23,10 @@ class NetcdfVariable:
             Name of the variable.
         parent_file : str
             Name of the file the variable came from.
+        parent_source_id : str
+            Source ID of the parent NetCDF file.
+        parent_institution_id : str
+            Institution ID of the parent NetCDF file.
         dtype : str
             Variable dtype.
         value : NumPy array
@@ -38,9 +42,11 @@ class NetcdfVariable:
         self.value = var_obj[:]
         self.shape = self.value.shape
         self.attrs = var_obj.ncattrs()
-        self.parent_file = None
         self.date_first  = None
         self.date_last   = None
+        self.parent_file = None
+        self.parent_source_id = None
+        self.parent_institution_id = None
         for attr in self.attrs:
             setattr(self, attr, var_obj.getncattr(attr))
     

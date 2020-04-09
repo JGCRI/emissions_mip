@@ -121,10 +121,12 @@ class Netcdf:
         date_end   = date_utils.time_val_to_date(time_var, float(time_var[-1].data))
         for var in nc_vars:
             var_obj = nc_dataset.variables[var]
-            new_var = nc_variable.NetcdfVariable(var_obj)
+            new_var = netcdf_variable.NetcdfVariable(var_obj)
             new_var.parent_file = self.filename
             new_var.date_first  = date_start
             new_var.date_last   = date_end
+            new_var.parent_source_id = nc_dataset.source_id
+            new_var.parent_institution_id = nc_dataset.institution_id
             self.variables[var] = new_var
     
     def _read_nc(self, nc_file):
