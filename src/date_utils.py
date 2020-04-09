@@ -74,3 +74,30 @@ def time_var_to_dates(time_var):
     return dates
     
     
+def chunk_var_annual(netcdf, var):
+    """
+    Transform a variable's 3-D data array from months into years.
+    
+    Parameters
+    ----------
+    netcdf : Netcdf object
+        Netcdf object holding the variable to chunk.
+    var : NetcdfVariable object
+        Variable to chunk.
+        
+    Returns
+    -------
+    List of NumPy ndarrays
+        List where each element is a year-chunk of monthly data.
+    """
+    num_months = netcdf.variables['time'].shape[0]
+    num_years = int(num_months / 12)
+    if num_months != var.shape[0]:
+        raise ValueError('Variable time dimension does not match time variable dimension: {}'.format(var.name))
+    chunks = [0] * num_years
+    for yr_idx in range(num_years):
+        m_0 = yr_idx * 12
+        m_1 = m_0 + 12   # m_0 + 11 on paper, but +1 due to numpy slicing.
+        chunks[yr_idx] = var.value[m_0:m_1]
+    return chunks
+    

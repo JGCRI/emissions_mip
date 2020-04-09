@@ -14,6 +14,7 @@ import numpy as np
 sys.path.insert(1, '..')
 
 import date_utils
+import netcdf
 import testing_utils
 
 class TestDateUtils(unittest.TestCase):
@@ -21,10 +22,16 @@ class TestDateUtils(unittest.TestCase):
     def setUp(self):
         f_in = 'dryso4_AERmon_GISS-E2-1-G_piClim-SO2_r1i1p5f103_gn_200001-201412.nc'
         self.nc_file = netCDF4.Dataset(f_in, 'r')
+        self.netcdf_obj = netcdf.Netcdf(f_in)
         
     def test_time_val_to_date_1(self):
-        """Basic functionality
+        """
+        Basic functionality
         
+        * Various time variable value conversions.
+        
+        Notes
+        -----
         The time variable values are days since 2000-01-01
         """
         time_var = self.nc_file.variables['time']
@@ -49,7 +56,10 @@ class TestDateUtils(unittest.TestCase):
         self.assertEqual(test_date, expected_date)
         
     def test_date_to_time_val_1(self):
-        """Basic functionality
+        """
+        Basic functionality
+        
+        * Various date to time variable value conversions.
         """
         time_var = self.nc_file.variables['time']
         date = '2000-1-1'
@@ -68,7 +78,10 @@ class TestDateUtils(unittest.TestCase):
         self.assertEqual(test_val, expected_val)
         
     def test_time_var_to_dates_1(self):
-        """Basic functionality
+        """
+        Basic functionality
+        
+        * Various time variable array to dates array conversions.
         """
         time_var = self.nc_file.variables['time']
         test_dates = date_utils.time_var_to_dates(time_var)
