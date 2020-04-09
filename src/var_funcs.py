@@ -59,7 +59,7 @@ def global_mean_monthly(netcdf, var_name):
         * Z = longitude
     """
     var = netcdf.get_var(var_name)
-    avg = np.mean(var, axis=(1,2))
+    avg = np.mean(var.value, axis=(1,2))
     # TODO: Return months too?
     return avg
     
