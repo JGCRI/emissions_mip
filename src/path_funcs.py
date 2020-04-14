@@ -59,6 +59,10 @@ def get_var_path(inst, var_name):
     ------
     str
         Absolute path of the variable output file.
+        
+    Usage
+    -----
+    get_var_path('columbia', 'dryso4')
     """
     if inst == 'columbia':
         inst = 'colum'
