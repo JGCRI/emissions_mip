@@ -41,6 +41,8 @@ class Netcdf:
         """
         self.filename  = self._parse_fname(nc_fname)
         self.variables = {}
+        self.date_first = None
+        self.date_last = None
         nc = self._read_nc(nc_fname)
         self._parse_vars(nc, nc_vars)
         nc.close()
@@ -117,14 +119,16 @@ class Netcdf:
         elif nc_vars == None:
             nc_vars = list(nc_dataset.variables.keys())
         time_var = nc_dataset.variables['time']
-        date_start = date_utils.time_val_to_date(time_var, float(time_var[0].data))
-        date_end   = date_utils.time_val_to_date(time_var, float(time_var[-1].data))
+        date_first = date_utils.time_val_to_date(time_var, float(time_var[0].data))
+        date_last  = date_utils.time_val_to_date(time_var, float(time_var[-1].data))
+        self.date_first = date_first
+        self.date_last  = date_last
         for var in nc_vars:
             var_obj = nc_dataset.variables[var]
             new_var = netcdf_variable.NetcdfVariable(var_obj)
             new_var.parent_file = self.filename
-            new_var.date_first  = date_start
-            new_var.date_last   = date_end
+            new_var.date_first  = date_first
+            new_var.date_last   = date_last
             new_var.parent_source_id = nc_dataset.source_id
             new_var.parent_institution_id = nc_dataset.institution_id
             self.variables[var] = new_var
