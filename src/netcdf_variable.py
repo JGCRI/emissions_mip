@@ -5,6 +5,7 @@ Matt Nicholson
 7 April 2020
 """
 import numpy as np
+import copy
 
 class NetcdfVariable:
 
@@ -37,11 +38,11 @@ class NetcdfVariable:
             List of attributes returned by the netCDF4 Variable object's getncattr()
             function. 
         """
-        self.name  = var_obj.name
-        self.dtype = var_obj.dtype.name
-        self.value = var_obj[:]
-        self.shape = self.value.shape
-        self.attrs = var_obj.ncattrs()
+        self.name   = var_obj.name
+        self.dtype  = var_obj.dtype.name
+        self.values = var_obj[:]
+        self.shape  = self.values.shape
+        self.attrs  = var_obj.ncattrs()
         self.date_first  = None
         self.date_last   = None
         self.parent_file = None
@@ -49,6 +50,7 @@ class NetcdfVariable:
         self.parent_institution_id = None
         for attr in self.attrs:
             setattr(self, attr, var_obj.getncattr(attr))
+        
     
     def __repr__(self):
         return "<NetcdfVariable - {}>".format(self.name)
