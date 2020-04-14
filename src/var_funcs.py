@@ -31,7 +31,7 @@ def chunk_var_annual(netcdf, var):
     for yr_idx in range(num_years):
         m_0 = yr_idx * 12
         m_1 = m_0 + 12   # m_0 + 11 on paper, but +1 due to numpy slicing.
-        chunks[yr_idx] = var.value[m_0:m_1]
+        chunks[yr_idx] = var.values[m_0:m_1]
     return chunks
     
 
@@ -59,7 +59,7 @@ def global_mean_monthly(netcdf, var_name):
         * Z = longitude
     """
     var = netcdf.get_var(var_name)
-    avg = np.mean(var.value, axis=(1,2))
+    avg = np.mean(var.values, axis=(1,2))
     # TODO: Return months too?
     return avg
     
