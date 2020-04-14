@@ -64,13 +64,33 @@ def time_var_to_dates(time_var):
     
     Returns
     -------
-    List of str
-        List of dates. Format: YYYY-MM-DD.
+    Numpy array of str
+        Array of dates. Format: YYYY-MM-DD.
     """
-    dates = [0] * time_var[:].shape[0]
-    for idx, time_val in enumerate(time_var[:]):
+    dates = [0] * time_var.shape[0]
+    for idx, time_val in enumerate(time_var.values):
         curr_val = time_val_to_date(time_var, time_val)
         dates[idx] = curr_val
+    return np.asarray(dates)
+    
+    
+def time_var_to_year_month(time_var):
+    """
+    Calculate the dates corresponding to netCDF time variable values and return
+    them in the format YYYY-MM.
+    
+    Parameters
+    ----------
+    time_var : NetCDF4 Variable object
+        NetCDF time variable.
+    
+    Returns
+    -------
+    List of str
+        List of dates. Format: YYYY-MM.
+    """
+    dates = time_var_to_dates(time_var)
+    dates = [d[:7] for d in dates]
     return dates
     
     
