@@ -17,26 +17,25 @@ class DIRS:
         Absolute path of the project's root directory.
     model_output : str
         Absolute path of the directory holding gridded model output files.
-    prefix_colum : str
-        'Prefix' of the directory holding the model output variable sub-directories
-        for output from collaborators at Columbia University. 
-    suffix_colum : str
-        'Suffix' of the directory holding the gridded variable output file for
-        output from collaborators at Columbia University.
-    prefix_nasa : str
-        Not yet implemented!
-    suffix_nasa : str
-        Not yet implemented!
-    prefix_pnnl : str
-        Not yet implemented!
-    suffix_pnnl : str
-        Not yet implemented!
+    prefix : str
+        'Prefix' of the directory holding the model output variable sub-directories. 
+    suffix : str
+        'Suffix' of the directory holding the gridded variable output file.
+        
+    Notes
+    -----
+    * netCDF model output variant labels 
+        * Last 3 digits = forcing index?
+        * NASA E6TmatrixF40EMIP_BNW1999 --> r1i1p5f101
+        * NASA E6TmatrixF40EMIP_PNW1999 --> r1i1p5f102
+        * Columbia E6TmatrixF40EMIP_PW1999 --> r1i1p5f103
+        * Columbia E6TmatrixF40EMIP_BW1999 --> r1i1p5f104
     """
     proj_root = '/pic/projects/GCAM/mnichol/emip'
     model_output = os.path.join(proj_root, 'model-output')
-    prefix_colum = ('columbia/gpfsm/dnb53/projects/p117/pub/CMIP6/AerChemMIP/NASA-GISS'
-                    'GISS-E2-1-G/piClim-SO2/r1i1p5f103/AERmon')
-    suffix_colum = 'gn/v20191120'
+    prefix = ('{0}/gpfsm/dnb53/projects/p117/pub/CMIP6/AerChemMIP/NASA-GISS'
+                    'GISS-E2-1-G/piClim-SO2/r1i1p5f{1}/AERmon')
+    suffix = 'gn/v20191120'
     
     #TODO:
     #   * Add NASA-GISS path prefix & suffix
