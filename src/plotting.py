@@ -34,9 +34,9 @@ class PLT_CONFIG:
     markers = ['.', '^', '2', 's', '+']
 
 
-def plot_global_mean_annual(var_name, netcdf_objs, start_date=None, end_date=None):
+def plot_global_mean_monthly(var_name, netcdf_objs, start_date=None, end_date=None):
     """
-    Plot the global annual mean for timeseries variable(s).
+    Plot the global monthly mean for timeseries variable(s).
     
     Parameters
     ----------
@@ -79,22 +79,21 @@ def plot_global_mean_annual(var_name, netcdf_objs, start_date=None, end_date=Non
         curr_avg = var_funcs.global_mean_monthly(curr_nc, var_name)
         ax.plot(curr_avg, marker='.', color=PLT_CONFIG.colors[idx],
                 label=curr_nc.institution_id)
-                
     # Set the number of x-ticks to (# monthly averages / 12) + 1, add appropriate
     # year labels. The result is an x-tick every 12 months plus the very last month.
     x_ticks = [t for t in range(netcdf_objs[0].get_var('time').shape[0])]
     x_tick_last = x_ticks[-1]
     x_ticks = x_ticks[0::12]
     x_ticks.append(x_tick_last)
-    
+    # Create the x-tick labels. Format: YYYY-MM
     x_tick_labels = date_utils.time_var_to_year_month(netcdf_objs[0].get_var('time'))
     x_tick_labels_last = x_tick_labels[-1]
     x_tick_labels = x_tick_labels[0::12]
     x_tick_labels.append(x_tick_labels_last)
-    
+    # Set the x ticks & their labels
     ax.set_xticks(x_ticks)
     ax.set_xticklabels(x_tick_labels)
-    
+    # Set other axis attributes
     ax.set(xlabel='Date', ylabel=units,
        title='Timeseries - {}'.format(var_name))
     ax.legend(loc='lower right')

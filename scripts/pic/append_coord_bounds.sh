@@ -6,7 +6,7 @@
 # 3 April 2020
 #
 #SBATCH -A ceds
-#SBATCH -t 4:00:00
+#SBATCH -t 12:00:00
 #SBATCH -N 1
 #SBATCH -p shared
 #SBATCH --mail-user matthew.nicholson@pnnl.gov
