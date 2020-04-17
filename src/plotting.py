@@ -78,7 +78,7 @@ def plot_global_mean_monthly(var_name, netcdf_objs, start_date=None, end_date=No
         line_color = PLT_CONFIG.colors[idx]
         curr_avg = var_funcs.global_mean_monthly(curr_nc, var_name)
         ax.plot(curr_avg, marker='.', color=PLT_CONFIG.colors[idx],
-                label=curr_nc.institution_id)
+                label='{}-{}'.format(curr_nc.institution_id, curr_nc.forcing_index))
     # Set the number of x-ticks to (# monthly averages / 12) + 1, add appropriate
     # year labels. The result is an x-tick every 12 months plus the very last month.
     x_ticks = [t for t in range(netcdf_objs[0].get_var('time').shape[0])]
@@ -97,7 +97,7 @@ def plot_global_mean_monthly(var_name, netcdf_objs, start_date=None, end_date=No
     ax.set(xlabel='Date', ylabel=units,
        title='Timeseries - {}'.format(var_name))
     ax.legend(loc='lower right')
-    ax.grid()
+    # ax.grid()
     plt.show()
         
         

@@ -26,8 +26,8 @@ class TestPathFuncs(unittest.TestCase):
     def test_get_var_path(self):
         """get_var_path() returns properly-constructed path.
         """
-        test_path_1 = path_funcs.get_var_path('columbia', 'drys04')
-        test_path_2 = path_funcs.get_var_path('colum', 'drys04')
+        test_path_1 = path_funcs.get_var_path('columbia', 'drys04', 103)
+        test_path_1 = path_funcs.get_var_path('columbia', 'drys04', 104)
         self.assertEqual(test_path_1, self.path_colum_dryso4)
         self.assertEqual(test_path_2, self.path_colum_dryso4)
         

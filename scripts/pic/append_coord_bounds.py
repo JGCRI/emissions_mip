@@ -63,8 +63,8 @@ def process_file(filename):
     filename : str  
         Name of the netCDF file to process
     """
-    logger.info('Reading {}'.format(f_in))
-    nc = Dataset(f_in, 'r+')
+    logger.info('Reading {}'.format(filename))
+    nc = Dataset(filename, 'r+')
 
     # --- Create lat_bnds
     lat_bnds = create_bounds(nc.variables['lat'][:], 'lat')
@@ -88,7 +88,7 @@ def process_file(filename):
         logger.info('Overwriting existing lon_bnds values')
     nc.variables['lon_bnds'][:, :] = lon_bnds[:, :]
     nc.close()
-    logger.info('Finshed! Closing {}\n'.format(f_in))
+    logger.info('Finshed! Closing {}\n'.format(filename))
 
 
 if __name__ == '__main__':

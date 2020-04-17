@@ -66,8 +66,8 @@ def get_var_path(inst, var_name, forcing_idx):
     -----
     get_var_path('columbia', 'dryso4', 103)
     """
-    prefix = getattr(config.DIRS, 'prefix_{}'.format(inst)).format(inst, forcing_idx)
-    suffix = getattr(config.DIRS, 'suffix_{}'.format(inst))
+    prefix = config.DIRS.prefix.format(inst, forcing_idx)
+    suffix = config.DIRS.suffix
     path = os.path.join(config.DIRS.proj_root, config.DIRS.model_output, prefix,
                         var_name, suffix)
     file = [f for f in os.listdir(path) if f.endswith('.nc')]
