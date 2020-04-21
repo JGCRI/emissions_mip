@@ -1,1 +1,1 @@
-This directory holds files for processing model output using the [ESMValTool](https://github.com/ESMValGroup/ESMValTool) package. The "local/" directory contains config files to run ESMValTool on a local Windows machine. The "nersc/" directory contains config files to run ESMValTool on NERSC Cori. 
+This directory holds files for configuring ESMValTool runs on variaous workstations. The "local/" directory contains config files to run ESMValTool on a local Windows machine. The "nersc/" directory contains config files to run ESMValTool on NERSC Cori. 
