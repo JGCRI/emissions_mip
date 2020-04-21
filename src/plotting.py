@@ -30,7 +30,7 @@ class PLT_CONFIG:
         's' : square
         '+' : plus
     """
-    colors  = ['red', 'orange', 'yellow', 'cyan', 'royalblue', 'violet',
+    colors  = ['red', 'orange', 'green', 'yellow', 'violet', 'cyan', 'royalblue',
                'fuschia', 'lime', 'black']
     styles  = ['-', ':', '-.', '--']
     markers = ['.', '^', '2', 's', '+']

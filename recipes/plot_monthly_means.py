@@ -20,13 +20,25 @@ import sys
 sys.path.insert(1, '../src')
 
 import netcdf
-import netcdf_variable
-import date_utils
-import var_funcs
 import plotting
-import recipe_utils
+import path_funcs
+
+
+# === User Configuration ======================================================
 
 # SET THIS VARIABLE TO THE NAME OF THE VARIABLE YOU WISH TO PLOT
-VARIABLE = 'dryso4'
+VARIABLES = ['dryso2', 'dryso4', 'emiso2', 'emiso4', 'mmrso4', 'od550aer',
+             'so2', 'wetso2', 'wetso4']
 
-OUTPUT_SOURCES = 
+# SET THIS VARIABLE TO A LIST CONTAINING THE MODEL SOURCES & CONFIGURATIONS
+# WHOSE OUTPUT YOU WISH TO PLOT
+OUTPUT_SOURCES = ['nasa-101', 'nasa-102', 'columbia-103', 'columbia-104']
+
+# =============================================================================
+if not isinstance(VARIABLES, list):
+    VARIABLES = [VARIABLES]
+for VAR in VARIABLES:
+    print('Processing {}...'.format(VAR))
+    output_files = [path_funcs.get_var_path(src, VAR) for src in OUTPUT_SOURCES]
+    nc_files = [netcdf.Netcdf(fname) for fname in output_files]
+    plotting.plot_global_mean_annual(VAR, nc_files)

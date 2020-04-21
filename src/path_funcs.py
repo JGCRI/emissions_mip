@@ -43,19 +43,34 @@ def get_cwd():
     return os.getcwd()
     
     
-def get_var_path(inst, var_name, forcing_idx):
+def split_namestring(namestring):
+    """
+    Split a model output namestring into its institution & forcing component
+    components.
+    
+    Parameters
+    ----------
+    namestring : str
+        Model output namestring. Format: <institution>-<forcing_index>
+    
+    Returns
+    -------
+    List of str
+        [<institution>, <forcing_index>]
+    """
+    return namestring.split('-')
+    
+    
+def get_var_path(namestring, var_name):
     """
     Contruct the CMORized path of an output variable netCDF file.
     
     Parameters
     ----------
-    inst : str
-        Institution that produced the model output. Corresponds to the directory
-        to start searching in. Ex: 'nasa', 'pnnl', 'colum' or 'columbia'.
+    namestring : str
+        Model output namestring. Format: <institution>-<forcing_index>
     var_name : str
         Name of the output variable corresponding to the file.
-    forcing_idx : str or int
-        Forcing index of the model. Ex: 103.
         
     Return
     ------
@@ -64,8 +79,9 @@ def get_var_path(inst, var_name, forcing_idx):
         
     Usage
     -----
-    get_var_path('columbia', 'dryso4', 103)
+    get_var_path('columbia-103', 'dryso4')
     """
+    inst, forcing_idx = split_namestring(namestring)
     prefix = config.DIRS.prefix.format(inst, forcing_idx)
     suffix = config.DIRS.suffix
     path = os.path.join(config.DIRS.proj_root, config.DIRS.model_output, prefix,
