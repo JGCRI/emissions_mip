@@ -1,0 +1,1 @@
+Variable handler scripts needed to CMOR-ize CESM model output using [e3sm_to_cmip](https://github.com/E3SM-Project/e3sm_to_cmip).
