@@ -23,7 +23,7 @@ def get_root():
     str
         Path of the project's root directory.
     """
-    root = str(Path(os.path.abspath(__file__)).parents[2])
+    root = str(Path(os.path.abspath(__file__)).parents[1])
     return root
     
     
