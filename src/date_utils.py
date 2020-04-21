@@ -94,6 +94,25 @@ def time_var_to_year_month(time_var):
     return dates
     
     
+def time_var_to_years(time_var):
+    """
+    Calculate the years represented in the netCDF time variable.
+    
+     Parameters
+    ----------
+    time_var : NetCDF4 Variable object
+        NetCDF time variable.
+    
+    Returns
+    -------
+    List of str
+        List of years. Format: YYYY.
+    """
+    years = [dt.split('-')[0] for dt in time_var_to_year_month(time_var)]
+    years = list(set(years))
+    return sorted(years)
+    
+    
 def chunk_var_annual(netcdf, var):
     """
     Transform a variable's 3-D data array from months into years.

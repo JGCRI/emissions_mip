@@ -14,4 +14,5 @@ nc_filename = 'tests/dryso4_AERmon_GISS-E2-1-G_piClim-SO2_r1i1p5f103_gn_200001-2
 nc_obj = netcdf.Netcdf(nc_filename)
 
 
-plotting.plot_global_mean_monthly('dryso4', nc_obj)
+# plotting.plot_global_mean_monthly('dryso4', nc_obj)
+plotting.plot_global_mean_annual('dryso4', nc_obj)

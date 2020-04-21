@@ -89,7 +89,8 @@ def global_mean_annual(netcdf, var_name):
     """
     var = netcdf.get_var(var_name)
     chunks = chunk_var_annual(netcdf, var)
-    avgs = [np.mean(var_chunk, axis=(1,2)) for var_chunk in chunks]
+    # avgs = [np.mean(var_chunk, axis=(1,2)) for var_chunk in chunks]
+    avgs = [np.mean(var_chunk) for var_chunk in chunks]
     avgs = np.asarray(avgs)
     return avgs
     
