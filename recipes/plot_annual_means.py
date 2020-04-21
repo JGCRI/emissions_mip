@@ -1,11 +1,13 @@
 """
-This recipe creates a plot of the monthly average of a variable produces by
+This recipe creates a plot of the annual average of a variable produced by
 various models or model configurations.
 
 CONFIGURATION
 -------------
 * Variable to plot
-    * Change VARIABLE to the name of the variable you with to plot.
+    * Change VARIABLE to the name of the variable you wish to plot. 
+      To create plots for more than one variable, set the value of VARIABLE
+      to a list of the variables you wish to plot. Only one variable per plot.
 * Models/model configurations to use
     * Add the namestrings of the models/model configurations you wish to 
       plot output from to OUTPUT_SOURCES. 
@@ -35,6 +37,7 @@ VARIABLES = ['dryso2', 'dryso4', 'emiso2', 'emiso4', 'mmrso4', 'od550aer',
 OUTPUT_SOURCES = ['nasa-101', 'nasa-102', 'columbia-103', 'columbia-104']
 
 # =============================================================================
+
 if not isinstance(VARIABLES, list):
     VARIABLES = [VARIABLES]
 for VAR in VARIABLES:
