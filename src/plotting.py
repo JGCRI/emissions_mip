@@ -6,9 +6,11 @@ Matt Nicholson
 """
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 
 import var_funcs
 import date_utils
+import path_funcs
 
 class PLT_CONFIG:
     """
@@ -97,7 +99,6 @@ def plot_global_mean_monthly(var_name, netcdf_objs, start_date=None, end_date=No
     ax.set(xlabel='Date', ylabel=units,
        title='Global Monthly Means - {}'.format(var_name))
     ax.legend(loc='lower right')
-    # ax.grid()
     plt.show()
         
 
@@ -126,6 +127,7 @@ def plot_global_mean_annual(var_name, netcdf_objs, start_date=None, end_date=Non
     """
     plt.style.use('ggplot')
     fig, ax = plt.subplots()
+    fig.set_size_inches((8, 5))#, forward=False)
     
     #TODO: Add time subset capabilities
     #   * Create a copy of the Netcdf object
@@ -158,5 +160,10 @@ def plot_global_mean_annual(var_name, netcdf_objs, start_date=None, end_date=Non
     ax.set(xlabel='Year', ylabel=units,
        title='Global Annual Means - {}'.format(var_name))
     ax.legend()
-    # ax.grid()
-    plt.show()
+    # plt.show()
+    out_dir = os.path.join(path_funcs.get_root(), 'output')
+    out_file = 'annual_mean-{}-{}_{}.pdf'.format(var_name, x_tick_labels[0],
+                                                 x_tick_labels[-1])
+    out_path = os.path.join(out_dir, out_file)
+    plt.savefig(out_path, dpi=500)
+    
