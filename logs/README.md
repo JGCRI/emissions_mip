@@ -1,0 +1,1 @@
+This directory holds logs produced by the EMIP scripts
