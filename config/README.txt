@@ -1,1 +1,0 @@
-This directory holds configuration files for ESMValTool. The "local/" directory contains config files to run ESMValTool on my local machine. The "nersc/" directory contains config files to run ESMValTool on NERSC Cori. 
