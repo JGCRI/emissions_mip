@@ -1,6 +1,6 @@
 # Emissions-MIP Initial Analysis framework
 
-The files in this directory create an object-oriented framework to support initial analysis of CMOR-ized CESM output.
+The files in this directory create an object-oriented framework to support initial analysis of CMOR-ized CESM output. The analysis is run via recipe files in the `recipes/` directory.
 
 ## Files in this directory
 * `config.py` holds classes and functions used to configure the analysis run, i.e., directory paths, loggers, etc. 
