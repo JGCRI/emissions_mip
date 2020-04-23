@@ -8,9 +8,13 @@ Usage
 ------
 python rename-cesm-ts.py /path/to/dir
 
+    where '/path/to/dir' is the path of the directory that holds the 
+    model output files.
+
 Matt Nicholson
 2 Mar 2020
 """
+from __future__ import print_function
 import os
 import sys
 import re
@@ -38,7 +42,7 @@ def fetch_files(in_dir):
     return files
     
     
-def rename_files(in_dir, files)
+def rename_files(in_dir, files):
     """
     Rename files to conform to e3sm_to_cmip input filename format
     
@@ -76,5 +80,6 @@ if __name__ == '__main__':
     print(welcome)
     input_dir = sys.argv[1]
     files = fetch_files(input_dir)
-    rename_files(input_dir, files)
+    new_fnames = rename_files(input_dir, files)
+    print('Finished! {} files renamed'.format(len(new_fnames)))
       
