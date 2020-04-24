@@ -52,7 +52,7 @@ class DIRS:
     """
     proj_root = '/pic/projects/GCAM/mnichol/emip'
     model_output = os.path.join(proj_root, 'model-output')
-    prefix = ('AerChemMIP/NASA-GISS/GISS-E2-1-G/piClim-SO2/r1i1p5f{1}/AERmon')
+    prefix = 'AerChemMIP/NASA-GISS/GISS-E2-1-G/piClim-SO2/{0}/AERmon'
     suffix = 'gn/v20191120'
     
     

@@ -57,7 +57,7 @@ def get_legend_label(ensemble):
     run_type = ''
     nudging = ''
     szn = ''
-    model_meta = config.ModelConfig.getattr(ensemble)
+    model_meta = getattr(config.ModelConfig, ensemble)
     # Hold on, this is gonna be ugly
     # Base or Perturbation run
     if model_meta['run'] == 'base':
@@ -121,7 +121,7 @@ def plot_global_mean_monthly(var_name, netcdf_objs, start_date=None, end_date=No
     for idx, curr_nc in enumerate(netcdf_objs):
         line_color = PLT_CONFIG.colors[idx]
         curr_avg = var_funcs.global_mean_monthly(curr_nc, var_name)
-        ax.plot(curr_avg, marker='.', color=PLT_CONFIG.colors[idx],
+        ax.plot(curr_avg, color=PLT_CONFIG.colors[idx], linestyle=PLT_CONFIG.styles[idx],
                 label=get_legend_label(curr_nc.variant_label))
     # Set the number of x-ticks to (# monthly averages / 12) + 1, add appropriate
     # year labels. The result is an x-tick every 12 months plus the very last month.
@@ -192,7 +192,7 @@ def plot_global_mean_annual(var_name, netcdf_objs, start_date=None, end_date=Non
         curr_avg = var_funcs.global_mean_annual(curr_nc, var_name)
         # ax.plot(curr_avg, marker='.', color=PLT_CONFIG.colors[idx],
                 # label=get_legend_label(curr_nc.variant_label))
-        ax.plot(curr_avg, color=PLT_CONFIG.colors[idx], style=PLT_CONFIG.styles[idx],
+        ax.plot(curr_avg, color=PLT_CONFIG.colors[idx], linestyle=PLT_CONFIG.styles[idx],
                 label=get_legend_label(curr_nc.variant_label))
     # Set the number of x-ticks to (# monthly averages / 12) + 1, add appropriate
     # year labels. The result is an x-tick every 12 months plus the very last month.

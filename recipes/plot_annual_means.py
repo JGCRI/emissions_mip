@@ -34,7 +34,7 @@ VARIABLES = ['dryso2', 'dryso4', 'emiso2', 'emiso4', 'mmrso4', 'od550aer',
 
 # SET THIS VARIABLE TO A LIST CONTAINING THE MODEL SOURCES & CONFIGURATIONS
 # WHOSE OUTPUT YOU WISH TO PLOT
-OUTPUT_SOURCES = ['nasa-101', 'nasa-102', 'columbia-103', 'columbia-104']
+OUTPUT_SOURCES = ['r1i1p5f101', 'r1i1p5f102', 'r1i1p5f103', 'r1i1p5f104']
 
 # =============================================================================
 

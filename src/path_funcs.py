@@ -63,7 +63,7 @@ def ensemble_lut(ensemble):
             * wind_nudging : bool, whether the model included wind nudging.
             * seasonality : bool, SO2 seasonality.
     """
-    return config.ModelConfig.getattr(ensemble)
+    return getattr(config.ModelConfig, ensemble)
     
     
 def get_var_path(ensemble, var_name):
@@ -84,9 +84,9 @@ def get_var_path(ensemble, var_name):
         
     Usage
     -----
-    get_var_path('columbia-103', 'dryso4')
+    get_var_path('r1i1p5f101', 'dryso4')
     """
-    prefix = config.DIRS.prefix.format(inst, forcing_idx)
+    prefix = config.DIRS.prefix.format(ensemble)
     suffix = config.DIRS.suffix
     path = os.path.join(config.DIRS.proj_root, config.DIRS.model_output, prefix,
                         var_name, suffix)

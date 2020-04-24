@@ -12,7 +12,7 @@ source activate emip
 now=$(date)
 echo "Current time : $now"
 
-python plot_monthly_means.py
+python plot_annual_means.py
 
 now=$(date)
 echo "Current time : $now"
