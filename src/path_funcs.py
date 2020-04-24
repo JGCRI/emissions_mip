@@ -43,32 +43,37 @@ def get_cwd():
     return os.getcwd()
     
     
-def split_namestring(namestring):
+def ensemble_lut(ensemble):
     """
-    Split a model output namestring into its institution & forcing component
-    components.
+    Given the run's ensemble, retrieve information about purturbation,
+    wind nudging, and seasonality. 
     
     Parameters
     ----------
-    namestring : str
-        Model output namestring. Format: <institution>-<forcing_index>
+    ensemble : str
+        Ensemble that produced the model output. Ex: 'r1i1p5f101'
     
     Returns
     -------
-    List of str
-        [<institution>, <forcing_index>]
+    dict : {str, bool, bool}
+        Dictionary containing metadata about the model configuration.
+        Keys: 
+            * run : str, whether the model output is from a base run or 
+                    purturbation run.
+            * wind_nudging : bool, whether the model included wind nudging.
+            * seasonality : bool, SO2 seasonality.
     """
-    return namestring.split('-')
+    return config.ModelConfig.getattr(ensemble)
     
     
-def get_var_path(namestring, var_name):
+def get_var_path(ensemble, var_name):
     """
     Contruct the CMORized path of an output variable netCDF file.
     
     Parameters
     ----------
-    namestring : str
-        Model output namestring. Format: <institution>-<forcing_index>
+    ensemble : str
+        Model ensemble that produced the output. Ex: 'r1i1p5f101'.
     var_name : str
         Name of the output variable corresponding to the file.
         
@@ -81,7 +86,6 @@ def get_var_path(namestring, var_name):
     -----
     get_var_path('columbia-103', 'dryso4')
     """
-    inst, forcing_idx = split_namestring(namestring)
     prefix = config.DIRS.prefix.format(inst, forcing_idx)
     suffix = config.DIRS.suffix
     path = os.path.join(config.DIRS.proj_root, config.DIRS.model_output, prefix,

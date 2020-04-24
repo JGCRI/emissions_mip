@@ -11,6 +11,7 @@ import os
 import var_funcs
 import date_utils
 import path_funcs
+import config
 
 class PLT_CONFIG:
     """
@@ -104,7 +105,9 @@ def plot_global_mean_monthly(var_name, netcdf_objs, start_date=None, end_date=No
 
 def plot_global_mean_annual(var_name, netcdf_objs, start_date=None, end_date=None):
     """
-    Plot the global annual mean for timeseries variable(s).
+    Plot the global annual mean for timeseries variable(s). The Netcdf 'variant_label'
+    field, which represents the ensemble that produced the output, is used as 
+    a unique identifier. 
     
     Parameters
     ----------
@@ -129,7 +132,7 @@ def plot_global_mean_annual(var_name, netcdf_objs, start_date=None, end_date=Non
     fig, ax = plt.subplots()
     fig.set_size_inches((8, 5))#, forward=False)
     
-    #TODO: Add time subset capabilities
+    # TODO: Add time subset capabilities
     #   * Create a copy of the Netcdf object
     #   * Create a copy of its variables with adjusted timeseries
     

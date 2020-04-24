@@ -8,6 +8,31 @@ Matt Nicholson
 import os
 import logging
 
+
+class ModelConfig:
+    """
+    Class to represent a single model configuration, as outlined in the table
+    below.
+
+                         GISS Model Output Description
+    ***********************************************************************
+    *  Archive |  Ensemble  |  Base/Perturb. | Wind Nudging | Seasonality *
+    * =========|============|================|==============|=============*
+    * BNW1999  | r1i1p5f101 | base           | no           | yes         *
+    * ---------|------------|----------------|--------------|-------------*
+    * PWN1999  | r1i1p5f102 | perturbation   | no           | no          *
+    * ---------|------------|----------------|--------------|-------------*
+    * PW1999   | r1i1p5f103 | perturbation   | yes          | no          *
+    * ---------|------------|----------------|--------------|-------------*
+    * BW1999   | r1i1p5f104 | base           | yes          | yes         *
+    ***********************************************************************
+    """
+    r1i1p5f101 = {'run' : 'base', 'wind_nudging' : False, 'seasonality' : True}
+    r1i1p5f102 = {'run' : 'perturb', 'wind_nudging' : False, 'seasonality' : False}
+    r1i1p5f103 = {'run' : 'perturb', 'wind_nudging' : True, 'seasonality' : False}
+    r1i1p5f104 = {'run' : 'base', 'wind_nudging' : True, 'seasonality' : True}
+    
+
 class DIRS:
     """
     Class to hold project directory information. All paths are formatted for 
@@ -24,19 +49,10 @@ class DIRS:
     suffix : str
         'Suffix' of the directory holding the gridded variable output file.
         
-    Notes
-    -----
-    * netCDF model output variant labels 
-        * Last 3 digits = forcing index?
-        * NASA E6TmatrixF40EMIP_BNW1999 --> r1i1p5f101
-        * NASA E6TmatrixF40EMIP_PNW1999 --> r1i1p5f102
-        * Columbia E6TmatrixF40EMIP_PW1999 --> r1i1p5f103
-        * Columbia E6TmatrixF40EMIP_BW1999 --> r1i1p5f104
     """
     proj_root = '/pic/projects/GCAM/mnichol/emip'
     model_output = os.path.join(proj_root, 'model-output')
-    prefix = ('{0}/gpfsm/dnb53/projects/p117/pub/CMIP6/AerChemMIP/NASA-GISS/'
-                    'GISS-E2-1-G/piClim-SO2/r1i1p5f{1}/AERmon')
+    prefix = ('AerChemMIP/NASA-GISS/GISS-E2-1-G/piClim-SO2/r1i1p5f{1}/AERmon')
     suffix = 'gn/v20191120'
     
     
