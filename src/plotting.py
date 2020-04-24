@@ -13,6 +13,7 @@ import date_utils
 import path_funcs
 import config
 
+
 class PLT_CONFIG:
     """
     Simple class of pyplot style configuration.
@@ -35,7 +36,47 @@ class PLT_CONFIG:
                'fuschia', 'lime', 'black']
     styles  = ['-', ':', '-.', '--']
     markers = ['.', '^', '2', 's', '+']
-
+    
+    
+def get_legend_label(ensemble):
+    """
+    Construct an abbreviated legend label given a model's ensemble. The abbreviated
+    label contains information about run type (base or perturbation), wind nudging,
+    and SO2 seasonality.
+    
+    Parameters
+    ----------
+    ensemble : str
+        Model ensemble. Ex: 'r1i1p5f101'.
+    
+    Returns
+    -------
+    str
+        Abbreviated legend label.
+    """
+    run_type = ''
+    nudging = ''
+    szn = ''
+    model_meta = config.ModelConfig.getattr(ensemble)
+    # Hold on, this is gonna be ugly
+    # Base or Perturbation run
+    if model_meta['run'] == 'base':
+        run_type = 'Base'
+    else:
+        run_type = 'Pert'
+    # Wind nudging
+    if model_meta['wind_nudging']:
+        nudging = 'Nudge'
+    else:
+        nudging = 'Free'
+    # SO2 Seasonality
+    if model_meta['seasonality']:
+        szn = 'Szn'
+    else:
+        szn = 'Fixed'
+    label = run_type + nudging + szn
+    return label
+    
 
 def plot_global_mean_monthly(var_name, netcdf_objs, start_date=None, end_date=None):
     """
@@ -81,7 +122,7 @@ def plot_global_mean_monthly(var_name, netcdf_objs, start_date=None, end_date=No
         line_color = PLT_CONFIG.colors[idx]
         curr_avg = var_funcs.global_mean_monthly(curr_nc, var_name)
         ax.plot(curr_avg, marker='.', color=PLT_CONFIG.colors[idx],
-                label='{}-{}'.format(curr_nc.institution_id, curr_nc.forcing_index))
+                label=get_legend_label(curr_nc.variant_label))
     # Set the number of x-ticks to (# monthly averages / 12) + 1, add appropriate
     # year labels. The result is an x-tick every 12 months plus the very last month.
     x_ticks = [t for t in range(netcdf_objs[0].get_var('time').shape[0])]
@@ -149,8 +190,10 @@ def plot_global_mean_annual(var_name, netcdf_objs, start_date=None, end_date=Non
     for idx, curr_nc in enumerate(netcdf_objs):
         line_color = PLT_CONFIG.colors[idx]
         curr_avg = var_funcs.global_mean_annual(curr_nc, var_name)
-        ax.plot(curr_avg, marker='.', color=PLT_CONFIG.colors[idx],
-                label='{}-{}'.format(curr_nc.institution_id, curr_nc.forcing_index))
+        # ax.plot(curr_avg, marker='.', color=PLT_CONFIG.colors[idx],
+                # label=get_legend_label(curr_nc.variant_label))
+        ax.plot(curr_avg, color=PLT_CONFIG.colors[idx], style=PLT_CONFIG.styles[idx],
+                label=get_legend_label(curr_nc.variant_label))
     # Set the number of x-ticks to (# monthly averages / 12) + 1, add appropriate
     # year labels. The result is an x-tick every 12 months plus the very last month.
     x_ticks = [x for x in range(curr_avg.shape[0])]
