@@ -9,10 +9,7 @@ CONFIGURATION
       To create plots for more than one variable, set the value of VARIABLE
       to a list of the variables you wish to plot. Only one variable per plot.
 * Models/model configurations to use
-    * Add the namestrings of the models/model configurations you wish to 
-      plot output from to OUTPUT_SOURCES. 
-      Namestring format: <institution>-<forcing_index>.
-        Ex: 'columbia-103'.
+
 
 Matt Nicholson
 12 April 2020
