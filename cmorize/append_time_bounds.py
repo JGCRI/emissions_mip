@@ -1,9 +1,9 @@
 """
-Calculate & append time bounds variable to a netCDF file.
+Append time bounds variable to all NetCDF files in a given directory.
 
 Usage
 ------
-python append_time_bounds.py file.nc
+python append_time_bounds.py path/to/files
 
 Input files
 -----------
@@ -33,6 +33,10 @@ def add_time_bnds(filename, time_bnds):
 
     time_bnds : NumPy 2D array
         Array containing time_bnds values to add.
+
+    Returns
+    -------
+    None
     """
     logger.info('Adding time_bnds to {}'.format(filename))
     nc = Dataset(filename, 'r+')
@@ -80,7 +84,7 @@ if __name__ == '__main__':
     # --- Read the time_bnds values from .csv
     time_bnds = np.loadtxt("time_bnds.csv", delimiter=',')
     
-    # --- Find netcdf files and process them
+    # --- Find & process netcdf files
     root_dir = sys.argv[1]
     logger.info('Looking for NetCDF files in {}'.format(root_dir))
     
