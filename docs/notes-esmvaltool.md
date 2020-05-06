@@ -1,6 +1,7 @@
 # ESMVAlTool Notes
 * Iris Cube latitude coordinate no longer accessible after arithmetic operation in `my_little_diagnostic.py`.
   * `diff_cube = cube[:, 0, :, :] - cube[:, 1, :, :]`
+  * Might be due to preprocessor extracting 1000 hPa data, removing one of the four original dimensions.
   
 * Need to replace `-` with `_` in dataset names.
   * From [ESMValCore dataset documentation](https://esmvaltool.readthedocs.io/projects/esmvalcore/en/latest/develop/fixing_data.html):
