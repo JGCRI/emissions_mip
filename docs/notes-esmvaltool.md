@@ -1,4 +1,4 @@
-# ESMVAlTool Notes
+# ESMValTool Notes
 * Iris Cube latitude coordinate no longer accessible after arithmetic operation in `my_little_diagnostic.py`.
   * `diff_cube = cube[:, 0, :, :] - cube[:, 1, :, :]`
   * Might be due to preprocessor extracting 1000 hPa data, removing one of the four original dimensions.
