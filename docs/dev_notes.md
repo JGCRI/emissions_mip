@@ -63,23 +63,19 @@ The [Data Finder](https://esmvaltool.readthedocs.io/projects/ESMValCore/en/lates
 * Obs: `[project]_[dataset_name]_[type]_[version]_[mip]_[short_name]_[start_date]-[end_date].nc`
 
 ### Standard CMIP ESGF Input Directory Paths
-* CMIP6-BADC: `INPUT_ROOT/[institute]/[dataset_name]/[experiment]/[ensemble]/[mip]/[var_short_name]/[grid]/[current_version]`
+* CMIP6-BADC: `INPUT_ROOT/[activity]/[institute]/[dataset_name]/[experiment]/[ensemble]/[mip]/[var_short_name]/[grid]/[current_version]`
 * CMIP6-ETHZ: `INPUT_ROOT/[experiment]/[mip]/[var_short_name]/[dataset_name]/[ensemble]/[grid]/[current_version]`
 
 * **Notes**
   * The [JGCRI ESMValTool fork](https://github.com/JGCRI/ESMValTool) is currently configured to use the CMIP6-BADC directory structure.
   * ESMValTool's Data Finder will automatically select the most-current variable version.
-  * ESMValTool's Data Finder appears to not be strictly following the CMIP6-BADC directory structure definition and is searching for the   `AerChemMIP` within the root input directory.
-    * Example GISS variable `.nc` file path:
-      ```
-      /home/nich980/emip/input/AerChemMIP/NASA-GISS/GISS-E2-1-G/piClim-SO2/r1i1p5f101/AERmon/emiso4/gn/v20191120/emiso4_AERmon_GISS-E2-1-G_piClimSO2_r1i1p5f101_gn_200001-201412.nc
-      ```
       
 ### GISS Output Breakdown
 The table below illustrates ESMValTool dataset components and their corresponding unmodified GISS CMIP/CMOR values.
 
 | Component       | GISS Value     |
 | :-------------- | :------------- |
+| activity        | `AerChemMIP`   |
 | institute       | `NASA-GISS`    |
 | dataset         | `GISS-E2-1-G1` |
 | experiment      | `piClim-SO2`   |
