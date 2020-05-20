@@ -50,3 +50,10 @@ Matt Nicholson
 | root      | `/mnt/c/users/nich980/`          |
 | EMIP repo | `/mnt/c/users/nich980/code/emip` |
 | Output    | `/mnt/c/users/nich980/data/emip` |
+
+---
+
+# ESMValTool
+## CMOR Data Reference Syntax & Data Finder
+The [Data Finder](https://esmvaltool.readthedocs.io/projects/ESMValCore/en/latest/quickstart/find_data.html) is how ESMValTool finds datasets specified in recipes. 
+
