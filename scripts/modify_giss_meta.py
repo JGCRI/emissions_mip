@@ -10,61 +10,63 @@ the CMIP6 BADC directory structure.
 
 Usage
 -----
-$ python modify_giss_meta.py /path/to/model/output/root
-
-* The model output root directory is the directory that holds the archive
-  sub-directories (r1i1p5f101, r1i1p5f102, etc.)
+$ python modify_giss_meta.py /path/to/activity/dir
+  * "Activity dir" is the directory containing the CMIP6 activity sub-directory.
+    In this case, it's the parent directory of AerChemMIP/,
+    which is /home/nich980/emip/input/GISS-EMIP.
 
 Example directory structure
 ----------------------------
-/.../AerChemMIP-EMIP/NASA-GISS
-    |- GISS-E2-1-G
-    |   |- piClim-SO2
-    |       |- r1i1p5f101
-    |       |   |- AERmon
-    |       |       |- var1
-    |       |       |   |- gn
-    |       |       |       |- v20191120
-    |       |       |           |- var1_AERmon_GISS-E2-1-G_piClim-SO2_r1i1p5f101_gn_200001-201412.nc
-    |       |       |- var2
-    |       |           |- gn
-    |       |               |- v20191120
-    |       |                   |- var2_AERmon_GISS-E2-1-G_piClim-SO2_r1i1p5f101_gn_200001-201412.nc
-    |       |
+.../AerChemMIP/NASA-GISS
+    |- GISS-base
+    |   |- season-so2
+    |   |   |- r1i1p5f101
+    |   |       |- AERmon
+    |   |           |- var1
+    |   |           |   |- gn
+    |   |           |       |- v20191120
+    |   |           |           |- var1_AERmon_GISS-base_season-so2_r1i1p5f101_gn_200001-201412.nc
+    |   |           |- var2
+    |   |               |- gn
+    |   |                   |- v20191120
+    |   |                       |- var2_AERmon_GISS-base_season-so2_r1i1p5f101_gn_200001-201412.nc
+    |   |   
+    |   |- reference
     |       |- r1i1p5f102
     |           |- AERmon
     |               |- var1
     |               |   |- gn
     |               |       |- v20191120
-    |               |           |- var1_AERmon_GISS-E2-1-G_piClim-SO2_r1i1p5f102_gn_200001-201412.nc
+    |               |           |- var1_AERmon_GISS-base_reference_r1i1p5f102_gn_200001-201412.nc
     |               |- var2
     |                   |- gn
     |                       |- v20191120
-    |                           |- var2_AERmon_GISS-E2-1-G_piClim-SO2_r1i1p5f102_gn_200001-201412.nc
+    |                           |- var2_AERmon_GISS-base_reference_r1i1p5f102_gn_200001-201412.nc
     |
-    |- GISS-E2-1-G-nudge
-        |- piClim-SO2
-            |- r1i1p5f103
-            |   |- AERmon
-            |       |- var1
-            |       |   |- gn
-            |       |       |- v20191120
-            |       |           |- var1_AERmon_GISS-E2-1-G-nudge_piClim-SO2_r1i1p5f103_gn_200001-201412.nc
-            |       |- var2
-            |           |- gn
-            |               |- v20191120
-            |                   |- var2_AERmon_GISS-E2-1-G-nudge_piClim-SO2_r1i1p5f103_gn_200001-201412.nc
-            |
+    |- GISS-nudge
+        |- reference
+        |    |- r1i1p5f103
+        |       |- AERmon
+        |           |- var1
+        |           |   |- gn
+        |           |       |- v20191120
+        |           |           |- var1_AERmon_GISS-nudge_referencer1i1p5f103_gn_200001-201412.nc
+        |           |- var2
+        |               |- gn
+        |                   |- v20191120
+        |                       |- var2_AERmon_GISS-nudge_reference_r1i1p5f103_gn_200001-201412.nc
+        |    
+        |- season-so2
             |- r1i1p5f104
                 |- AERmon
                     |- var1
                     |   |- gn
                     |       |- v20191120
-                    |           |- var1_AERmon_GISS-E2-1-G-nudge_piClim-SO2_r1i1p5f104_gn_200001-201412.nc
+                    |           |- var1_AERmon_GISS-nudge_season-so2_r1i1p5f104_gn_200001-201412.nc
                     |- var2
                         |- gn
                             |- v20191120
-                                |- var2_AERmon_GISS-E2-1-G-nudge_piClim-SO2_r1i1p5f104_gn_200001-201412.nc
+                                |- var2_AERmon_GISS-nudge_season-so2_r1i1p5f104_gn_200001-201412.nc
 
 Output configuration
 --------------------
@@ -114,7 +116,8 @@ class ModelConfig:
 
 def update_fname(curr_fname, model_config, rename_file=True):
     """
-    Replace a filename's model sub-string.
+    Replace a filename's model/dataset and experiment sub-strings.
+    Maintains correct CMIP6 filename format.
     
     Parameters
     ----------
@@ -130,16 +133,10 @@ def update_fname(curr_fname, model_config, rename_file=True):
     Returns
     -------
     str : Absolute path of the file, with updated filename.
-    
-    Example
-    -------
-    update_fname('var1_AERmon_GISS-E2-1-G_piClim-SO2_r1i1p5f104_gn_200001-201412.nc', 'GISS-E2-1-G-nudge')
-    > '/path/to/var1_AERmon_GISS-E2-1-G-nudge_piClim-SO2_r1i1p5f104_gn_200001-201412.nc'
     """
     abs_path, old_fname = split(curr_fname)
     new_fname = old_fname.replace('piClim-SO2', model_config.experiment)
-    if model_config.model_name != 'GISS-E2-1-G':
-        new_fname = new_fname.replace('_GISS-E2-1-G_', '_{}_'.format(model_config.model_name))
+    new_fname = new_fname.replace('GISS-E2-1-G', '{}'.format(model_config.model_name))
     new_fname = join(abs_path, new_fname)
     if rename_file:
         print('{} -> {}'.format(curr_fname, new_fname))
@@ -197,13 +194,14 @@ def get_var_paths(archive_path):
     
 
 if __name__ == '__main__':
-    ROOT_DIR = '/home/nich980/emip/input/AerChemMip-EMIP/NASA-GISS'
+    #ROOT_DIR = '/home/nich980/emip/input/GISS-EMIP'
+    ROOT_DIR = sys.argv[1]
     
     # Archive, emip model name, emip experiment name.
-    model_configs = [['r1i1p5f101', 'GISS-E2-1-G', 'season-so2'],
-                     ['r1i1p5f102', 'GISS-E2-1-G', 'reference'],
-                     ['r1i1p5f103', 'GISS-E2-1-G-nudge', 'reference'],
-                     ['r1i1p5f104', 'GISS-E2-1-G-nudge', 'season-so2']]
+    model_configs = [['r1i1p5f101', 'GISS-base', 'season-so2'],
+                     ['r1i1p5f102', 'GISS-base', 'reference'],
+                     ['r1i1p5f103', 'GISS-nudge', 'reference'],
+                     ['r1i1p5f104', 'GISS-nudge', 'season-so2']]
                      
     config_ojbs = [ModelConfig(x[0], x[1], x[2]) for x in model_configs]
     
