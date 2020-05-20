@@ -17,31 +17,35 @@ Matt Nicholson
 
 ## Win10 Linux Sub-Sys Paths
 ### Input
-* ROOT: `/home/nich980/emip/input`
-* Unmodified GISS output
-  * ROOT: `/home/nich980/emip/input/GISS-ORIGINAL`
-  * `nc` path: `ROOT/AerChemMIP/NASA-GISS/GISS-E2-1-G/piClim-SO2/<archive>/AERmon/<var>/gn/v20191120/<var_nc>`
-* EMIP-Modified GISS output
-  * ROOT: `/home/nich980/emip/input/GISS-EMIP`
-  * `nc` path: `ROOT/AerChemMIP/NASA-GISS/GISS-E2-1-G/<experiment>/<archive>/AERmon/<var>/gn/v20191120/<var_nc>`
-* Filename convention: `<var_name>_<mip>_<model>_<experiment>_<ensemble>_<grid>_<start_date>-<end_date>.nc`
-* Sample Diagnostic Input: `IN_ROOT/input4mips`
+| Directory      | Path                                                                                              |
+| :------------- |:------------------------------------------------------------------------------------------------- |
+| root           | `/home/nich980/emip/input`                                                                        |
+| GISS-Orig-root | `/home/nich980/emip/input/GISS-ORIGINAL`                                                          |
+| GISS-Orig-nc   | `ROOT/AerChemMIP/NASA-GISS/GISS-E2-1-G/piClim-SO2/<archive>/AERmon/<var>/gn/v20191120/<var_nc>`   |
+| GISS-EMIP-root | `/home/nich980/emip/input/GISS-EMIP`                                                              |
+| GISS-EMIP-nc   | `ROOT/AerChemMIP/NASA-GISS/GISS-E2-1-G/<experiment>/<archive>/AERmon/<var>/gn/v20191120/<var_nc>` |
+| Sample Input   | `/home/nich980/emip/input/input4mips`                                                             |
 
 ### Output
-* ROOT: `/home/nich980/emip/output`
-* Custom Diag Plots: `ROOT/diagnostics`
-* ESMValTool Output
-  * Plots: `ROOT/<recipe_name>/plots/<diagnostic_name>/<script_name>`
-  * Logs:  `ROOT/<recipe_name>/run/<diagnostic_name>/<script_name>`
+| Directory         | Path                                                                         |
+| :---------------- |:---------------------------------------------------------------------------- |
+| root              | `/home/nich980/emip/output`                                                  |
+| Recipes           | `/home/nich980/esmvaltool/jgcri-fork/ESMValTool/recipes/emissions_mip`       |
+| Diagnostics       | `/home/nich980/esmvaltool/jgcri-fork/ESMValTool/diag_scripts/emissions_mip`  |
+| Output - Plots    | `/home/nich980/emip/output/diagnostics`                                      |
+| Output - EVT Logs | `/home/nich980/emip/output<recipe_name>/run/<diagnostic_name>/<script_name>` |
+
 
 ### JGCRI ESMValTool Fork
-* ROOT: `/home/nich980/esmvaltool/jgcri-fork/ESMValTool/esmvaltool`
-* User config: `/home/nich980/esmvaltool/jgcri-fork/ESMValTool/config-user`
-* Recipes: `/home/nich980/esmvaltool/jgcri-fork/ESMValTool/recipes/emissions_mip`
-* Diag scripts: `/home/nich980/esmvaltool/jgcri-fork/ESMValTool/diag_scripts/emissions_mip`
+| Directory   | Path                                                                        |
+| :---------- |:--------------------------------------------------------------------------- |
+| root        | `/home/nich980/esmvaltool/jgcri-fork/ESMValTool/esmvaltool`                 |
+| Usr config  | `/home/nich980/esmvaltool/jgcri-fork/ESMValTool/config-user`                |
+| Recipes     | `/home/nich980/esmvaltool/jgcri-fork/ESMValTool/recipes/emissions_mip`      |
+| Diagnostics | `/home/nich980/esmvaltool/jgcri-fork/ESMValTool/diag_scripts/emissions_mip` |
 
 ### Windows Partition
-| Directory |              Path                |
+| Directory | Path                             |
 | :-------- |:-------------------------------- |
 | root      | `/mnt/c/users/nich980/`          |
 | EMIP repo | `/mnt/c/users/nich980/code/emip` |
