@@ -63,8 +63,8 @@ The [Data Finder](https://esmvaltool.readthedocs.io/projects/ESMValCore/en/lates
 * Obs: `[project]_[dataset_name]_[type]_[version]_[mip]_[short_name]_[start_date]-[end_date].nc`
 
 ### Standard CMIP ESGF Input Directory Paths
-* CMIP6-BADC: `INPUT_ROOT/[activity]/[institute]/[dataset_name]/[experiment]/[ensemble]/[mip]/[var_short_name]/[grid]/[current_version]`
-* CMIP6-ETHZ: `INPUT_ROOT/[experiment]/[mip]/[var_short_name]/[dataset_name]/[ensemble]/[grid]/[current_version]`
+* CMIP6-BADC: `IN_ROOT/[activity]/[institute]/[dataset_name]/[experiment]/[ensemble]/[mip]/[var_short_name]/[grid]/[current_version]`
+* CMIP6-ETHZ: `IN_ROOT/[experiment]/[mip]/[var_short_name]/[dataset_name]/[ensemble]/[grid]/[current_version]`
 
 * **Notes**
   * The [JGCRI ESMValTool fork](https://github.com/JGCRI/ESMValTool) is currently configured to use the CMIP6-BADC directory structure.
