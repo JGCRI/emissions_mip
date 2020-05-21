@@ -92,7 +92,7 @@ The table below illustrates ESMValTool dataset components and their correspondin
 | end_date        | `201412`       |
 
 
-### EsmValTool Documentation Syntax
+### ESMValTool Documentation Syntax
 It has been noted that some words and phrases used in the ESMValTool documentation differ slightly from how we're used to using them.
 | Term & Realm                          | ESMValTool Definition/Example | CMOR/CMIP Definition/Example                   |
 | :------------------------------------ | :---------------------------- | :--------------------------------------------- |
