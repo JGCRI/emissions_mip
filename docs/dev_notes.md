@@ -149,3 +149,19 @@ Val: [
 {'activity': 'AerChemMIP', 'alias': 'r1i1p5f104', 'dataset': 'GISS-E2-1-G', 'diagnostic': 'diagnostic1', 'end_year': 2014, 'ensemble': 'r1i1p5f104', 'exp': 'piClim-SO2', 'filename': '/home/nich980/emip/output/recipe-intial_analysis-giss/recipe-initial_analysis-giss_20200519_200056/preproc/diagnostic1/emiso2/CMIP6_GISS-E2-1-G_AERmon_piClim-SO2_r1i1p5f104_emiso2_2000-2014.nc', 'frequency': 'mon', 'grid': 'gn', 'institute': ['NASA-GISS'], 'long_name': 'Total Emission Rate of SO2', 'mip': 'AERmon', 'modeling_realm': ['aerosol'], 'preprocessor': 'preproc_nolev', 'project': 'CMIP6', 'recipe_dataset_index': 3, 'short_name': 'emiso2', 'standard_name': 'tendency_of_atmosphere_mass_content_of_sulfur_dioxide_due_to_emission', 'start_year': 2000, 'units': 'kg m-2 s-1', 'variable_group': 'emiso2'}
 ]
 ```
+
+## Troubleshooting
+### Exec Format Error
+Due to how Python handles and executes sub-processes, `ESMValTool` can raise an `OSError: [Errno 8] Exec format error` error if your diagnostic script has *too many* permissions. 
+
+For example, `initial_analysis-giss-diff.py` was raising an `OSError: [Errno 8] Exec format` when it had the following permissions:
+```
+-rwxrwxrwx 1 nich980 nich980  2780 May 26 17:59 initial_analysis-giss-diff.py
+```
+
+**Solution** 
+Remove the execution permissions with the command `chmod -x initial_analysis-giss-diff.py`. This will yield
+```
+-rw-rw-rw- 1 nich980 nich980  2780 May 26 17:59 initial_analysis-giss-diff.py
+```
+and `ESMValTool` will run the diagnostic without error.
