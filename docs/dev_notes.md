@@ -8,12 +8,12 @@ Matt Nicholson
 
 ## Phase 1 Model Configurations
 
-|   Run   |   Archive  |  Base/Perturb. | Wind Nudging | Seasonality | Modified Model Name    | Experiment Name |
-| :------ |:---------- | :------------- |:------------ | :---------- | :--------------------- | :-------------- |
-| BNW1999 | r1i1p5f101 | base           | no           | yes         | GISS-base              | season-so2      |
-| PWN1999 | r1i1p5f102 | perturbation   | no           | no          | GISS-pert              | reference       |
-| PW1999  | r1i1p5f103 | perturbation   | yes          | no          | GISS-pert-nudge        | reference       |
-| BW1999  | r1i1p5f104 | base           | yes          | yes         | GISS-base-nudge        | season-so2      |
+|   Run   |   Archive  |  Base/Perturb. | Wind Nudging | Seasonality | Modified Model Name | Experiment Name |
+| :------ |:---------- | :------------- |:------------ | :---------- | :-------------------| :-------------- |
+| BNW1999 | r1i1p5f101 | base           | no           | yes         | GISS-base           | season-so2      |
+| PWN1999 | r1i1p5f102 | perturbation   | no           | no          | GISS-base           | reference       |
+| PW1999  | r1i1p5f103 | perturbation   | yes          | no          | GISS-nudge          | reference       |
+| BW1999  | r1i1p5f104 | base           | yes          | yes         | GISS-nudge          | season-so2      |
 
 ## Win10 Linux Sub-Sys Paths
 ### Input
