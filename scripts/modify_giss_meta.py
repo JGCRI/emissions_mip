@@ -136,7 +136,7 @@ def update_fname(curr_fname, model_config, rename_file=True):
     """
     abs_path, old_fname = split(curr_fname)
     new_fname = old_fname.replace('piClim-SO2', model_config.experiment)
-    new_fname = new_fname.replace('GISS-E2-1-G', '{}'.format(model_config.model_name))
+    new_fname = new_fname.replace('GISS-E2-1-G', model_config.model_name)
     new_fname = join(abs_path, new_fname)
     if rename_file:
         print('{} -> {}'.format(curr_fname, new_fname))
@@ -174,7 +174,7 @@ def update_nc_attrs(nc_fname, model_config):
     return nc_fname
     
 
-def get_var_paths(archive_path):
+def get_var_paths(archive_path, mip):
     """
     Get the absolute paths of output variable files.
     
@@ -182,20 +182,25 @@ def get_var_paths(archive_path):
     ----------
     archive_path : str
         Path of a GISS CESM model output archive directory.
+    mip : str
+        MIP that the variables belong to.
         
     Returns
     -------
     list of str : list of variable output file absolute paths.
     """
     suffix = join('gn', 'v20191120')
-    var_dirs = [join(archive_path, 'AERmon', x, suffix) for x in listdir(join(archive_path, 'AERmon'))]
+    var_dirs = [join(archive_path, mip, x, suffix) for x in listdir(join(archive_path, mip))]
     var_files = [join(var, listdir(var)[0]) for var in var_dirs]
     return var_files
     
 
 if __name__ == '__main__':
-    #ROOT_DIR = '/home/nich980/emip/input/GISS-EMIP'
     ROOT_DIR = sys.argv[1]
+    
+    # Set this variable to the name of the MIP that the variables being processed
+    # belong to (e.g., AERmon, Amon, etc)
+    mip = 'Amon'
     
     # Archive, emip model name, emip experiment name.
     model_configs = [['r1i1p5f101', 'GISS-base', 'season-so2'],
@@ -211,7 +216,7 @@ if __name__ == '__main__':
         base_path = join(ROOT_DIR, model_config.model_name, model_config.experiment, model_config.archive)
         # Get a list of the absolute paths of directories within /base_path/archive_path/AERmon.
         # These subdirectories are named after the variables whose output files they contain.
-        var_files = get_var_paths(base_path)
+        var_files = get_var_paths(base_path, mip)
         updated_files = [update_fname(var, model_config, rename_file=True) for var in var_files]
         updated_files = [update_nc_attrs(var, model_config) for var in updated_files]
         print('*'*60)
