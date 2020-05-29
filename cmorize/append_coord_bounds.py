@@ -1,5 +1,5 @@
 """
-Calculate & append lat & lon bounds variables to a netCDF file
+Calculate & append lat, lon, & time bounds variables to CESM timeseries output files.
 
 Usage
 ------
@@ -18,21 +18,21 @@ from os.path import isfile, join
 from os import listdir
     
     
-def create_bounds(coord_vals, coord_name):
+def calc_lat_lon_bnds(coord_vals, coord_name):
     """
-    Create a bounds variable for a given coordinate
+    Calculate a lat or lon bounds array.
     
     Parameters
     -----------
     coord_vals : NumPy ndarray
-        NetCDF coordinate values
+        NetCDF coordinate values.
     coord_name : str
-        Name of the coordinate being processed, i.e., "lat" or "lon"
+        Name of the coordinate being processed, i.e., "lat" or "lon".
         
     Return
     -------
     NumPy n x 2 array
-        Coordinate bound values
+        Coordinate bound values.
     """
     name_long = {'lat' : 'latitude', 'lon' : 'longitude'}
     logger.info('Creating {} bounds...'.format(name_long[coord_name]))
@@ -54,9 +54,9 @@ def create_bounds(coord_vals, coord_name):
     return coord_bnds
     
     
-def process_file(filename):
+def append_lat_lon_bnd(filename):
     """
-    Read, create, and write lat_bnds & lon_bnds variables to a netcdf file
+    Read, create, and write lat_bnds & lon_bnds variables to a netcdf file.
     
     Parameters
     -----------
@@ -65,9 +65,8 @@ def process_file(filename):
     """
     logger.info('Reading {}'.format(filename))
     nc = Dataset(filename, 'r+')
-
     # --- Create lat_bnds
-    lat_bnds = create_bounds(nc.variables['lat'][:], 'lat')
+    lat_bnds = calc_lat_lon_bnds(nc.variables['lat'][:], 'lat')
     logger.info('Finished creating latitude bounds, adding them to netcdf file...')
     try:
         nc.createVariable('lat_bnds', 'float64', ('lat', 'nbnd'))
@@ -76,9 +75,8 @@ def process_file(filename):
         logger.error(err)
         logger.info('Overwriting existing lat_bnds values')
     nc.variables['lat_bnds'][:] = lat_bnds[:, :]
-
     # --- Create lon_bnds
-    lon_bnds = create_bounds(nc.variables['lon'][:], 'lon')
+    lon_bnds = calc_lat_lon_bnds(nc.variables['lon'][:], 'lon')
     logger.info('Finished creating longitude bounds, adding them to netcdf file...')
     try:
         nc.createVariable('lon_bnds', 'float64', ('lon', 'nbnd'))
@@ -89,10 +87,79 @@ def process_file(filename):
     nc.variables['lon_bnds'][:, :] = lon_bnds[:, :]
     nc.close()
     logger.info('Finshed! Closing {}\n'.format(filename))
-
+    
+    
+def calc_time_bnds(start_year, end_year):
+    """
+    Calculate the time bound array. Designed specifically for CESM output, where
+    the time variable values fall on the last day of the month.
+    
+    Parameters
+    ----------
+    start_year : int
+        First year of variable data.
+    end_year : int
+        Final year of variable data.
+    
+    Returns
+    -------
+    numpy ndarray
+        2-D array of time_bnd values.
+    """
+    days_per_month = { 1: 31, 2: 28, 3: 31,  4: 30,  5: 31,  6: 30,
+                       7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31}
+                       
+    logger.info('Creating time bounds...')
+    cum_days = 0
+    time_bnd = []
+    for year in range(end_year - start_year + 1):
+        for curr_month in list(days_per_month.keys()):
+            bnd_0 = (days_per_month[curr_month] / 2) + cum_days
+            cum_days += days_per_month[curr_month]
+            try:
+                bnd_1 = (days_per_month[curr_month + 1] / 2) + cum_days
+            except:
+                # December case. Jan & Dec have 31 days so this should work.
+                bnd_1 = (days_per_month[curr_month] / 2) + cum_days
+            time_bnd.append([bnd_0, bnd_1])
+    time_bnd = np.asarray(time_bnd)
+    logger.info('Finished creating time bounds!')
+    return time_bnd
+    
+    
+def append_time_bnd(filename):
+    """
+    Calculate the time_bnd variable and append to a CESM netcdf file.
+    
+    Parameters
+    ----------
+    filename : str
+        Path of a CESM output file to append a time bnd to.
+        
+    Returns
+    -------
+    None.
+    """
+    # ADJUST THESE AS NEEDED
+    start_year = 1999
+    end_year   = 2014
+    
+    logger.info('Adding time_bnds to {}'.format(filename))
+    time_bnds = calc_time_bnds(start_year, end_year)
+    nc = Dataset(filename, 'r+')
+    try:
+        nc.createVariable('time_bnds', 'float64', ('time', 'bnds'))
+    except RuntimeError as err:
+        logger.error('The following error was caught while attempting to create time_bnds variable:')
+        logger.error(err)
+        logger.info('Overwriting existing time_bnds values')
+    nc.variables['time_bnds'][:] = time_bnds[:, :]
+    nc.close()
+    logger.info('Finished! Closing {}\n'.format(filename))
+    
 
 if __name__ == '__main__':
-    # --- Init logger
+    # --- Initialize logger
     LOG_LEVEL = 'debug'
 
     log_levels = {'debug': logging.DEBUG,
@@ -121,13 +188,19 @@ if __name__ == '__main__':
     logger.addHandler(console_handler)
     logger.info("Log created!\n")
     
-    # --- Find netcdf files and process them
+    # --- Find netcdf files
     root_dir = sys.argv[1]
     logger.info('Looking for NetCDF files in {}'.format(root_dir))
     
     nc_files = [join(root_dir, f) for f in listdir(root_dir) if isfile(join(root_dir, f))
                 and f.endswith('.nc')]
     logger.info('NetCDF files found: {}'.format(len(nc_files)))
-    map(process_file, nc_files)
+    
+    # --- Calculate and append lat & lon bounds
+    map(append_lat_lon_bnd, nc_files)
+    
+    # --- Calculate and append time bounds
+    map(append_time_bnd, nc_files)
+    
     logger.info('Finished processing all files!')
 
