@@ -52,7 +52,6 @@ preprocessors:
     annual_statistics:
       operator: mean
 
-
 diagnostics:
   init_anal-giss_diff-AERmon:
     description: Emissions-MIP Difference of Perturbation and Reference GISS model output for AERmon variables.

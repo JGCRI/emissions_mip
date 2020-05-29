@@ -52,7 +52,6 @@ preprocessors:
     annual_statistics:
       operator: mean
 
-
 diagnostics:
   init_anal-giss-AERmon:
     description: Emissions-MIP initial analysis of GISS model output for AERmon variables.

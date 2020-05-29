@@ -38,7 +38,6 @@ preprocessors:
     annual_statistics:
       operator: mean
 
-
 diagnostics:
   init_anal-giss-Amon:
     description: Emissions-MIP initial analysis of GISS model output for Amon variables.
