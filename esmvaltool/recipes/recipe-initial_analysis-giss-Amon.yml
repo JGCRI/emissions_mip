@@ -1,0 +1,66 @@
+# ESMValTool
+# recipe-initial_analysis-giss.yml
+# This recipe utilizes the initial_analysis-giss.py diagnostic script
+# to create plots of Amon variables from multiple model configurations.
+# One variable per plot.
+---
+documentation:
+  description: Initial analysis of GISS model output for Amon variables.
+
+  authors:
+    - nicholson_matthew
+
+  maintainer:
+    - nicholson_matthew
+
+  references:
+    - esmvaltool
+
+  projects:
+    - esmval
+    - emissions_mip
+
+datasets:
+        # ***** Customized EMIP datasets ***** 
+        - {dataset: GISS-base, project: CMIP6, activity: AerChemMIP, institute: NASA-GISS, mip: Amon, exp: season-so2, ensemble: r1i1p5f101, grid: gn}
+        - {dataset: GISS-base, project: CMIP6, activity: AerChemMIP, institute: NASA-GISS, mip: Amon, exp: reference, ensemble: r1i1p5f102, grid: gn}
+        - {dataset: GISS-nudge, project: CMIP6, activity: AerChemMIP, institute: NASA-GISS, mip: Amon, exp: reference, ensemble: r1i1p5f103, grid: gn}
+        - {dataset: GISS-nudge, project: CMIP6, activity: AerChemMIP, institute: NASA-GISS, mip: Amon, exp: season-so2, ensemble: r1i1p5f104, grid: gn}
+
+preprocessors:
+  # Preprocessor for variables with no vertical dimension.
+  # * Regrid onto 1 deg x 1 deg grid.
+  # * Compute annual mean. 
+  preproc:
+    regrid:
+      target_grid: 1x1
+      scheme: linear
+    annual_statistics:
+      operator: mean
+
+
+diagnostics:
+  init_anal-giss-Amon:
+    description: Emissions-MIP initial analysis of GISS model output for Amon variables.
+    themes:
+      - phys
+    realms:
+      - atmos
+    variables:
+      # Upwelling longwave flux at top of atmosphere
+      rlut:
+        preprocessor: preproc
+        mip: Amon
+        start_year: 2000
+        end_year: 2014
+      # Upwelling solar flux at top of atmosphere
+      rsut:
+        preprocessor: preproc
+        mip: Amon
+        start_year: 2000
+        end_year: 2014
+    scripts:
+      initial_analysis-giss:
+        script: emissions_mip/initial_analysis-giss.py
+        quickplot:
+          plot_type: pcolormesh
