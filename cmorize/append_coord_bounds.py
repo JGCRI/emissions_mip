@@ -1,4 +1,7 @@
 """
+Python 3.6
+append_coord_bounds.py
+
 Calculate & append lat, lon, & time bounds variables to CESM timeseries output files.
 
 Usage
@@ -14,7 +17,7 @@ import numpy as np
 import logging
 from netCDF4 import Dataset
 from os.path import isfile, join
-from os import listdir
+from os import listdir, remove
     
     
 def calc_lat_lon_bnds(coord_vals, coord_name):
@@ -60,12 +63,12 @@ def append_lat_lon_bnd(filename):
     Parameters
     -----------
     filename : str  
-        Name of the netCDF file to process.
+        Path of the CESM netCDF file to process.
         
     Returns
     -------
     filename : str
-        Path of a CESM output file to append a lat and/or lon bnd to.
+        Path of the processed CESM output file.
     """
     logger.info('Reading {}'.format(filename))
     nc = Dataset(filename, 'r+')
@@ -150,7 +153,7 @@ def append_time_bnd(filename):
     Returns
     -------
     filename : str
-        Path of a CESM output file to append a time bnd to.
+        Path of the processed CESM output file.
     """
     # ADJUST THESE AS NEEDED
     start_year = 1999
@@ -187,8 +190,8 @@ if __name__ == '__main__':
                   
     # Remove previous log if it exists as the logging module prefers appending to 
     # previous log files instead of overwriting. Leave commented out to append to log
-    # if os.path.isfile('append_coord_bounds.log'):
-        # os.remove('append_coord_bounds.log')
+    if isfile('append_coord_bounds.log'):
+        remove('append_coord_bounds.log')
         
     log_format = logging.Formatter("%(asctime)s %(levelname)6s: %(message)s", "%Y-%m-%d %H:%M:%S")
     # File handler
