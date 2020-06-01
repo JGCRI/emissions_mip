@@ -1,12 +1,12 @@
 #!/bin/bash
 #
-# Add lat_bnds & lon_bnds to CESM timeseries output netCDF files.
+# Add lat_bnds, lon_bnds, & time_bnds to CESM timeseries netCDF files.
 #
 # Matt Nicholson
 # 3 April 2020
 #
 #SBATCH -A ceds
-#SBATCH -t 12:00:00
+#SBATCH -t 3:00:00
 #SBATCH -N 1
 #SBATCH -p shared
 #SBATCH --mail-user matthew.nicholson@pnnl.gov

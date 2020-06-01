@@ -9,7 +9,6 @@ Matt Nicholson
 3 April 2020
 """
 from __future__ import print_function
-# import os
 import sys
 import numpy as np
 import logging
@@ -61,7 +60,12 @@ def append_lat_lon_bnd(filename):
     Parameters
     -----------
     filename : str  
-        Name of the netCDF file to process
+        Name of the netCDF file to process.
+        
+    Returns
+    -------
+    filename : str
+        Path of a CESM output file to append a lat and/or lon bnd to.
     """
     logger.info('Reading {}'.format(filename))
     nc = Dataset(filename, 'r+')
@@ -70,23 +74,30 @@ def append_lat_lon_bnd(filename):
     logger.info('Finished creating latitude bounds, adding them to netcdf file...')
     try:
         nc.createVariable('lat_bnds', 'float64', ('lat', 'nbnd'))
-    except RuntimeError as err:
+    except RuntimeError as err_rt:
         logger.error('The following error was caught while trying to create variable: lat_bnds')
-        logger.error(err)
+        logger.error(err_rt)
         logger.info('Overwriting existing lat_bnds values')
+    except Exception as exp:
+        logger.error(exp)
+        raise
     nc.variables['lat_bnds'][:] = lat_bnds[:, :]
     # --- Create lon_bnds
     lon_bnds = calc_lat_lon_bnds(nc.variables['lon'][:], 'lon')
     logger.info('Finished creating longitude bounds, adding them to netcdf file...')
     try:
         nc.createVariable('lon_bnds', 'float64', ('lon', 'nbnd'))
-    except RuntimeError as err:
+    except RuntimeError as err_rt:
         logger.error('The following error was caught while trying to create variable: lon_bnds')
-        logger.error(err)
+        logger.error(err_rt)
         logger.info('Overwriting existing lon_bnds values')
+    except Exception as exp:
+        logger.exception(exp)
+        raise
     nc.variables['lon_bnds'][:, :] = lon_bnds[:, :]
     nc.close()
     logger.info('Finshed! Closing {}\n'.format(filename))
+    return filename
     
     
 def calc_time_bnds(start_year, end_year):
@@ -138,7 +149,8 @@ def append_time_bnd(filename):
         
     Returns
     -------
-    None.
+    filename : str
+        Path of a CESM output file to append a time bnd to.
     """
     # ADJUST THESE AS NEEDED
     start_year = 1999
@@ -148,14 +160,18 @@ def append_time_bnd(filename):
     time_bnds = calc_time_bnds(start_year, end_year)
     nc = Dataset(filename, 'r+')
     try:
-        nc.createVariable('time_bnds', 'float64', ('time', 'bnds'))
-    except RuntimeError as err:
+        nc.createVariable('time_bnds', 'float64', ('time', 'nbnd'))
+    except RuntimeError as err_rt:
         logger.error('The following error was caught while attempting to create time_bnds variable:')
-        logger.error(err)
+        logger.error(err_rt)
         logger.info('Overwriting existing time_bnds values')
+    except Exception as exp:
+        logger.exception(exp)
+        raise
     nc.variables['time_bnds'][:] = time_bnds[:, :]
     nc.close()
     logger.info('Finished! Closing {}\n'.format(filename))
+    return filename
     
 
 if __name__ == '__main__':
@@ -197,10 +213,10 @@ if __name__ == '__main__':
     logger.info('NetCDF files found: {}'.format(len(nc_files)))
     
     # --- Calculate and append lat & lon bounds
-    map(append_lat_lon_bnd, nc_files)
+    processed = [append_lat_lon_bnd(nc_file) for nc_file in nc_files]
     
     # --- Calculate and append time bounds
-    map(append_time_bnd, nc_files)
+    processed = [append_time_bnd(nc_file) for nc_file in nc_files]
     
-    logger.info('Finished processing all files!')
+    logger.info('Finished! {} files processed'.format(len(processed)))
 
