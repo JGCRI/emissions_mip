@@ -3,6 +3,7 @@ input/default
 
 # Directories 
 output/
+.idea/
 **/__pycache__
 
 # Files
