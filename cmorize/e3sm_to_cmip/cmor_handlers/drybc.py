@@ -24,11 +24,6 @@ RAW_VARIABLES = ['bc_a1DDF', 'bc_a4DDF',
 VAR_NAME = 'drybc'
 VAR_UNITS = 'kg m-2 s-1'
 TABLE = 'CMIP6_AERmon.json'
-LEVELS = {
-    'name': 'lev',
-    'units': 'hPa',
-    'e3sm_axis_name': 'lev'
-}
 
 
 def write_data(varid, data, timeval, timebnds, index, **kwargs):
@@ -67,6 +62,5 @@ def handle(infiles, tables, user_input_path, **kwargs):
         outvar_name=VAR_NAME,
         outvar_units=VAR_UNITS,
         serial=kwargs.get('serial'),
-        levels=LEVELS,
         logdir=kwargs.get('logdir'))
 # ------------------------------------------------------------------
