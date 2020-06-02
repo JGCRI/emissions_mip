@@ -58,7 +58,7 @@ def append_lon_meta(nc_handler):
     logger.info('Appending longitude variable metadata')
     nc_handler.variables['lon'].axis = 'X'
     logger.debug('    lon:axis = "X"')
-    nc_handler.variables['lon'].standard_name = 'latitude'
+    nc_handler.variables['lon'].standard_name = 'longitude'
     logger.debug('    lon:standard_name = "longitude"')
     nc_handler.variables['lon'].bounds = 'lon_bnds'
     logger.debug('    lon:bounds = "lon_bnds"')
