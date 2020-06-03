@@ -31,18 +31,19 @@ datasets:
 preprocessors:
   # Preprocessor for variables with a vertical dimension. Ensure variables 
   # using this preprocessor have a vertical dimention or errors may arise.
-  # * Extract variable's 0.94999999 (lowest) hybrid sigma pressure level. 
+  # * Extract variable's 0.949999988079071 (lowest) hybrid sigma pressure level. 
   # * Regrid on to 1 deg x 1 deg grid.
   # * Compute annual mean.
-  # preproc_sfc:
-    # extract_levels:
-      # levels: 0.94999999 
-      # scheme: nearest
-    # regrid:
-      # target_grid: 1x1
-      # scheme: linear
-    # annual_statistics:
-      # operator: mean
+  preproc_sfc:
+    extract_levels:
+      levels: 0.949999988079071 
+      scheme: linear_horizontal_extrapolate_vertical
+      coordinate: air_pressure
+    regrid:
+      target_grid: 1x1
+      scheme: linear
+    annual_statistics:
+      operator: mean
   # Preprocessor for variables with no vertical dimension.
   # * Regrid on to 1 deg x 1 deg grid.
   # * Compute annual mean.
@@ -54,7 +55,7 @@ preprocessors:
       operator: mean
 
 diagnostics:
-  init_anal-giss_diff:
+  initial_analysis-giss-diff:
     description: Emissions-MIP Difference of Perturbation and Reference GISS model output for Amon & AERmon variables.
     themes:
       - phys
@@ -74,11 +75,11 @@ diagnostics:
         start_year: 2000
         end_year: 2014
       # --- Aerosol sulfate mass mixing ratio --- 
-      # mmrso4:
-        # preprocessor: preproc_sfc
-        # mip: AERmon
-        # start_year: 2000
-        # end_year: 2014
+      mmrso4:
+        preprocessor: preproc_sfc
+        mip: AERmon
+        start_year: 2000
+        end_year: 2014
       # --- SO2 volume mixing ratio --- 
       so2:
         preprocessor: preproc_nolev

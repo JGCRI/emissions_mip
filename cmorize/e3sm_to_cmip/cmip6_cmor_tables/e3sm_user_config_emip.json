@@ -41,7 +41,7 @@
 
   "references": "Golaz, J.-C., P. M. Caldwell, L. P. Van Roekel and co-authors, 2019: The DOE E3SM coupled model version 1: Overview and evaluation at standard resolution. JAMES, submitted; http://e3sm.org",
 
-  "grid": "144x90",
+  "grid": "144x96",
 
   "grid_label": "gn",
 
