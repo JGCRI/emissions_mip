@@ -310,58 +310,7 @@ def plot_timeseries(vars_to_plot, plt_config, plt_type=None):
             # If a filename for the plot is not given in the plt_config dict, use the default.
             plt.savefig(os.path.join(plt_config['out_dir'], default_plt_name))
     plt.close()
-    
-    
-def plot_timeseries_diff1(vars_to_plot, plt_config):
-    """
-    Plot a timeseries of the differences between model configurations for one
-    or more variables.
 
-    Parameters
-    ----------
-    vars_to_plot: list ESMVariable objects
-        List of ESMVariable objects to plot.
-    plt_config : Dictionary
-        Dictionary containing plot metadata and configuration information.
-
-    Returns
-    -------
-    None.
-    """
-    if plt_config['ggplot']:
-        # Use ggplot style (grey background, white grid lines)
-        plt.style.use('ggplot')
-    # Use the first object in the list to parse common attributes.
-    years = calc_year_span(vars_to_plot[0].start_year, vars_to_plot[0].end_year)
-    units = vars_to_plot[0].units
-    var_short = vars_to_plot[0].short_name
-    # Get variable diff groups
-    diff_groups = group_vars_diff(vars_to_plot)
-    # Iterate over the variable objects & plot.
-    for idx, (dataset, var_dict) in enumerate(diff_groups.items()):
-        # Diff = perturbation - reference
-        diff_cube = get_diff(var_dict['pert'], var_dict['ref'])
-        plt.plot(years, diff_cube.data, linestyle=PlotStyle.styles[idx],
-                 color=PlotStyle.colors[idx], label=dataset)
-    plt.xlabel('Year')
-    plt.ylabel('Area average ({})'.format(units))
-    plt.title(plt_config['title'].format(var_short))
-    plt.tight_layout()
-    if 'ggplot' in plt_config and not plt_config['ggplot']:
-        # Only call when not using ggplot style, otherwise no grid lines will be visible.
-        plt.grid()
-    plt.legend()
-    if 'out_dir' in plt_config and plt_config['out_dir'] != None:
-        # Only save the plot if 'out_dir' is defined.
-        try:
-            f_name = plt_config['plt_name'].format(var_short)
-            plt.savefig(os.path.join(plt_config['out_dir'], f_name))
-        except:
-            # If a filename for the plot is not given in the plt_config dict, use the default.
-            plt_name = 'time_series-diff-{}-{}.pdf'.format(plt_config['time_interval'].capitalize(), var_short)
-            plt.savefig(os.path.join(plt_config['out_dir'], plt_name))
-    plt.close()
-    
 
 # === Logger Functions =========================================================
 
