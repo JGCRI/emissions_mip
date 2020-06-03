@@ -31,7 +31,7 @@ datasets:
 preprocessors:
   # Preprocessor for variables with vertical dimension. Ensure the variable has
   # a vertical dimension or errors may arise.
-  # * Extract 0.94999999 (lowest) hybrid sigma pressure level.
+  # * Extract variable's 0.949999988079071 (lowest) hybrid sigma pressure level. 
   # * Regrid on to 1 deg x 1 deg grid.
   # * Compute annual mean.
   preproc_sfc:
@@ -82,7 +82,7 @@ diagnostics:
         end_year: 2014
       # --- SO2 volume mixing ratio --- 
       so2:
-        preprocessor: preproc_nolev
+        preprocessor: preproc_sfc
         mip: AERmon
         start_year: 2000
         end_year: 2014
