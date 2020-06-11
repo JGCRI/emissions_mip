@@ -3,12 +3,12 @@ input/default
 
 # Directories 
 output/
+src/**/*.nc
 .idea/
 **/__pycache__
 
 # Files
 *.log
-*.nc
 *.pdf
 
  
