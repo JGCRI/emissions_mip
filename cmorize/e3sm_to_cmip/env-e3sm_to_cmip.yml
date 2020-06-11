@@ -1,0 +1,19 @@
+name: e3sm_to_cmip
+channels:
+  - defaults
+dependencies:
+  - nco
+  - cmor
+  - dask
+  - progressbar2
+  - xarray
+  - pyyaml
+  - scipy
+  - cdutil
+  - netcdf4
+  - cdms2
+  - e3sm_to_cmip
+  - cwltool
+  - nodejs
+prefix: /people/nich980/anaconda3/envs/e3sm_to_cmip
+

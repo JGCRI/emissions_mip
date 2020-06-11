@@ -1,0 +1,10 @@
+name: pyreshaper
+channels:
+  - defaults
+dependencies:
+  - python=2.7
+  - netcdf4
+  - numpy
+  - mpi4py
+prefix: /people/nich980/anaconda3/envs/pyreshaper
+
