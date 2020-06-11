@@ -45,7 +45,7 @@
 
   "grid_label": "gn",
 
-  "nominal_resolution": "100 km",
+  "nominal_resolution": "250 km",
 
   "institution_id": "PNNL",
 
@@ -59,7 +59,7 @@
 
   "parent_mip_era": "CMIP6",
 
-  "parent_source_id": "E3SM-1-0",
+  "parent_source_id": "CESM2-FV2",
 
   "parent_time_units": "days since 1999-01-01 00:00:00",
 
@@ -69,9 +69,9 @@
 
   "run_variant": "",
 
-  "source_id": "CLM-4-0",
+  "source_id": "CESM2-FV2",
 
-  "source": "Community Land Model CLM4.0",
+  "source": "CESM2-FV2",
 
   "output_path_template": "<mip_era><activity_id><institution_id><source_id><experiment_id><_member_id><table><variable_id><grid_label><version>",
 

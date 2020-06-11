@@ -201,7 +201,8 @@ def save_cube(cube, out_file):
 
 def save_plot_data(var_name, years, var_data, plt_config, plt_type=None):
     """
-    Write processed variable data to CSV. 
+    Write processed variable data to CSV. CSV file is written to the same
+    directory as the plots.
     
     Parameters
     ----------
