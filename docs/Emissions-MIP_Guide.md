@@ -258,9 +258,91 @@ Loading the environment:\
 `source /share/apps/python/miniconda3.8/etc/profile.d/conda.sh`\
 `conda activate esmvaltool`
 
-To run a single recipe start with moving to the directory containing ESMValTool and then run the tool (more about recipes at the end):\
+To run a single recipe on the login node, start with moving to the directory containing ESMValTool and then run the tool (more about recipes at the end):\
 `cd /pic/projects/GCAM/Emissions-MIP`\
 `esmvaltool run ESMValTool/esmvaltool/recipes/emissions_mip/Phase1a/global/global_reference.yml`
 
+To run all the recipes, or any number of recipes, it is better to excecute it as a shell script rather than on the login node. First, print the list of the recipes including their absolute paths:\
+`cd /pic/projects/GCAM/Emissions-MIP/ESMValTool/esmvaltool/recipes/emissions_mip/Phase1a`\
+`find $(pwd) -type f | grep -E ".yml" > Phase1a_files.txt`
 
+Append “esmvaltool run” to the front of each line and save as new file:\
+`awk -F[_] '{print "esmvaltool run " $0}' < Phase1a_files.txt > Phase1a_recipes.txt`
 
+Now create a shell script with the following contained within:
+```
+#!/bin/bash
+#SBATCH -A ceds
+#SBATCH -t 50:00:00
+#SBATCH -N 1
+#SBATCH -p shared
+#SBATCH -n 1
+#SBATCH --mail-user <your_email_here>
+#SBATCH --mail-type END
+
+#Activate conda environment
+module purge
+module load julia
+module load python/miniconda3.8
+source /share/apps/python/miniconda3.8/etc/profile.d/conda.sh
+conda activate esmvaltool
+
+#Actually codes starts here
+now=$(date)
+echo "Current time : $now"
+
+#Execute command in text file line by line
+cd /pic/projects/GCAM/Emissions-MIP/ESMValTool/esmvaltool/recipes/emissions_mip/Phase1a
+cat Phase1a_recipes.txt | sh -v
+
+now=$(date)
+echo "Current time : $now"
+```
+The output will be stored in *esmvaltool_output* in your home directory (or wherever you set the output directory to). Explore the contents of the output folder. The plots subdirectory contains a .csv file of the globally averaged values for each variable, as well as a corresponding plot.
+
+Run the following set of commands on PIC to copy the .csv file outputs from *esmvaltool_output* to a new directory called *esmvaltool_copy* (this can be called anything), which would then be the input for the Emissions-MIP_Data repo:
+- Change directory to the shared Emissions-MIP project directory on PIC:\
+`cd /pic/projects/GCAM/Emissions-MIP`
+- Print list of perturbation folders from *esmvaltool_output*\
+`ls esmvaltool_output | grep -v "reference" > pert_list.txt`
+- Print list of reference folders from *esmvaltool_output*\
+`ls esmvaltool_output | grep -E "reference" > ref_list.txt`
+- Make *esmvaltool_copy* folder if not already there\
+`mkdir -p esmvaltool_copy`
+- Remove content from *esmvaltool_copy* if not empty and move to it\
+`rm -rf esmvaltool_copy/*`\
+`cd esmvaltool_copy`
+- Make perturbation folders based on folder name pattern\
+`awk -F[_] '{print "mkdir -p " $1 "/" $3 "/" $2}' < ../pert_list.txt | sh -v`
+
+- Copy csv data files from *esmvaltool_output* to *esmvaltool_copy*
+```
+awk -F[_] '{print "cp -R ../esmvaltool_output/" $0 "/plots/Emissions_MIP_analysis/initial_analysis_output/*.csv " $1 "/" $3 "/" $2}' < ../pert_list.txt | sh -v
+```
+- Do the same with reference folders\
+`awk -F[_] '{print "mkdir -p " $1 "/" $2}' < ../ref_list.txt | sh -v`
+```
+awk -F[_] '{print "cp -R ../esmvaltool_output/" $0 "/plots/Emissions_MIP_analysis/initial_analysis_output/*.csv " $1 "/" $2}' < ../ref_list.txt | sh -v
+```
+- Move up one directory and then delete the text files\
+`cd ../`\
+`rm pert_list.txt ref_list.txt`
+
+After all recipes have been evaluated by ESMValTool, the output .csv files are used to generate timeseries and summary plots. The current results are stored on our [JGCRI/Emissions-MIP_Data](https://github.com/JGCRI/Emissions-MIP_Data) GitHub page. Browse the site for more details on generating plots.
+
+## Running the recipe generator scripts
+All recipes for Phase 1 and the scripts used to generate them are stored on the [JGCRI/recipe-generator](https://github.com/JGCRI/recipe-generator) GitHub page.
+
+The recipe files are written in yml language and is essentially a list of instructions for ESMValTool to process the model data and produce various outputs. We generate the recipe files using a series of R scripts. These scripts use the yml R package to build the recipe in the format required by ESMValTool. There are three types of recipe outputs: reference, difference, and percent difference. A set of these recipes are generated for each region.
+
+There is currently a script for each perturbation experiment as well as the reference case. The reference script simply generates the reference recipes. Each perturbation experiment recipe generates either a difference or percent difference recipe. 
+
+After running the scripts, the recipe files will be saved to the Phase1a folder. This folder contains subfolders for each region. Copy the entire Phase1a folder to */pic/projects/GCAM/Emissions-MIP/ESMValTool/esmvaltool/recipes/emissions_mip*. ESMValTool now has access to the recipes needed for running.
+
+## Running 2D difference map diagnostic
+Another useful diagnostic that can be run on ESMValTool is the difference map. This is essentially another recipe where one may specify a pair of model runs, the region and the desired variables, and the resulting output will yield a difference map between the two model runs in various formats, including .png and .nc. This is especially useful for visualizing the difference between the perturbation and reference case of a given model. A sample recipe can be seen here: */pic/projects/GCAM/Emissions-MIP/ESMValTool/esmvaltool/recipes/emissions_mip/Phase1a_diff-maps*
+
+Before running the recipe, make sure to overwrite the following files in your personal conda environment (assuming it's called *esmvaltool*) with the ones provided:
+- */people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvaltool/diag_scripts/validation.py*
+- */people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvaltool/diag_scripts/shared/_validation.py*
+- */people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvaltool/config-references.yml*
