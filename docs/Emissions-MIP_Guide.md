@@ -15,7 +15,7 @@ From your home directory on PIC, create a new directory called e3sm_to_cmip and 
 `mkdir e3sm_to_cmip`\
 `cd e3sm_to_cmip`
 
-Acquire the following files and place them in the current directory:\
+Acquire the following files and place them in the current directory:
 - Download horizontal remapping file [*map_ne30np4_to_cmip6_180x360_aave.20181001.nc*](https://web.lcrc.anl.gov/public/e3sm/mapping/maps/) that is required for the E3SM workflow
 - *vrt_remap_plev19.nc*
 - *cesm_user_config_draft.json*
@@ -24,7 +24,7 @@ Acquire the following files and place them in the current directory:\
 Create the following directories (they will hold processed data):\
 `mkdir native_add_bounds native_grid regrid_timeseries`
 
-Clone a copy of the CMIP6 Controlled Vocabulary tables:
+Clone a copy of the CMIP6 Controlled Vocabulary tables:\
 `git clone https://github.com/PCMDI/cmip6-cmor-tables.git`
 
 Replace the file */qfs/people/[USER]/e3sm_to_cmip/cmip6-cmor-tables/Tables/CMIP6_CV.json* with the one provided. This file lists the experiment metadata recognized by e3sm_to_cmip. The new file contains experiments specific to Emissions-MIP (e.g. nudge-ref, nudge-BC-no-seas, etc.). **When new experiments become available, add them to the file**.
@@ -138,7 +138,7 @@ ESMValTool is a climate model diagnostics and evaluation package. We use it to e
 From your home directory on PIC, clone the forked ESMValTool repository from the JGCRI/ESMValTool GitHub page:\
 `git clone https://github.com/JGCRI/ESMValTool.git`
 
-Set up conda environment on PIC and install ESMValTool package:
+Set up conda environment on PIC and install ESMValTool package:\
 `module load julia`\
 `module load python/miniconda3.8`\
 `source /share/apps/python/miniconda3.8/etc/profile.d/conda.sh`\
@@ -209,7 +209,7 @@ UKESM:
   cmor_type: 'CMIP6'
 ```
 
-Make changes to the configuration file */qfs/people/[USER]/.esmvaltool/config-user.yml*:\
+Make changes to the configuration file */qfs/people/[USER]/.esmvaltool/config-user.yml*:
 - To save the preprocessor directory for each ESMValTool run, change *remove_preproc_dir* from *true* to *false*
 - Set the destination directory for the output (will currently output to home directory)
 - Change the rootpath to look like this:
@@ -227,7 +227,7 @@ Make changes to the configuration file */qfs/people/[USER]/.esmvaltool/config-us
    CMIP6: default
    MIROC: default
 ```
-Make changes to the configuration file */qfs/people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvaltool/config-references.yml*:\
+Make changes to the configuration file */qfs/people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvaltool/config-references.yml*:
 - Add author to list:
 ```
   nicholson_matthew:
