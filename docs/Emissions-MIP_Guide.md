@@ -15,8 +15,8 @@ From your home directory on PIC, create a new directory called e3sm_to_cmip and 
 `mkdir e3sm_to_cmip`\
 `cd e3sm_to_cmip`
 
-Acquire the following files and place them in the current directory:
-- Download horizontal remapping file [*map_ne30np4_to_cmip6_180x360_aave.20181001.nc*](https://web.lcrc.anl.gov/public/e3sm/mapping/maps/) that is required for the E3SM workflow
+Acquire the following mapping and configuration files and place them in the current directory:
+- *map_ne30np4_to_cmip6_180x360_aave.20181001.nc*
 - *vrt_remap_plev19.nc*
 - *cesm_user_config_draft.json*
 - *e3sm_user_config_picontrol.json*
@@ -238,7 +238,7 @@ Make changes to the configuration file */qfs/people/[USER]/.conda/envs/esmvaltoo
 - Add project to list:
 `emissions_mip: Model Intercomparison Project, PNNL`
 
-Add new shapefiles for masking different regions of the globe, such as hemispheric land or ocean, to */qfs/people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvalcore/preprocessor/ne_masks*. These files will be provided.
+Add new shapefiles for masking different regions of the globe, such as hemispheric land or ocean, to */qfs/people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvalcore/preprocessor/ne_masks*. These files can be found in the [JGCRI/emissions_mip repo](https://github.com/JGCRI/emissions_mip/tree/master/esmvaltool/masks).
 
 Add the list of new shapefiles to */qfs/people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvalcore/preprocessor/_mask.py*. Under `def mask_landsea`, add the following to the list of shapefiles:
 ```
