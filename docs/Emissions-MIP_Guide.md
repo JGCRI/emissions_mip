@@ -342,7 +342,7 @@ After running the scripts, the recipe files will be saved to the Phase1a folder.
 ## Running 2D difference map diagnostic
 Another useful diagnostic that can be run on ESMValTool is the difference map. This is essentially another recipe where one may specify a pair of model runs, the region and the desired variables, and the resulting output will yield a difference map between the two model runs in various formats, including .png and .nc. This is especially useful for visualizing the difference between the perturbation and reference case of a given model. A sample recipe can be seen here: */pic/projects/GCAM/Emissions-MIP/ESMValTool/esmvaltool/recipes/emissions_mip/Phase1a_diff-maps*
 
-Before running the recipe, make sure to overwrite the following files in your personal conda environment (assuming it's called *esmvaltool*) with the ones provided:
+Before running the recipe, make sure to overwrite the following files in your personal conda environment (assuming it's called *esmvaltool*) with the ones provided in the [JGCRI/emissions_mip repo](https://github.com/JGCRI/emissions_mip/tree/master/esmvaltool/diff_maps):
 - */people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvaltool/diag_scripts/validation.py*
 - */people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvaltool/diag_scripts/shared/_validation.py*
 - */people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvaltool/config-references.yml*
