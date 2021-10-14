@@ -15,7 +15,7 @@ From your home directory on PIC, create a new directory called e3sm_to_cmip and 
 `mkdir e3sm_to_cmip`\
 `cd e3sm_to_cmip`
 
-Acquire the following mapping and configuration files and place them in the current directory:
+Acquire the following mapping and configuration files and place them in the current directory (if unsure where to get them, let us know!):
 - *map_ne30np4_to_cmip6_180x360_aave.20181001.nc*
 - *vrt_remap_plev19.nc*
 - *cesm_user_config_draft.json*
