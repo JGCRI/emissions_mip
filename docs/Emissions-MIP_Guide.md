@@ -248,7 +248,8 @@ Add the list of new shapefiles to */qfs/people/[USER]/.conda/envs/esmvaltool/lib
 'land_s-sea': os.path.join(cwd, 'ne_masks/land_s-sea.shp'),
 'non-arctic': os.path.join(cwd, 'ne_masks/non-arctic.shp'),
 'non-pacific': os.path.join(cwd, 'ne_masks/non-pacific.shp'),
-'non-atlantic': os.path.join(cwd, 'ne_masks/non-atlantic.shp')
+'non-atlantic': os.path.join(cwd, 'ne_masks/non-atlantic.shp'),
+'non-indian': os.path.join(cwd, 'ne_masks/non-indian.shp')
 ```
 The steps above only need to be done once. The steps below are done every time on PIC.
 
