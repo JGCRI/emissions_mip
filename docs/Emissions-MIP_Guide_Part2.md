@@ -576,7 +576,7 @@ for f in aerocom3_GEOS-i33p2_Emission-MIP-SUexp5*; do mv "$f" $(echo "$f" | sed 
 for f in aerocom3_GEOS-i33p2_Emission-MIP-SUexp6*; do mv "$f" $(echo "$f" | sed 's/^aerocom3_GEOS-i33p2_Emission-MIP-SUexp6/aerocom3_GEOS-i33p2_Emission-MIP-high-so4/g'); done
 ```
 
-Create folders for each scenario and sorts the files:
+Create folders for each scenario and sort the files:
 ```
 mkdir base so2-no-season bc-no-season so2-at-height no-so4 high-so4
 mv aerocom3_GEOS-i33p2_Emission-MIP-base* base
@@ -595,7 +595,7 @@ touch names.txt
 for FILE in *; do echo "$FILE" >> names.txt; done
 ```
 
-Reformat the names into UKESM form (`sh -v` actually runs it, the former gives a preview):
+Reformat the names into UKESM form (`sh -v` actually runs it, the former gives a preview):\
 MAKE SURE TO CHANGE THE TERM AFTER EmiMIP TO THE COORECT SCENARIO
 ```
 awk -F[_] '{print "mv " $0 " " $5 "_GEOS_EmiMIP_so2-at-height_" $6 "_" $7 "_" $8}' < names.txt
