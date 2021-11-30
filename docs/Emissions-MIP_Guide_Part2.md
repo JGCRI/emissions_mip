@@ -297,7 +297,7 @@ done
 ```
 
 ### UKESM
-This section will include the entire routine needed to modify any given set of experiment files.
+This section includes the entire routine needed to modify any given set of UKESM model files.
 
 Change current directory to /UKESM and make new directories:\
 `mkdir base_merge base_mergefix base_timefix base_dimfix base_final`
@@ -308,7 +308,7 @@ Change directory to experiment folder:\
 Generate a file with unique variable names (manually remove 3D and extraneous variables – only need to do this once, then use the same file for the other experiments):\
 `ls | awk -F'[_.]' '{print $3}' | sort | uniq > 2D_vars.txt`
 
-Feed each variable into the cdo merge command for each year:\
+Feed each variable into the cdo merge command for each year:
 ```
 awk -F[_] '{print "cdo merge 2000jan_UKESM1_" $0 ".nc 2000feb_UKESM1_" $0 ".nc 2000mar_UKESM1_" $0 ".nc 2000apr_UKESM1_" $0 ".nc 2000may_UKESM1_" $0 ".nc 2000jun_UKESM1_" $0 ".nc 2000jul_UKESM1_" $0 ".nc 2000aug_UKESM1_" $0 ".nc 2000sep_UKESM1_" $0 ".nc 2000oct_UKESM1_" $0 ".nc 2000nov_UKESM1_" $0 ".nc 2000dec_UKESM1_" $0 ".nc ../base_merge/" $0 "_UKESM_EmiMIP_base_2000_monthly.nc"}' < ../2D_vars.txt | sh -v
 
@@ -338,10 +338,10 @@ for fl in `ls *.nc` ; do
 done
 ```
 
-Format time dimension correctly for each year:\
-`cd ../base_mergefix`
-
+Format time dimension correctly for each year:
 ```
+cd ../base_mergefix
+
 for fl in `ls *2000_monthly.nc` ; do
   cdo -L settunits,days -settaxis,2000-01-01,00:00,1month ${fl} ../base_timefix/${fl}
 done
@@ -363,19 +363,19 @@ for fl in `ls *2004_monthly.nc` ; do
 done
 ```
 
-Convert to netCDF3 to avoid dimension renaming bug
-`cd ../base_timefix`
-
+Convert to netCDF3 to avoid dimension renaming bug:
 ```
+cd ../base_timefix
+
 for fl in `ls *.nc` ; do
   ncks -3 ${fl} ../base_dimfix/${fl}
 done
 ```
 
-Rename dimension names:\
-`cd ../base_dimfix`
-
+Rename dimension names:
 ```
+cd ../base_dimfix
+
 for fl in `ls *.nc` ; do
   ncrename -O -v longitude,lon -v latitude,lat -d longitude,lon -d latitude,lat ${fl}
 done
@@ -388,10 +388,10 @@ ncks -4 ${fl} ../base_final/${fl}
 done
 ```
 
-Add wavelength variable to `od550aer`:\
-`cd ../base_final`
-
+Add wavelength variable to `od550aer`:
 ```
+cd ../base_final
+
 for fl in `ls od550aer*.nc` ; do
   ncks -A ../wavelength.nc ${fl}
 done
@@ -401,14 +401,16 @@ for fl in `ls od550aer*.nc` ; do
 done
 ```
 
-Change current directory to /UKESM and make new directories:\
-`cd ../`\
-`mkdir base_3D_time base_3D_merge base_3D_timefix base_3D_dimfix base_3D_dimfix2 base_3D_final`
-
-Add time dimension to 3D variables:\
-`cd base`
-
+Change current directory to /UKESM and make new directories:
 ```
+cd ../
+mkdir base_3D_time base_3D_merge base_3D_timefix base_3D_dimfix base_3D_dimfix2 base_3D_final
+```
+
+Add time dimension to 3D variables:
+```
+cd base
+
 for fl in `ls *mmrbc_3D.nc` ; do
   ncecat -O -u time ${fl} ../base_3D_time/${fl}
 done
@@ -422,10 +424,10 @@ for fl in `ls *so2_3D.nc` ; do
 done
 ```
 
-Merge files together:\
-`cd ../base_3D_time`
-
+Merge files together:
 ```
+cd ../base_3D_time
+
 cdo mergetime 2000jan_UKESM1_mmrbc_3D.nc 2000feb_UKESM1_mmrbc_3D.nc 2000mar_UKESM1_mmrbc_3D.nc 2000apr_UKESM1_mmrbc_3D.nc 2000may_UKESM1_mmrbc_3D.nc 2000jun_UKESM1_mmrbc_3D.nc 2000jul_UKESM1_mmrbc_3D.nc 2000aug_UKESM1_mmrbc_3D.nc 2000sep_UKESM1_mmrbc_3D.nc 2000oct_UKESM1_mmrbc_3D.nc 2000nov_UKESM1_mmrbc_3D.nc 2000dec_UKESM1_mmrbc_3D.nc ../base_3D_merge/mmrbc_UKESM_EmiMIP_base_2000_monthly.nc
 
 cdo mergetime 2001jan_UKESM1_mmrbc_3D.nc 2001feb_UKESM1_mmrbc_3D.nc 2001mar_UKESM1_mmrbc_3D.nc 2001apr_UKESM1_mmrbc_3D.nc 2001may_UKESM1_mmrbc_3D.nc 2001jun_UKESM1_mmrbc_3D.nc 2001jul_UKESM1_mmrbc_3D.nc 2001aug_UKESM1_mmrbc_3D.nc 2001sep_UKESM1_mmrbc_3D.nc 2001oct_UKESM1_mmrbc_3D.nc 2001nov_UKESM1_mmrbc_3D.nc 2001dec_UKESM1_mmrbc_3D.nc ../base_3D_merge/mmrbc_UKESM_EmiMIP_base_2001_monthly.nc
@@ -457,10 +459,10 @@ cdo mergetime 2003jan_UKESM1_so2_3D.nc 2003feb_UKESM1_so2_3D.nc 2003mar_UKESM1_s
 cdo mergetime 2004jan_UKESM1_so2_3D.nc 2004feb_UKESM1_so2_3D.nc 2004mar_UKESM1_so2_3D.nc 2004apr_UKESM1_so2_3D.nc 2004may_UKESM1_so2_3D.nc 2004jun_UKESM1_so2_3D.nc 2004jul_UKESM1_so2_3D.nc 2004aug_UKESM1_so2_3D.nc 2004sep_UKESM1_so2_3D.nc 2004oct_UKESM1_so2_3D.nc 2004nov_UKESM1_so2_3D.nc 2004dec_UKESM1_so2_3D.nc ../base_3D_merge/so2_UKESM_EmiMIP_base_2004_monthly.nc
 ```
 
-Generate time variable:\
-`cd ../base_3D_merge`
-
+Generate time variable:
 ```
+cd ../base_3D_merge
+
 for fl in `ls *.nc` ; do
   ncap2 -O -s 'time[time]=1' ${fl} ${fl}
 done
@@ -499,17 +501,19 @@ cdo -L settunits,days -settaxis,2003-01-01,00:00,1month so2_UKESM_EmiMIP_base_20
 cdo -L settunits,days -settaxis,2004-01-01,00:00,1month so2_UKESM_EmiMIP_base_2004_monthly.nc ../base_3D_timefix/so2_UKESM_EmiMIP_base_2004_monthly.nc
 ```
 
-Convert to netCDF3 to avoid dimension renaming bug:\
-`cd ../base_3D_timefix`
+Convert to netCDF3 to avoid dimension renaming bug:
 ```
+cd ../base_3D_timefix
+
 for fl in `ls *.nc` ; do
   ncks -3 ${fl} ../base_3D_dimfix/${fl}
 done
 ```
 
-Rename dimension names:\
-`cd ../base_3D_dimfix`
+Rename dimension names:
 ```
+cd ../base_3D_dimfix
+
 for fl in `ls *.nc` ; do
   ncrename -O -v longitude,lon -v latitude,lat -v level_height,alt16 -d longitude,lon -d latitude,lat -d level_height,alt16 ${fl}
 done
@@ -522,17 +526,19 @@ for fl in `ls *.nc` ; do
 done
 ```
 
-Overwrite z-axis with height level in descending order starting from surface (i.e. 85, 84, 83,..., 1). This is not physically accurate but allows for consistency in ESMValTool pressure level extraction protocol.\
-`cd ../base_3D_dimfix2`
+Overwrite z-axis with height level in descending order starting from surface (i.e. 85, 84, 83,..., 1). This is not physically accurate but allows for consistency in ESMValTool pressure level extraction protocol.
 ```
+cd ../base_3D_dimfix2
+
 for fl in `ls *.nc` ; do
   cdo setzaxis,../UKESM_zaxis ${fl} ../base_3D_final/${fl}
 done
 ```
 
-Correct the standard name for alt16 coordinate:\
-`cd ../base_3D_final`
+Correct the standard name for alt16 coordinate:
 ```
+cd ../base_3D_final
+
 for fl in `ls *.nc` ; do
   ncatted -O -a standard_name,alt16,m,c,"altitude" ${fl}
 done
@@ -554,4 +560,128 @@ rm -rf base_3D_dimfix2
 cp -R /base_3D_final/* /base_final
 rm -rf base_3D_final
 mv base_final base 
+```
+
+### GEOS
+This section includes the entire routine needed to modify any given set of GEOS model files.
+
+Change the names from SUexp# to the respective scenario name:
+```
+for f in aerocom3_GEOS-i33p2_Emission-MIP-SUexp/*; do mv "$f" $(echo "$f" | sed 's/^aerocom3_GEOS-i33p2_Emission-MIP-SUexp/aerocom3_GEOS-i33p2_Emission-MIP-base_/g'); done
+for f in aerocom3_GEOS-i33p2_Emission-MIP-SUexp_base*; do mv "$f" $(echo "$f" | sed 's/^aerocom3_GEOS-i33p2_Emission-MIP-SUexp_base/aerocom3_GEOS-i33p2_Emission-MIP-base_/g'); done
+for f in aerocom3_GEOS-i33p2_Emission-MIP-SUexp2*; do mv "$f" $(echo "$f" | sed 's/^aerocom3_GEOS-i33p2_Emission-MIP-SUexp2/aerocom3_GEOS-i33p2_Emission-MIP-so2-no-season/g'); done
+for f in aerocom3_GEOS-i33p2_Emission-MIP-SUexp3*; do mv "$f" $(echo "$f" | sed 's/^aerocom3_GEOS-i33p2_Emission-MIP-SUexp3/aerocom3_GEOS-i33p2_Emission-MIP-bc-no-season/g'); done
+for f in aerocom3_GEOS-i33p2_Emission-MIP-SUexp4*; do mv "$f" $(echo "$f" | sed 's/^aerocom3_GEOS-i33p2_Emission-MIP-SUexp4/aerocom3_GEOS-i33p2_Emission-MIP-so2-at-height/g'); done
+for f in aerocom3_GEOS-i33p2_Emission-MIP-SUexp5*; do mv "$f" $(echo "$f" | sed 's/^aerocom3_GEOS-i33p2_Emission-MIP-SUexp5/aerocom3_GEOS-i33p2_Emission-MIP-no-so4/g'); done
+for f in aerocom3_GEOS-i33p2_Emission-MIP-SUexp6*; do mv "$f" $(echo "$f" | sed 's/^aerocom3_GEOS-i33p2_Emission-MIP-SUexp6/aerocom3_GEOS-i33p2_Emission-MIP-high-so4/g'); done
+```
+
+Create folders for each scenario and sorts the files:
+```
+mkdir base so2-no-season bc-no-season so2-at-height no-so4 high-so4
+mv aerocom3_GEOS-i33p2_Emission-MIP-base* base
+mv aerocom3_GEOS-i33p2_Emission-MIP-so2-no-season* so2-no-season
+mv aerocom3_GEOS-i33p2_Emission-MIP-bc-no-season* bc-no-season
+mv aerocom3_GEOS-i33p2_Emission-MIP-so2-at-height* so2-at-height
+mv aerocom3_GEOS-i33p2_Emission-MIP-no-so4* no-so4
+mv aerocom3_GEOS-i33p2_Emission-MIP-high-so4* high-so4
+```
+
+Go into each folder separately and do the following.
+
+Create names file and load all names into it:
+```
+touch names.txt
+for FILE in *; do echo "$FILE" >> names.txt; done
+```
+
+Reformat the names into UKESM form (`sh -v` actually runs it, the former gives a preview):
+MAKE SURE TO CHANGE THE TERM AFTER EmiMIP TO THE COORECT SCENARIO
+```
+awk -F[_] '{print "mv " $0 " " $5 "_GEOS_EmiMIP_so2-at-height_" $6 "_" $7 "_" $8}' < names.txt
+awk -F[_] '{print "mv " $0 " " $5 "_GEOS_EmiMIP_bc-no-season_" $6 "_" $7 "_" $8}' < names.txt | sh -v
+```
+
+Convert *clt* from 3hr timesteps to monthly, then move them back to the base folder and delete "hourly":
+```
+mkdir hourly
+mv *hourly.nc hourly
+cd hourly
+for FILE in *; do ncra --mro -O -d time,,,244,244 $FILE $FILE; done
+rename 3hourly monthly *
+mv *monthly.nc ..
+cd ..
+rm -r hourly
+```
+
+Move the 3D variables into their own folder:
+```
+mkdir 3D_var
+mv mmrso4* 3D_var
+mv mmrbc* 3D_var
+mv so2* 3D_var
+```
+
+Set the time axis for all the non-3D variables:
+```
+for FILE in *2000_monthly.nc; do cdo settunits,days -settaxis,2000-01-01,00:00,1month $FILE $FILE; done 
+for FILE in *2001_monthly.nc; do cdo settunits,days -settaxis,2001-01-01,00:00,1month $FILE $FILE; done
+for FILE in *2002_monthly.nc; do cdo settunits,days -settaxis,2002-01-01,00:00,1month $FILE $FILE; done
+for FILE in *2003_monthly.nc; do cdo settunits,days -settaxis,2003-01-01,00:00,1month $FILE $FILE; done
+for FILE in *2004_monthly.nc; do cdo settunits,days -settaxis,2004-01-01,00:00,1month $FILE $FILE; done
+for FILE in *2005_monthly.nc; do cdo settunits,days -settaxis,2005-01-01,00:00,1month $FILE $FILE; done
+```
+
+Navigate to the 3D_var folder and edit the 3D variables (run through these steps for each experiment):
+```
+cd 3D_var
+mkdir Final
+
+for file in mmrso4*; do ncap2 -O -s "lev=0" $file $file; done
+for file in mmrso4*; do ncap2 -O -s 'lev[lev]=lev' $file $file; done
+for file in mmrso4*; do ncatted -O -a standard_name,lev,c,c,"atmosphere_hybrid_sigma_pressure_coordinate" $file $file; done
+for file in mmrso4*; do ncatted -O -a long_name,lev,c,c,"hybrid sigma pressure coordinate" $file $file; done
+for file in mmrso4*; do ncatted -O -a formula,lev,c,c,"p(n,k,j,i) = hyam(k)*p0 + hybm(k)*ps(n,j,i)" $file $file; done
+for file in mmrso4*; do ncatted -O -a formula_terms,lev,c,c,"a: hyam b: hybm ps: ps p0: p0" $file $file; done
+
+cdo settunits,days -settaxis,2000-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrso4_GEOS_EmiMIP_bc-no-season_Modellevel_2000_monthly.nc Final/mmrso4_GEOS_EmiMIP_base_Modellevel_2000_monthly.nc
+cdo settunits,days -settaxis,2001-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrso4_GEOS_EmiMIP_bc-no-season_Modellevel_2001_monthly.nc Final/mmrso4_GEOS_EmiMIP_base_Modellevel_2001_monthly.nc
+cdo settunits,days -settaxis,2002-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrso4_GEOS_EmiMIP_bc-no-season_Modellevel_2002_monthly.nc Final/mmrso4_GEOS_EmiMIP_base_Modellevel_2002_monthly.nc
+cdo settunits,days -settaxis,2003-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrso4_GEOS_EmiMIP_bc-no-season_Modellevel_2003_monthly.nc Final/mmrso4_GEOS_EmiMIP_base_Modellevel_2003_monthly.nc
+cdo settunits,days -settaxis,2004-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrso4_GEOS_EmiMIP_bc-no-season_Modellevel_2004_monthly.nc Final/mmrso4_GEOS_EmiMIP_base_Modellevel_2004_monthly.nc
+cdo settunits,days -settaxis,2005-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrso4_GEOS_EmiMIP_bc-no-season_Modellevel_2005_monthly.nc Final/mmrso4_GEOS_EmiMIP_base_Modellevel_2005_monthly.nc
+
+for file in mmrbc*; do ncap2 -O -s "lev=0" $file $file; done
+for file in mmrbc*; do ncap2 -O -s 'lev[lev]=lev' $file $file; done
+for file in mmrbc*; do ncatted -O -a standard_name,lev,c,c,"atmosphere_hybrid_sigma_pressure_coordinate" $file $file; done
+for file in mmrbc*; do ncatted -O -a long_name,lev,c,c,"hybrid sigma pressure coordinate" $file $file; done
+for file in mmrbc*; do ncatted -O -a formula,lev,c,c,"p(n,k,j,i) = hyam(k)*p0 + hybm(k)*ps(n,j,i)" $file $file; done
+for file in mmrbc*; do ncatted -O -a formula_terms,lev,c,c,"a: hyam b: hybm ps: ps p0: p0" $file $file; done
+
+cdo settunits,days -settaxis,2000-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrbc_GEOS_EmiMIP_bc-no-season_Modellevel_2000_monthly.nc Final/mmrbc_GEOS_EmiMIP_bc-no-season_Modellevel_2000_monthly.nc
+cdo settunits,days -settaxis,2001-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrbc_GEOS_EmiMIP_bc-no-season_Modellevel_2001_monthly.nc Final/mmrbc_GEOS_EmiMIP_bc-no-season_Modellevel_2001_monthly.nc
+cdo settunits,days -settaxis,2002-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrbc_GEOS_EmiMIP_bc-no-season_Modellevel_2002_monthly.nc Final/mmrbc_GEOS_EmiMIP_bc-no-season_Modellevel_2002_monthly.nc
+cdo settunits,days -settaxis,2003-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrbc_GEOS_EmiMIP_bc-no-season_Modellevel_2003_monthly.nc Final/mmrbc_GEOS_EmiMIP_bc-no-season_Modellevel_2003_monthly.nc
+cdo settunits,days -settaxis,2004-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrbc_GEOS_EmiMIP_bc-no-season_Modellevel_2004_monthly.nc Final/mmrbc_GEOS_EmiMIP_bc-no-season_Modellevel_2004_monthly.nc
+cdo settunits,days -settaxis,2005-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrbc_GEOS_EmiMIP_bc-no-season_Modellevel_2005_monthly.nc Final/mmrbc_GEOS_EmiMIP_bc-no-season_Modellevel_2005_monthly.nc
+
+for file in so2*; do ncap2 -O -s "lev=0" $file $file; done
+for file in so2*; do ncap2 -O -s 'lev[lev]=lev' $file $file; done
+for file in so2*; do ncatted -O -a standard_name,lev,c,c,"atmosphere_hybrid_sigma_pressure_coordinate" $file $file; done
+for file in so2*; do ncatted -O -a long_name,lev,c,c,"hybrid sigma pressure coordinate" $file $file; done
+for file in so2*; do ncatted -O -a formula,lev,c,c,"p(n,k,j,i) = hyam(k)*p0 + hybm(k)*ps(n,j,i)" $file $file; done
+for file in so2*; do ncatted -O -a formula_terms,lev,c,c,"a: hyam b: hybm ps: ps p0: p0" $file $file; done
+
+cdo settunits,days -settaxis,2000-01-01,00:00,1month -setzaxis,../../GEOS_zaxis so2_GEOS_EmiMIP_bc-no-season_Modellevel_2000_monthly.nc Final/so2_GEOS_EmiMIP_bc-no-season_Modellevel_2000_monthly.nc
+cdo settunits,days -settaxis,2001-01-01,00:00,1month -setzaxis,../../GEOS_zaxis so2_GEOS_EmiMIP_bc-no-season_Modellevel_2001_monthly.nc Final/so2_GEOS_EmiMIP_bc-no-season_Modellevel_2001_monthly.nc
+cdo settunits,days -settaxis,2002-01-01,00:00,1month -setzaxis,../../GEOS_zaxis so2_GEOS_EmiMIP_bc-no-season_Modellevel_2002_monthly.nc Final/so2_GEOS_EmiMIP_bc-no-season_Modellevel_2002_monthly.nc
+cdo settunits,days -settaxis,2003-01-01,00:00,1month -setzaxis,../../GEOS_zaxis so2_GEOS_EmiMIP_bc-no-season_Modellevel_2003_monthly.nc Final/so2_GEOS_EmiMIP_bc-no-season_Modellevel_2003_monthly.nc
+cdo settunits,days -settaxis,2004-01-01,00:00,1month -setzaxis,../../GEOS_zaxis so2_GEOS_EmiMIP_bc-no-season_Modellevel_2004_monthly.nc Final/so2_GEOS_EmiMIP_bc-no-season_Modellevel_2004_monthly.nc
+cdo settunits,days -settaxis,2005-01-01,00:00,1month -setzaxis,../../GEOS_zaxis so2_GEOS_EmiMIP_bc-no-season_Modellevel_2005_monthly.nc Final/so2_GEOS_EmiMIP_bc-no-season_Modellevel_2005_monthly.nc
+```
+
+Fix `od550aer` (repeat for each experiment):
+```
+for fl in `ls od550aer*.nc`; do ncks -A ../wavelength.nc ${fl}; done
+for fl in `ls od550aer*.nc`; do ncatted -O -a coordinates,od550aer,c,c,"wavelength" ${fl}; done
 ```
