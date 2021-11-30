@@ -369,12 +369,85 @@ Before running the recipe, make sure to overwrite the following files in your pe
 
 ## Obtaining total column variables
 ESMValTool offers the ability to derive total column variables by vertically integrating the 3D variable over its layers. Details on this module can be found in the [tutorial](https://docs.esmvaltool.org/projects/ESMValCore/en/latest/recipe/preprocessor.html#variable-derivation). This is particularly useful for generating the total column BC and SO4 variables (i.e., `loadbc` and `loadso4`). The steps for setting up and running this tool are as follows:
-* Copy these files from the repo to */qfs/people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvalcore/preprocessor/_derive*
- + _baseclass.py
- + _shared.py
- + loadso4.py
- + loadbc.py
-* add new cmor variable for loadbc in Emon table
-* need to remove standard name of ps from mmrbc and mmrso4 for remaining CESM1 (and E3SM) using:\
+* Copy files *_baseclass.py*, *_shared.py*, *loadso4.py*, and *loadbc.py* from the repo to */qfs/people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvalcore/preprocessor/_derive*
+* Add new variable `loadbc` to CMIP6 Emon table here */qfs/people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvalcore/cmor/tables/cmip6/Tables/CMIP6_Emon.json* by appending the following chunk:
+```
+        "loadbc": {
+            "frequency": "mon", 
+            "modeling_realm": "atmos", 
+            "standard_name": "atmosphere_mass_content_of_elemental_carbon_dry_aerosol_particles", 
+            "units": "kg m-2", 
+            "cell_methods": "area: time: mean", 
+            "cell_measures": "area: areacella", 
+            "long_name": "Load of Black Carbon Aerosol", 
+            "comment": "The total dry mass of black carbon aerosol particles per unit area.", 
+            "dimensions": "longitude latitude time", 
+            "out_name": "loadbc", 
+            "type": "real", 
+            "positive": "", 
+            "valid_min": "", 
+            "valid_max": "", 
+            "ok_min_mean_abs": "", 
+            "ok_max_mean_abs": ""
+        }
+```
+* Running the diagnostic requires the 3D variable of interest (e.g., `loadbc`) as well as the pressure variable `ps` (netCDF file)
+* If the 3D variable was generated using the e3sm_to_cmip tool (e.g., CESM1, E3SM) remove *standard name* of the pressure parameter (*ps*) from the 3D variable file. For example, for `mmrso4` this would look like:\
 `ncatted -O -a standard_name,ps,d,c,"surface_air_pressure" mmrso4_AERmon_CESM-1-0_nudge-SO2-no-seas_r1i1p1f1_gr_199901-201412.nc`
-* set to `monthly_statistics` in the preprocessors section of recipe
+* A sample recipe for generating `loadbc` and `loadso4` for the GISS reference case would look something like this (note the `monthly_statistics` in the preprocessors section):
+```
+documentation:
+  description: Analysis of reference model outputs for Emissions-MIP
+  authors:
+    - nicholson_matthew
+  maintainer:
+    - nicholson_matthew
+  references:
+    - esmvaltool
+  projects:
+    - esmval
+    - emissions_mip
+
+datasets:
+        - {dataset: GISS-nudge, project: CMIP6, activity: AerChemMIP, institute: NASA-GISS, exp: reference, ensemble: r1i1p5f1, grid: gn}
+
+preprocessors:
+  preproc_mask:
+    mask_landsea:
+      mask_out: ~
+  preproc_nolev:
+    regrid:
+      target_grid: 1x1
+      scheme: linear
+    monthly_statistics:
+      operator: mean
+
+diagnostics:
+  Emissions_MIP_analysis:
+    description: Model variable outputs
+    themes:
+      - phys
+    realms:
+      - atmos
+    variables:
+      loadso4:
+        preprocessor: preproc_nolev
+        derive: true
+        force_derivation: true
+        mip: Emon
+        start_year: 2000
+        end_year: 2004
+      loadbc:
+        preprocessor: preproc_nolev
+        derive: true
+        force_derivation: true
+        mip: Emon
+        start_year: 2000
+        end_year: 2004
+    scripts:
+      initial_analysis_output:
+        script: /pic/projects/GCAM/Emissions-MIP/ESMValTool/esmvaltool/diag_scripts/emissions_mip/initial_analysis-giss.py
+        quickplot:
+          plot_type: pcolormesh
+```
+* The resulting total column file can be found in the *preproc* folder of the designated ESMValTool ouput directory. Rename the netCDF file as needed and move to the appropriate model directory.
