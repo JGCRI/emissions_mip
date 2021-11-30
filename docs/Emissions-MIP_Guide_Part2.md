@@ -280,3 +280,278 @@ for fl in `ls /pithos/projects/ceds/emissions-mip/rawdata_phase1/OsloCTM3/base/m
   ncatted -O -a formula,lev,m,c,"p(n,k,j,i) = ap(k) + b(k)*ps(n,j,i)" ${fl}
 done
 ```
+
+### GFDL
+For 3D variables, add variable `ps` (surface air pressure):
+```
+for fl in `ls /pithos/projects/ceds/emissions-mip/rawdata_phase1/GFDL/base/mmrbc_*.nc` ; do
+  ncks -A ps.nc ${fl}
+done
+```
+
+Rename variable `dryso4_old` to `dryso4`:
+```
+for fl in `ls /pithos/projects/ceds/emissions-mip/rawdata_phase1/GFDL/base/dryso4_*.nc` ; do
+  ncrename -h -O -v dryso4_old,dryso4 ${fl}
+done
+```
+
+### UKESM
+This section will include the entire routine needed to modify any given set of experiment files.
+
+Change current directory to /UKESM and make new directories:\
+`mkdir base_merge base_mergefix base_timefix base_dimfix base_final`
+
+Change directory to experiment folder:\
+`cd base`
+
+Generate a file with unique variable names (manually remove 3D and extraneous variables – only need to do this once, then use the same file for the other experiments):\
+`ls | awk -F'[_.]' '{print $3}' | sort | uniq > 2D_vars.txt`
+
+Feed each variable into the cdo merge command for each year:\
+```
+awk -F[_] '{print "cdo merge 2000jan_UKESM1_" $0 ".nc 2000feb_UKESM1_" $0 ".nc 2000mar_UKESM1_" $0 ".nc 2000apr_UKESM1_" $0 ".nc 2000may_UKESM1_" $0 ".nc 2000jun_UKESM1_" $0 ".nc 2000jul_UKESM1_" $0 ".nc 2000aug_UKESM1_" $0 ".nc 2000sep_UKESM1_" $0 ".nc 2000oct_UKESM1_" $0 ".nc 2000nov_UKESM1_" $0 ".nc 2000dec_UKESM1_" $0 ".nc ../base_merge/" $0 "_UKESM_EmiMIP_base_2000_monthly.nc"}' < ../2D_vars.txt | sh -v
+
+awk -F[_] '{print "cdo merge 2001jan_UKESM1_" $0 ".nc 2001feb_UKESM1_" $0 ".nc 2001mar_UKESM1_" $0 ".nc 2001apr_UKESM1_" $0 ".nc 2001may_UKESM1_" $0 ".nc 2001jun_UKESM1_" $0 ".nc 2001jul_UKESM1_" $0 ".nc 2001aug_UKESM1_" $0 ".nc 2001sep_UKESM1_" $0 ".nc 2001oct_UKESM1_" $0 ".nc 2001nov_UKESM1_" $0 ".nc 2001dec_UKESM1_" $0 ".nc ../base_merge/" $0 "_UKESM_EmiMIP_base_2001_monthly.nc"}' < ../2D_vars.txt | sh -v
+
+awk -F[_] '{print "cdo merge 2002jan_UKESM1_" $0 ".nc 2002feb_UKESM1_" $0 ".nc 2002mar_UKESM1_" $0 ".nc 2002apr_UKESM1_" $0 ".nc 2002may_UKESM1_" $0 ".nc 2002jun_UKESM1_" $0 ".nc 2002jul_UKESM1_" $0 ".nc 2002aug_UKESM1_" $0 ".nc 2002sep_UKESM1_" $0 ".nc 2002oct_UKESM1_" $0 ".nc 2002nov_UKESM1_" $0 ".nc 2002dec_UKESM1_" $0 ".nc ../base_merge/" $0 "_UKESM_EmiMIP_base_2002_monthly.nc"}' < ../2D_vars.txt | sh -v
+
+awk -F[_] '{print "cdo merge 2003jan_UKESM1_" $0 ".nc 2003feb_UKESM1_" $0 ".nc 2003mar_UKESM1_" $0 ".nc 2003apr_UKESM1_" $0 ".nc 2003may_UKESM1_" $0 ".nc 2003jun_UKESM1_" $0 ".nc 2003jul_UKESM1_" $0 ".nc 2003aug_UKESM1_" $0 ".nc 2003sep_UKESM1_" $0 ".nc 2003oct_UKESM1_" $0 ".nc 2003nov_UKESM1_" $0 ".nc 2003dec_UKESM1_" $0 ".nc ../base_merge/" $0 "_UKESM_EmiMIP_base_2003_monthly.nc"}' < ../2D_vars.txt | sh -v
+
+awk -F[_] '{print "cdo merge 2004jan_UKESM1_" $0 ".nc 2004feb_UKESM1_" $0 ".nc 2004mar_UKESM1_" $0 ".nc 2004apr_UKESM1_" $0 ".nc 2004may_UKESM1_" $0 ".nc 2004jun_UKESM1_" $0 ".nc 2004jul_UKESM1_" $0 ".nc 2004aug_UKESM1_" $0 ".nc 2004sep_UKESM1_" $0 ".nc 2004oct_UKESM1_" $0 ".nc 2004nov_UKESM1_" $0 ".nc 2004dec_UKESM1_" $0 ".nc ../base_merge/" $0 "_UKESM_EmiMIP_base_2004_monthly.nc"}' < ../2D_vars.txt | sh -v
+```
+
+Change directory to experiment merge folder:\
+`cd ../base_merge`
+
+Rename sfc to time:
+```
+for fl in `ls *.nc` ; do
+  ncrename -d sfc,time ${fl}
+done
+```
+
+Remove sfc variable:
+```
+for fl in `ls *.nc` ; do
+  ncks -O -x -v sfc ${fl} ../base_mergefix/${fl}
+done
+```
+
+Format time dimension correctly for each year:\
+`cd ../base_mergefix`
+
+```
+for fl in `ls *2000_monthly.nc` ; do
+  cdo -L settunits,days -settaxis,2000-01-01,00:00,1month ${fl} ../base_timefix/${fl}
+done
+
+for fl in `ls *2001_monthly.nc` ; do
+  cdo -L settunits,days -settaxis,2001-01-01,00:00,1month ${fl} ../base_timefix/${fl}
+done
+
+for fl in `ls *2002_monthly.nc` ; do
+  cdo -L settunits,days -settaxis,2002-01-01,00:00,1month ${fl} ../base_timefix/${fl}
+done
+
+for fl in `ls *2003_monthly.nc` ; do
+  cdo -L settunits,days -settaxis,2003-01-01,00:00,1month ${fl} ../base_timefix/${fl}
+done
+
+for fl in `ls *2004_monthly.nc` ; do
+  cdo -L settunits,days -settaxis,2004-01-01,00:00,1month ${fl} ../base_timefix/${fl}
+done
+```
+
+Convert to netCDF3 to avoid dimension renaming bug
+`cd ../base_timefix`
+
+```
+for fl in `ls *.nc` ; do
+  ncks -3 ${fl} ../base_dimfix/${fl}
+done
+```
+
+Rename dimension names:\
+`cd ../base_dimfix`
+
+```
+for fl in `ls *.nc` ; do
+  ncrename -O -v longitude,lon -v latitude,lat -d longitude,lon -d latitude,lat ${fl}
+done
+```
+
+Convert back to netCDF4:
+```
+for fl in `ls *.nc` ; do
+ncks -4 ${fl} ../base_final/${fl}
+done
+```
+
+Add wavelength variable to `od550aer`:\
+`cd ../base_final`
+
+```
+for fl in `ls od550aer*.nc` ; do
+  ncks -A ../wavelength.nc ${fl}
+done
+
+for fl in `ls od550aer*.nc` ; do
+  ncatted -O -a coordinates,od550aer,c,c,"wavelength" ${fl}
+done
+```
+
+Change current directory to /UKESM and make new directories:\
+`cd ../`\
+`mkdir base_3D_time base_3D_merge base_3D_timefix base_3D_dimfix base_3D_dimfix2 base_3D_final`
+
+Add time dimension to 3D variables:\
+`cd base`
+
+```
+for fl in `ls *mmrbc_3D.nc` ; do
+  ncecat -O -u time ${fl} ../base_3D_time/${fl}
+done
+
+for fl in `ls *mmrso4_3D.nc` ; do
+  ncecat -O -u time ${fl} ../base_3D_time/${fl}
+done
+
+for fl in `ls *so2_3D.nc` ; do
+  ncecat -O -u time ${fl} ../base_3D_time/${fl}
+done
+```
+
+Merge files together:\
+`cd ../base_3D_time`
+
+```
+cdo mergetime 2000jan_UKESM1_mmrbc_3D.nc 2000feb_UKESM1_mmrbc_3D.nc 2000mar_UKESM1_mmrbc_3D.nc 2000apr_UKESM1_mmrbc_3D.nc 2000may_UKESM1_mmrbc_3D.nc 2000jun_UKESM1_mmrbc_3D.nc 2000jul_UKESM1_mmrbc_3D.nc 2000aug_UKESM1_mmrbc_3D.nc 2000sep_UKESM1_mmrbc_3D.nc 2000oct_UKESM1_mmrbc_3D.nc 2000nov_UKESM1_mmrbc_3D.nc 2000dec_UKESM1_mmrbc_3D.nc ../base_3D_merge/mmrbc_UKESM_EmiMIP_base_2000_monthly.nc
+
+cdo mergetime 2001jan_UKESM1_mmrbc_3D.nc 2001feb_UKESM1_mmrbc_3D.nc 2001mar_UKESM1_mmrbc_3D.nc 2001apr_UKESM1_mmrbc_3D.nc 2001may_UKESM1_mmrbc_3D.nc 2001jun_UKESM1_mmrbc_3D.nc 2001jul_UKESM1_mmrbc_3D.nc 2001aug_UKESM1_mmrbc_3D.nc 2001sep_UKESM1_mmrbc_3D.nc 2001oct_UKESM1_mmrbc_3D.nc 2001nov_UKESM1_mmrbc_3D.nc 2001dec_UKESM1_mmrbc_3D.nc ../base_3D_merge/mmrbc_UKESM_EmiMIP_base_2001_monthly.nc
+
+cdo mergetime 2002jan_UKESM1_mmrbc_3D.nc 2002feb_UKESM1_mmrbc_3D.nc 2002mar_UKESM1_mmrbc_3D.nc 2002apr_UKESM1_mmrbc_3D.nc 2002may_UKESM1_mmrbc_3D.nc 2002jun_UKESM1_mmrbc_3D.nc 2002jul_UKESM1_mmrbc_3D.nc 2002aug_UKESM1_mmrbc_3D.nc 2002sep_UKESM1_mmrbc_3D.nc 2002oct_UKESM1_mmrbc_3D.nc 2002nov_UKESM1_mmrbc_3D.nc 2002dec_UKESM1_mmrbc_3D.nc ../base_3D_merge/mmrbc_UKESM_EmiMIP_base_2002_monthly.nc
+
+cdo mergetime 2003jan_UKESM1_mmrbc_3D.nc 2003feb_UKESM1_mmrbc_3D.nc 2003mar_UKESM1_mmrbc_3D.nc 2003apr_UKESM1_mmrbc_3D.nc 2003may_UKESM1_mmrbc_3D.nc 2003jun_UKESM1_mmrbc_3D.nc 2003jul_UKESM1_mmrbc_3D.nc 2003aug_UKESM1_mmrbc_3D.nc 2003sep_UKESM1_mmrbc_3D.nc 2003oct_UKESM1_mmrbc_3D.nc 2003nov_UKESM1_mmrbc_3D.nc 2003dec_UKESM1_mmrbc_3D.nc ../base_3D_merge/mmrbc_UKESM_EmiMIP_base_2003_monthly.nc
+
+cdo mergetime 2004jan_UKESM1_mmrbc_3D.nc 2004feb_UKESM1_mmrbc_3D.nc 2004mar_UKESM1_mmrbc_3D.nc 2004apr_UKESM1_mmrbc_3D.nc 2004may_UKESM1_mmrbc_3D.nc 2004jun_UKESM1_mmrbc_3D.nc 2004jul_UKESM1_mmrbc_3D.nc 2004aug_UKESM1_mmrbc_3D.nc 2004sep_UKESM1_mmrbc_3D.nc 2004oct_UKESM1_mmrbc_3D.nc 2004nov_UKESM1_mmrbc_3D.nc 2004dec_UKESM1_mmrbc_3D.nc ../base_3D_merge/mmrbc_UKESM_EmiMIP_base_2004_monthly.nc
+
+cdo mergetime 2000jan_UKESM1_mmrso4_3D.nc 2000feb_UKESM1_mmrso4_3D.nc 2000mar_UKESM1_mmrso4_3D.nc 2000apr_UKESM1_mmrso4_3D.nc 2000may_UKESM1_mmrso4_3D.nc 2000jun_UKESM1_mmrso4_3D.nc 2000jul_UKESM1_mmrso4_3D.nc 2000aug_UKESM1_mmrso4_3D.nc 2000sep_UKESM1_mmrso4_3D.nc 2000oct_UKESM1_mmrso4_3D.nc 2000nov_UKESM1_mmrso4_3D.nc 2000dec_UKESM1_mmrso4_3D.nc ../base_3D_merge/mmrso4_UKESM_EmiMIP_base_2000_monthly.nc
+
+cdo mergetime 2001jan_UKESM1_mmrso4_3D.nc 2001feb_UKESM1_mmrso4_3D.nc 2001mar_UKESM1_mmrso4_3D.nc 2001apr_UKESM1_mmrso4_3D.nc 2001may_UKESM1_mmrso4_3D.nc 2001jun_UKESM1_mmrso4_3D.nc 2001jul_UKESM1_mmrso4_3D.nc 2001aug_UKESM1_mmrso4_3D.nc 2001sep_UKESM1_mmrso4_3D.nc 2001oct_UKESM1_mmrso4_3D.nc 2001nov_UKESM1_mmrso4_3D.nc 2001dec_UKESM1_mmrso4_3D.nc ../base_3D_merge/mmrso4_UKESM_EmiMIP_base_2001_monthly.nc
+
+cdo mergetime 2002jan_UKESM1_mmrso4_3D.nc 2002feb_UKESM1_mmrso4_3D.nc 2002mar_UKESM1_mmrso4_3D.nc 2002apr_UKESM1_mmrso4_3D.nc 2002may_UKESM1_mmrso4_3D.nc 2002jun_UKESM1_mmrso4_3D.nc 2002jul_UKESM1_mmrso4_3D.nc 2002aug_UKESM1_mmrso4_3D.nc 2002sep_UKESM1_mmrso4_3D.nc 2002oct_UKESM1_mmrso4_3D.nc 2002nov_UKESM1_mmrso4_3D.nc 2002dec_UKESM1_mmrso4_3D.nc ../base_3D_merge/mmrso4_UKESM_EmiMIP_base_2002_monthly.nc
+
+cdo mergetime 2003jan_UKESM1_mmrso4_3D.nc 2003feb_UKESM1_mmrso4_3D.nc 2003mar_UKESM1_mmrso4_3D.nc 2003apr_UKESM1_mmrso4_3D.nc 2003may_UKESM1_mmrso4_3D.nc 2003jun_UKESM1_mmrso4_3D.nc 2003jul_UKESM1_mmrso4_3D.nc 2003aug_UKESM1_mmrso4_3D.nc 2003sep_UKESM1_mmrso4_3D.nc 2003oct_UKESM1_mmrso4_3D.nc 2003nov_UKESM1_mmrso4_3D.nc 2003dec_UKESM1_mmrso4_3D.nc ../base_3D_merge/mmrso4_UKESM_EmiMIP_base_2003_monthly.nc
+
+cdo mergetime 2004jan_UKESM1_mmrso4_3D.nc 2004feb_UKESM1_mmrso4_3D.nc 2004mar_UKESM1_mmrso4_3D.nc 2004apr_UKESM1_mmrso4_3D.nc 2004may_UKESM1_mmrso4_3D.nc 2004jun_UKESM1_mmrso4_3D.nc 2004jul_UKESM1_mmrso4_3D.nc 2004aug_UKESM1_mmrso4_3D.nc 2004sep_UKESM1_mmrso4_3D.nc 2004oct_UKESM1_mmrso4_3D.nc 2004nov_UKESM1_mmrso4_3D.nc 2004dec_UKESM1_mmrso4_3D.nc ../base_3D_merge/mmrso4_UKESM_EmiMIP_base_2004_monthly.nc
+
+cdo mergetime 2000jan_UKESM1_so2_3D.nc 2000feb_UKESM1_so2_3D.nc 2000mar_UKESM1_so2_3D.nc 2000apr_UKESM1_so2_3D.nc 2000may_UKESM1_so2_3D.nc 2000jun_UKESM1_so2_3D.nc 2000jul_UKESM1_so2_3D.nc 2000aug_UKESM1_so2_3D.nc 2000sep_UKESM1_so2_3D.nc 2000oct_UKESM1_so2_3D.nc 2000nov_UKESM1_so2_3D.nc 2000dec_UKESM1_so2_3D.nc ../base_3D_merge/so2_UKESM_EmiMIP_base_2000_monthly.nc
+
+cdo mergetime 2001jan_UKESM1_so2_3D.nc 2001feb_UKESM1_so2_3D.nc 2001mar_UKESM1_so2_3D.nc 2001apr_UKESM1_so2_3D.nc 2001may_UKESM1_so2_3D.nc 2001jun_UKESM1_so2_3D.nc 2001jul_UKESM1_so2_3D.nc 2001aug_UKESM1_so2_3D.nc 2001sep_UKESM1_so2_3D.nc 2001oct_UKESM1_so2_3D.nc 2001nov_UKESM1_so2_3D.nc 2001dec_UKESM1_so2_3D.nc ../base_3D_merge/so2_UKESM_EmiMIP_base_2001_monthly.nc
+
+cdo mergetime 2002jan_UKESM1_so2_3D.nc 2002feb_UKESM1_so2_3D.nc 2002mar_UKESM1_so2_3D.nc 2002apr_UKESM1_so2_3D.nc 2002may_UKESM1_so2_3D.nc 2002jun_UKESM1_so2_3D.nc 2002jul_UKESM1_so2_3D.nc 2002aug_UKESM1_so2_3D.nc 2002sep_UKESM1_so2_3D.nc 2002oct_UKESM1_so2_3D.nc 2002nov_UKESM1_so2_3D.nc 2002dec_UKESM1_so2_3D.nc ../base_3D_merge/so2_UKESM_EmiMIP_base_2002_monthly.nc
+
+cdo mergetime 2003jan_UKESM1_so2_3D.nc 2003feb_UKESM1_so2_3D.nc 2003mar_UKESM1_so2_3D.nc 2003apr_UKESM1_so2_3D.nc 2003may_UKESM1_so2_3D.nc 2003jun_UKESM1_so2_3D.nc 2003jul_UKESM1_so2_3D.nc 2003aug_UKESM1_so2_3D.nc 2003sep_UKESM1_so2_3D.nc 2003oct_UKESM1_so2_3D.nc 2003nov_UKESM1_so2_3D.nc 2003dec_UKESM1_so2_3D.nc ../base_3D_merge/so2_UKESM_EmiMIP_base_2003_monthly.nc
+
+cdo mergetime 2004jan_UKESM1_so2_3D.nc 2004feb_UKESM1_so2_3D.nc 2004mar_UKESM1_so2_3D.nc 2004apr_UKESM1_so2_3D.nc 2004may_UKESM1_so2_3D.nc 2004jun_UKESM1_so2_3D.nc 2004jul_UKESM1_so2_3D.nc 2004aug_UKESM1_so2_3D.nc 2004sep_UKESM1_so2_3D.nc 2004oct_UKESM1_so2_3D.nc 2004nov_UKESM1_so2_3D.nc 2004dec_UKESM1_so2_3D.nc ../base_3D_merge/so2_UKESM_EmiMIP_base_2004_monthly.nc
+```
+
+Generate time variable:\
+`cd ../base_3D_merge`
+
+```
+for fl in `ls *.nc` ; do
+  ncap2 -O -s 'time[time]=1' ${fl} ${fl}
+done
+```
+
+Reset time axis to change to correct format:
+```
+cdo -L settunits,days -settaxis,2000-01-01,00:00,1month mmrbc_UKESM_EmiMIP_base_2000_monthly.nc ../base_3D_timefix/mmrbc_UKESM_EmiMIP_base_2000_monthly.nc
+
+cdo -L settunits,days -settaxis,2001-01-01,00:00,1month mmrbc_UKESM_EmiMIP_base_2001_monthly.nc ../base_3D_timefix/mmrbc_UKESM_EmiMIP_base_2001_monthly.nc
+
+cdo -L settunits,days -settaxis,2002-01-01,00:00,1month mmrbc_UKESM_EmiMIP_base_2002_monthly.nc ../base_3D_timefix/mmrbc_UKESM_EmiMIP_base_2002_monthly.nc
+
+cdo -L settunits,days -settaxis,2003-01-01,00:00,1month mmrbc_UKESM_EmiMIP_base_2003_monthly.nc ../base_3D_timefix/mmrbc_UKESM_EmiMIP_base_2003_monthly.nc
+
+cdo -L settunits,days -settaxis,2004-01-01,00:00,1month mmrbc_UKESM_EmiMIP_base_2004_monthly.nc ../base_3D_timefix/mmrbc_UKESM_EmiMIP_base_2004_monthly.nc
+
+cdo -L settunits,days -settaxis,2000-01-01,00:00,1month mmrso4_UKESM_EmiMIP_base_2000_monthly.nc ../base_3D_timefix/mmrso4_UKESM_EmiMIP_base_2000_monthly.nc
+
+cdo -L settunits,days -settaxis,2001-01-01,00:00,1month mmrso4_UKESM_EmiMIP_base_2001_monthly.nc ../base_3D_timefix/mmrso4_UKESM_EmiMIP_base_2001_monthly.nc
+
+cdo -L settunits,days -settaxis,2002-01-01,00:00,1month mmrso4_UKESM_EmiMIP_base_2002_monthly.nc ../base_3D_timefix/mmrso4_UKESM_EmiMIP_base_2002_monthly.nc
+
+cdo -L settunits,days -settaxis,2003-01-01,00:00,1month mmrso4_UKESM_EmiMIP_base_2003_monthly.nc ../base_3D_timefix/mmrso4_UKESM_EmiMIP_base_2003_monthly.nc
+
+cdo -L settunits,days -settaxis,2004-01-01,00:00,1month mmrso4_UKESM_EmiMIP_base_2004_monthly.nc ../base_3D_timefix/mmrso4_UKESM_EmiMIP_base_2004_monthly.nc
+
+cdo -L settunits,days -settaxis,2000-01-01,00:00,1month so2_UKESM_EmiMIP_base_2000_monthly.nc ../base_3D_timefix/so2_UKESM_EmiMIP_base_2000_monthly.nc
+
+cdo -L settunits,days -settaxis,2001-01-01,00:00,1month so2_UKESM_EmiMIP_base_2001_monthly.nc ../base_3D_timefix/so2_UKESM_EmiMIP_base_2001_monthly.nc
+
+cdo -L settunits,days -settaxis,2002-01-01,00:00,1month so2_UKESM_EmiMIP_base_2002_monthly.nc ../base_3D_timefix/so2_UKESM_EmiMIP_base_2002_monthly.nc
+
+cdo -L settunits,days -settaxis,2003-01-01,00:00,1month so2_UKESM_EmiMIP_base_2003_monthly.nc ../base_3D_timefix/so2_UKESM_EmiMIP_base_2003_monthly.nc
+
+cdo -L settunits,days -settaxis,2004-01-01,00:00,1month so2_UKESM_EmiMIP_base_2004_monthly.nc ../base_3D_timefix/so2_UKESM_EmiMIP_base_2004_monthly.nc
+```
+
+Convert to netCDF3 to avoid dimension renaming bug:\
+`cd ../base_3D_timefix`
+```
+for fl in `ls *.nc` ; do
+  ncks -3 ${fl} ../base_3D_dimfix/${fl}
+done
+```
+
+Rename dimension names:\
+`cd ../base_3D_dimfix`
+```
+for fl in `ls *.nc` ; do
+  ncrename -O -v longitude,lon -v latitude,lat -v level_height,alt16 -d longitude,lon -d latitude,lat -d level_height,alt16 ${fl}
+done
+```
+
+Convert back to netCDF4:
+```
+for fl in `ls *.nc` ; do
+  ncks -4 ${fl} ../base_3D_dimfix2/${fl}
+done
+```
+
+Overwrite z-axis with height level in descending order starting from surface (i.e. 85, 84, 83,..., 1). This is not physically accurate but allows for consistency in ESMValTool pressure level extraction protocol.\
+`cd ../base_3D_dimfix2`
+```
+for fl in `ls *.nc` ; do
+  cdo setzaxis,../UKESM_zaxis ${fl} ../base_3D_final/${fl}
+done
+```
+
+Correct the standard name for alt16 coordinate:\
+`cd ../base_3D_final`
+```
+for fl in `ls *.nc` ; do
+  ncatted -O -a standard_name,alt16,m,c,"altitude" ${fl}
+done
+```
+
+Remove intermediate folders, combine base_final with base_3D_final, then rename to base:
+```
+cd ../
+rm -rf base
+rm -rf base_merge 
+rm -rf base_mergefix 
+rm -rf base_timefix 
+rm -rf base_dimfix
+rm -rf base_3D_time 
+rm -rf base_3D_merge 
+rm -rf base_3D_timefix 
+rm -rf base_3D_dimfix 
+rm -rf base_3D_dimfix2
+cp -R /base_3D_final/* /base_final
+rm -rf base_3D_final
+mv base_final base 
+```
