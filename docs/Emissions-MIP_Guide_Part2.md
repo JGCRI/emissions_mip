@@ -265,7 +265,7 @@ Multiply a certain variable with a constant:\
 ## Model-specific instructions
 Below are examples of model-specific fixes needed prior to running through ESMValTool.
 
-# NorESM2
+### NorESM2
 For variable `od550aer`, change units from null to 1:
 ```
 for fl in `ls /pithos/projects/ceds/emissions-mip/rawdata_phase1/NorESM2/base/od550aer_*.nc` ; do
@@ -273,3 +273,10 @@ for fl in `ls /pithos/projects/ceds/emissions-mip/rawdata_phase1/NorESM2/base/od
 done
 ```
 
+### OsloCTM3
+For 3D variables, change lev formula to "p(n,k,j,i) = ap(k) + b(k)*ps(n,j,i)":
+```
+for fl in `ls /pithos/projects/ceds/emissions-mip/rawdata_phase1/OsloCTM3/base/mmrbc_*.nc` ; do
+  ncatted -O -a formula,lev,m,c,"p(n,k,j,i) = ap(k) + b(k)*ps(n,j,i)" ${fl}
+done
+```
