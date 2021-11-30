@@ -299,6 +299,8 @@ cat Phase1a_recipes.txt | sh -v
 now=$(date)
 echo "Current time : $now"
 ```
+
+### Extracting Results from ESMValTool
 The output will be stored in *esmvaltool_output* in your home directory (or wherever you set the output directory to). Explore the contents of the output folder. The plots subdirectory contains a .csv file of the globally averaged values for each variable, as well as a corresponding plot.
 
 Run the following set of commands on PIC to copy the .csv file outputs from *esmvaltool_output* to a new directory called *esmvaltool_copy* (this can be called anything), which would then be the input for the Emissions-MIP_Data repo:
