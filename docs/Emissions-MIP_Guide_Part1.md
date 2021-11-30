@@ -118,16 +118,18 @@ ncclimo -7 --dfl_lvl=1 --ypf=6 --var=Mass_bc, Mass_so4,SO2 -c EmissMIP_E3SMv1_F2
 ```
 ncclimo -7 --dfl_lvl=1 --ypf=6 --var=bc_a1,bc_a4,bc_c1,bc_c4,so4_a1,so4_c1,so4_a2,so4_c2,so4_a3,so4_c3,SO2 -c EmissMIP_CESM1_FAMIPC5_NUG_SHP-80P-RED --yr_srt=1999 --yr_end=2004 --input=/pic/dtn/[USER]/CESM_runs/EmissMIP_CESM1_FAMIPC5_NUG_SHP-80P-RED/run/atm --output=native_grid
 ```
-- For CESM variables only, add lat_bnds and lon_bnds to the native grid output files. The modified files will be put in the *native_add_bounds* directory.\
-`cd native_grid`
+- For CESM variables only, add lat_bnds and lon_bnds to the native grid output files. The modified files will be put in the *native_add_bounds* directory.
 ```
+cd native_grid
+
 for fl in `ls *.nc ; do
 ncap2 -s ' defdim("vrt_nbr",2); lon_bnds=make_bounds(lon,$vrt_nbr); lat_bnds=make_bounds(lat,$vrt_nbr);' ${fl} ../native_add_bounds/${fl}
 done
 ```
-- Finally, run the CMOR handlers by invoking the converter as a python module:\
-`cd /qfs/people/[USER]/e3sm_to_cmip/e3sm_to_cmip`
+- Finally, run the CMOR handlers by invoking the converter as a python module:
 ```
+cd /qfs/people/[USER]/e3sm_to_cmip/e3sm_to_cmip
+
 python -m e3sm_to_cmip -v [3Dvar1, 3Dvar2, 3Dvar3] -u /qfs/people/[USER]/e3sm_to_cmip/[e3sm_user_config_picontrol.json or cesm_user_config_draft.json] -i /qfs/people/[USER]/e3sm_to_cmip_test/[regrid_timeseries or native_add_bounds] -o /qfs/people/[USER]/e3sm_to_cmip/e3sm_to_cmip/CMIP6 -t /qfs/people/[USER]/e3sm_to_cmip/cmip6-cmor-tables/Tables -H /qfs/people/[USER]/e3sm_to_cmip/e3sm_to_cmip/e3sm_to_cmip/cmor_handlers
 ```
 - Again, the final CMORized output files will be in the CMIP6 directory.
@@ -135,6 +137,7 @@ python -m e3sm_to_cmip -v [3Dvar1, 3Dvar2, 3Dvar3] -u /qfs/people/[USER]/e3sm_to
 ## Setting up and running ESMValTool
 ESMValTool is a climate model diagnostics and evaluation package. We use it to extract timeseries data for each climate model. Visit the [GitHub page](https://github.com/ESMValGroup/ESMValTool) for detailed documentation. It is highly recommended to view the [tutorial](https://esmvalgroup.github.io/ESMValTool_Tutorial/) alongside the following instructions.
 
+### Prerequisites
 From your home directory on PIC, clone the forked ESMValTool repository from the JGCRI/ESMValTool GitHub page:\
 `git clone https://github.com/JGCRI/ESMValTool.git`
 
@@ -207,6 +210,17 @@ UKESM:
   input_file: '{short_name}_{dataset}_{activity}_{exp}*.nc'
   output_file: '{project}_{dataset}_{mip}_{exp}_{ensemble}_{short_name}'
   cmor_type: 'CMIP6'
+  
+GEOS:
+  cmor_strict: false
+  input_dir:
+    default: '/'
+    BADC: '{activity}/{institute}/{dataset}/{exp}/{ensemble}/{mip}/{short_name}/{grid}/{latestversion}'
+    DKRZ: '{activity}/{institute}/{dataset}/{exp}/{ensemble}/{mip}/{short_name}/{grid}/{latestversion}'
+    ETHZ: '{exp}/{mip}/{short_name}/{dataset}/{ensemble}/{grid}/'
+  input_file: '{short_name}_{dataset}_{activity}_{exp}*.nc'
+  output_file: '{project}_{dataset}_{mip}_{exp}_{ensemble}_{short_name}'
+  cmor_type: 'CMIP6'
 ```
 
 Make changes to the configuration file */qfs/people/[USER]/.esmvaltool/config-user.yml*:
@@ -251,6 +265,8 @@ Add the list of new shapefiles to */qfs/people/[USER]/.conda/envs/esmvaltool/lib
 'non-atlantic': os.path.join(cwd, 'ne_masks/non-atlantic.shp'),
 'non-indian': os.path.join(cwd, 'ne_masks/non-indian.shp')
 ```
+
+### Running ESMValTool
 The steps above only need to be done once. The steps below are done every time on PIC.
 
 Loading the environment:\
@@ -263,11 +279,11 @@ To run a single recipe on the login node, start with moving to the directory con
 `cd /pic/projects/GCAM/Emissions-MIP`\
 `esmvaltool run ESMValTool/esmvaltool/recipes/emissions_mip/Phase1a/global/global_reference.yml`
 
-To run all the recipes, or any number of recipes, it is better to excecute it as a shell script rather than on the login node. First, print the list of the recipes including their absolute paths:\
+To run all the recipes consecutively (or any number of recipes) it is better to excecute it as a shell script rather than on the login node. First, print the list of the recipes including their absolute paths:\
 `cd /pic/projects/GCAM/Emissions-MIP/ESMValTool/esmvaltool/recipes/emissions_mip/Phase1a`\
 `find $(pwd) -type f | grep -E ".yml" > Phase1a_files.txt`
 
-Append “esmvaltool run” to the front of each line and save as new file:\
+Append `esmvaltool run` to the front of each line and save as a new file:\
 `awk -F[_] '{print "esmvaltool run " $0}' < Phase1a_files.txt > Phase1a_recipes.txt`
 
 Now create a shell script with the following contained within:
@@ -299,6 +315,7 @@ cat Phase1a_recipes.txt | sh -v
 now=$(date)
 echo "Current time : $now"
 ```
+This approach is generally fine for processing only a few recipes (less than 10). For running a large number of recipes it is recommended to run them in parallel. This is done by splitting the recipes in batches and running each batch as separate shell script. The shell scripts can be executed simultaneously.
 
 ### Extracting Results from ESMValTool
 The output will be stored in *esmvaltool_output* in your home directory (or wherever you set the output directory to). Explore the contents of the output folder. The plots subdirectory contains a .csv file of the globally averaged values for each variable, as well as a corresponding plot.
@@ -349,3 +366,15 @@ Before running the recipe, make sure to overwrite the following files in your pe
 - */people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvaltool/diag_scripts/validation.py*
 - */people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvaltool/diag_scripts/shared/_validation.py*
 - */people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvaltool/config-references.yml*
+
+## Obtaining total column variables
+ESMValTool offers the ability to derive total column variables by vertically integrating the 3D variable over its layers. Details on this module can be found in the [tutorial](https://docs.esmvaltool.org/projects/ESMValCore/en/latest/recipe/preprocessor.html#variable-derivation). This is particularly useful for generating the total column BC and SO4 variables (i.e., `loadbc` and `loadso4`). The steps for setting up and running this tool are as follows:
+* Copy these files from the repo to */qfs/people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvalcore/preprocessor/_derive*
+ + _baseclass.py
+ + _shared.py
+ + loadso4.py
+ + loadbc.py
+* add new cmor variable for loadbc in Emon table
+* need to remove standard name of ps from mmrbc and mmrso4 for remaining CESM1 (and E3SM) using:\
+`ncatted -O -a standard_name,ps,d,c,"surface_air_pressure" mmrso4_AERmon_CESM-1-0_nudge-SO2-no-seas_r1i1p1f1_gr_199901-201412.nc`
+* set to `monthly_statistics` in the preprocessors section of recipe
