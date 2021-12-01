@@ -369,8 +369,8 @@ Before running the recipe, make sure to overwrite the following files in your pe
 
 ## Obtaining total column variables
 ESMValTool offers the ability to derive total column variables by vertically integrating the 3D variable over its layers. Details on this module can be found in the [tutorial](https://docs.esmvaltool.org/projects/ESMValCore/en/latest/recipe/preprocessor.html#variable-derivation). This is particularly useful for generating the total column BC and SO4 variables (i.e., `loadbc` and `loadso4`). The steps for setting up and running this tool are as follows:
-* Copy files *_baseclass.py*, *_shared.py*, *loadso4.py*, and *loadbc.py* from the repo to */qfs/people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvalcore/preprocessor/_derive*
-* Add new variable `loadbc` to CMIP6 Emon table here */qfs/people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvalcore/cmor/tables/cmip6/Tables/CMIP6_Emon.json* by appending the following chunk:
+* Copy files *_baseclass.py*, *_shared.py*, *loadso4.py*, and *loadbc.py* from the repo (https://github.com/JGCRI/emissions_mip/tree/master/esmvaltool/total_column) to */qfs/people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvalcore/preprocessor/_derive*
+* Add new variable `loadbc` to the CMIP6 Emon table here */qfs/people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvalcore/cmor/tables/cmip6/Tables/CMIP6_Emon.json* by appending the following chunk:
 ```
         "loadbc": {
             "frequency": "mon", 
@@ -450,4 +450,4 @@ diagnostics:
         quickplot:
           plot_type: pcolormesh
 ```
-* The resulting total column file can be found in the *preproc* folder of the designated ESMValTool ouput directory. Rename the netCDF file as needed and move to the appropriate model directory.
+* The resulting total column files can be found in the *preproc* folder of the designated ESMValTool ouput directory. Rename the netCDF file as needed and move to the appropriate model directory.
