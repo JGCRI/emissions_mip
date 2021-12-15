@@ -595,7 +595,7 @@ touch names.txt
 for FILE in *; do echo "$FILE" >> names.txt; done
 ```
 
-Reformat the names into UKESM form (`sh -v` actually runs it, the former gives a preview):\
+Reformat the names into CMIP6 form (`sh -v` actually runs it, the former gives a preview):\
 Make sure that the scenario name, following "EmiMIP_", is consistent with the folder that you are in
 ```
 awk -F[_] '{print "mv " $0 " " $5 "_GEOS_EmiMIP_[scenarioName]_" $6 "_" $7 "_" $8}' < names.txt
