@@ -565,7 +565,7 @@ mv base_final base
 ### GEOS
 This section includes the entire routine needed to modify any given set of GEOS model files.
 
-Change the names from SUexp# to the respective scenario name:
+Changes the names from SUexp# to the respective scenario name (each number has a respective scenario it is associated with):
 ```
 for f in aerocom3_GEOS-i33p2_Emission-MIP-SUexp/*; do mv "$f" $(echo "$f" | sed 's/^aerocom3_GEOS-i33p2_Emission-MIP-SUexp/aerocom3_GEOS-i33p2_Emission-MIP-base_/g'); done
 for f in aerocom3_GEOS-i33p2_Emission-MIP-SUexp_base*; do mv "$f" $(echo "$f" | sed 's/^aerocom3_GEOS-i33p2_Emission-MIP-SUexp_base/aerocom3_GEOS-i33p2_Emission-MIP-base_/g'); done
@@ -587,19 +587,19 @@ mv aerocom3_GEOS-i33p2_Emission-MIP-no-so4* no-so4
 mv aerocom3_GEOS-i33p2_Emission-MIP-high-so4* high-so4
 ```
 
-Go into each folder separately and do the following.
+Go into each folder separately and do the following (so if there are six folders, you would need to do the following steps six times and change the commands accordingly)
 
-Create names file and load all names into it:
+Create names file and load all filenames into it as text:
 ```
 touch names.txt
 for FILE in *; do echo "$FILE" >> names.txt; done
 ```
 
 Reformat the names into UKESM form (`sh -v` actually runs it, the former gives a preview):\
-MAKE SURE TO CHANGE THE TERM AFTER EmiMIP TO THE COORECT SCENARIO
+Make sure that the scenario name, following "EmiMIP_", is consistent with the folder that you are in
 ```
-awk -F[_] '{print "mv " $0 " " $5 "_GEOS_EmiMIP_so2-at-height_" $6 "_" $7 "_" $8}' < names.txt
-awk -F[_] '{print "mv " $0 " " $5 "_GEOS_EmiMIP_bc-no-season_" $6 "_" $7 "_" $8}' < names.txt | sh -v
+awk -F[_] '{print "mv " $0 " " $5 "_GEOS_EmiMIP_[scenarioName]_" $6 "_" $7 "_" $8}' < names.txt
+awk -F[_] '{print "mv " $0 " " $5 "_GEOS_EmiMIP_[scenarioName]_" $6 "_" $7 "_" $8}' < names.txt | sh -v
 ```
 
 Convert *clt* from 3hr timesteps to monthly, then move them back to the base folder and delete "hourly":
@@ -622,7 +622,7 @@ mv mmrbc* 3D_var
 mv so2* 3D_var
 ```
 
-Set the time axis for all the non-3D variables:
+set the time axis for all the non 3D variables, since the original time axis form was incompatible with esmValTool:
 ```
 for FILE in *2000_monthly.nc; do cdo settunits,days -settaxis,2000-01-01,00:00,1month $FILE $FILE; done 
 for FILE in *2001_monthly.nc; do cdo settunits,days -settaxis,2001-01-01,00:00,1month $FILE $FILE; done
@@ -632,8 +632,9 @@ for FILE in *2004_monthly.nc; do cdo settunits,days -settaxis,2004-01-01,00:00,1
 for FILE in *2005_monthly.nc; do cdo settunits,days -settaxis,2005-01-01,00:00,1month $FILE $FILE; done
 ```
 
-Navigate to the 3D_var folder and edit the 3D variables (run through these steps for each experiment):
+navigate to the 3D_var folder and edit the 3D variables by defining and adding "standard_name", "long_name", "formula", and "formula_terms" variables. This also makes the time and z axis variables consistent with EsmValTool. The commands must be executed in the order specified below or else some variables will be deleted and you will need to start over:
 ```
+
 cd 3D_var
 mkdir Final
 
@@ -644,12 +645,12 @@ for file in mmrso4*; do ncatted -O -a long_name,lev,c,c,"hybrid sigma pressure c
 for file in mmrso4*; do ncatted -O -a formula,lev,c,c,"p(n,k,j,i) = hyam(k)*p0 + hybm(k)*ps(n,j,i)" $file $file; done
 for file in mmrso4*; do ncatted -O -a formula_terms,lev,c,c,"a: hyam b: hybm ps: ps p0: p0" $file $file; done
 
-cdo settunits,days -settaxis,2000-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrso4_GEOS_EmiMIP_bc-no-season_Modellevel_2000_monthly.nc Final/mmrso4_GEOS_EmiMIP_base_Modellevel_2000_monthly.nc
-cdo settunits,days -settaxis,2001-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrso4_GEOS_EmiMIP_bc-no-season_Modellevel_2001_monthly.nc Final/mmrso4_GEOS_EmiMIP_base_Modellevel_2001_monthly.nc
-cdo settunits,days -settaxis,2002-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrso4_GEOS_EmiMIP_bc-no-season_Modellevel_2002_monthly.nc Final/mmrso4_GEOS_EmiMIP_base_Modellevel_2002_monthly.nc
-cdo settunits,days -settaxis,2003-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrso4_GEOS_EmiMIP_bc-no-season_Modellevel_2003_monthly.nc Final/mmrso4_GEOS_EmiMIP_base_Modellevel_2003_monthly.nc
-cdo settunits,days -settaxis,2004-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrso4_GEOS_EmiMIP_bc-no-season_Modellevel_2004_monthly.nc Final/mmrso4_GEOS_EmiMIP_base_Modellevel_2004_monthly.nc
-cdo settunits,days -settaxis,2005-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrso4_GEOS_EmiMIP_bc-no-season_Modellevel_2005_monthly.nc Final/mmrso4_GEOS_EmiMIP_base_Modellevel_2005_monthly.nc
+cdo settunits,days -settaxis,2000-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrso4_GEOS_EmiMIP_[scenarioName]_Modellevel_2000_monthly.nc Final/mmrso4_GEOS_EmiMIP_[scenarioName]_Modellevel_2000_monthly.nc
+cdo settunits,days -settaxis,2001-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrso4_GEOS_EmiMIP_[scenarioName]_Modellevel_2001_monthly.nc Final/mmrso4_GEOS_EmiMIP_[scenarioName]_Modellevel_2001_monthly.nc
+cdo settunits,days -settaxis,2002-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrso4_GEOS_EmiMIP_[scenarioName]_Modellevel_2002_monthly.nc Final/mmrso4_GEOS_EmiMIP_[scenarioName]_Modellevel_2002_monthly.nc
+cdo settunits,days -settaxis,2003-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrso4_GEOS_EmiMIP_[scenarioName]_Modellevel_2003_monthly.nc Final/mmrso4_GEOS_EmiMIP_[scenarioName]_Modellevel_2003_monthly.nc
+cdo settunits,days -settaxis,2004-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrso4_GEOS_EmiMIP_[scenarioName]_Modellevel_2004_monthly.nc Final/mmrso4_GEOS_EmiMIP_[scenarioName]_Modellevel_2004_monthly.nc
+cdo settunits,days -settaxis,2005-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrso4_GEOS_EmiMIP_[scenarioName]_Modellevel_2005_monthly.nc Final/mmrso4_GEOS_EmiMIP_[scenarioName]_Modellevel_2005_monthly.nc
 
 for file in mmrbc*; do ncap2 -O -s "lev=0" $file $file; done
 for file in mmrbc*; do ncap2 -O -s 'lev[lev]=lev' $file $file; done
@@ -658,12 +659,12 @@ for file in mmrbc*; do ncatted -O -a long_name,lev,c,c,"hybrid sigma pressure co
 for file in mmrbc*; do ncatted -O -a formula,lev,c,c,"p(n,k,j,i) = hyam(k)*p0 + hybm(k)*ps(n,j,i)" $file $file; done
 for file in mmrbc*; do ncatted -O -a formula_terms,lev,c,c,"a: hyam b: hybm ps: ps p0: p0" $file $file; done
 
-cdo settunits,days -settaxis,2000-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrbc_GEOS_EmiMIP_bc-no-season_Modellevel_2000_monthly.nc Final/mmrbc_GEOS_EmiMIP_bc-no-season_Modellevel_2000_monthly.nc
-cdo settunits,days -settaxis,2001-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrbc_GEOS_EmiMIP_bc-no-season_Modellevel_2001_monthly.nc Final/mmrbc_GEOS_EmiMIP_bc-no-season_Modellevel_2001_monthly.nc
-cdo settunits,days -settaxis,2002-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrbc_GEOS_EmiMIP_bc-no-season_Modellevel_2002_monthly.nc Final/mmrbc_GEOS_EmiMIP_bc-no-season_Modellevel_2002_monthly.nc
-cdo settunits,days -settaxis,2003-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrbc_GEOS_EmiMIP_bc-no-season_Modellevel_2003_monthly.nc Final/mmrbc_GEOS_EmiMIP_bc-no-season_Modellevel_2003_monthly.nc
-cdo settunits,days -settaxis,2004-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrbc_GEOS_EmiMIP_bc-no-season_Modellevel_2004_monthly.nc Final/mmrbc_GEOS_EmiMIP_bc-no-season_Modellevel_2004_monthly.nc
-cdo settunits,days -settaxis,2005-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrbc_GEOS_EmiMIP_bc-no-season_Modellevel_2005_monthly.nc Final/mmrbc_GEOS_EmiMIP_bc-no-season_Modellevel_2005_monthly.nc
+cdo settunits,days -settaxis,2000-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrbc_GEOS_EmiMIP_[scenarioName]_Modellevel_2000_monthly.nc Final/mmrbc_GEOS_EmiMIP_[scenarioName]_Modellevel_2000_monthly.nc
+cdo settunits,days -settaxis,2001-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrbc_GEOS_EmiMIP_[scenarioName]_Modellevel_2001_monthly.nc Final/mmrbc_GEOS_EmiMIP_[scenarioName]_Modellevel_2001_monthly.nc
+cdo settunits,days -settaxis,2002-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrbc_GEOS_EmiMIP_[scenarioName]_Modellevel_2002_monthly.nc Final/mmrbc_GEOS_EmiMIP_[scenarioName]_Modellevel_2002_monthly.nc
+cdo settunits,days -settaxis,2003-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrbc_GEOS_EmiMIP_[scenarioName]_Modellevel_2003_monthly.nc Final/mmrbc_GEOS_EmiMIP_[scenarioName]_Modellevel_2003_monthly.nc
+cdo settunits,days -settaxis,2004-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrbc_GEOS_EmiMIP_[scenarioName]_Modellevel_2004_monthly.nc Final/mmrbc_GEOS_EmiMIP_[scenarioName]_Modellevel_2004_monthly.nc
+cdo settunits,days -settaxis,2005-01-01,00:00,1month -setzaxis,../../GEOS_zaxis mmrbc_GEOS_EmiMIP_[scenarioName]_Modellevel_2005_monthly.nc Final/mmrbc_GEOS_EmiMIP_[scenarioName]_Modellevel_2005_monthly.nc
 
 for file in so2*; do ncap2 -O -s "lev=0" $file $file; done
 for file in so2*; do ncap2 -O -s 'lev[lev]=lev' $file $file; done
@@ -672,12 +673,19 @@ for file in so2*; do ncatted -O -a long_name,lev,c,c,"hybrid sigma pressure coor
 for file in so2*; do ncatted -O -a formula,lev,c,c,"p(n,k,j,i) = hyam(k)*p0 + hybm(k)*ps(n,j,i)" $file $file; done
 for file in so2*; do ncatted -O -a formula_terms,lev,c,c,"a: hyam b: hybm ps: ps p0: p0" $file $file; done
 
-cdo settunits,days -settaxis,2000-01-01,00:00,1month -setzaxis,../../GEOS_zaxis so2_GEOS_EmiMIP_bc-no-season_Modellevel_2000_monthly.nc Final/so2_GEOS_EmiMIP_bc-no-season_Modellevel_2000_monthly.nc
-cdo settunits,days -settaxis,2001-01-01,00:00,1month -setzaxis,../../GEOS_zaxis so2_GEOS_EmiMIP_bc-no-season_Modellevel_2001_monthly.nc Final/so2_GEOS_EmiMIP_bc-no-season_Modellevel_2001_monthly.nc
-cdo settunits,days -settaxis,2002-01-01,00:00,1month -setzaxis,../../GEOS_zaxis so2_GEOS_EmiMIP_bc-no-season_Modellevel_2002_monthly.nc Final/so2_GEOS_EmiMIP_bc-no-season_Modellevel_2002_monthly.nc
-cdo settunits,days -settaxis,2003-01-01,00:00,1month -setzaxis,../../GEOS_zaxis so2_GEOS_EmiMIP_bc-no-season_Modellevel_2003_monthly.nc Final/so2_GEOS_EmiMIP_bc-no-season_Modellevel_2003_monthly.nc
-cdo settunits,days -settaxis,2004-01-01,00:00,1month -setzaxis,../../GEOS_zaxis so2_GEOS_EmiMIP_bc-no-season_Modellevel_2004_monthly.nc Final/so2_GEOS_EmiMIP_bc-no-season_Modellevel_2004_monthly.nc
-cdo settunits,days -settaxis,2005-01-01,00:00,1month -setzaxis,../../GEOS_zaxis so2_GEOS_EmiMIP_bc-no-season_Modellevel_2005_monthly.nc Final/so2_GEOS_EmiMIP_bc-no-season_Modellevel_2005_monthly.nc
+cdo settunits,days -settaxis,2000-01-01,00:00,1month -setzaxis,../GEOS_zaxis so2_GEOS_EmiMIP_[scenarioName]_Modellevel_2000_monthly.nc Final/so2_GEOS_EmiMIP_[scenarioName]_Modellevel_2000_monthly.nc
+cdo settunits,days -settaxis,2001-01-01,00:00,1month -setzaxis,../GEOS_zaxis so2_GEOS_EmiMIP_[scenarioName]_Modellevel_2001_monthly.nc Final/so2_GEOS_EmiMIP_[scenarioName]_Modellevel_2001_monthly.nc
+cdo settunits,days -settaxis,2002-01-01,00:00,1month -setzaxis,../GEOS_zaxis so2_GEOS_EmiMIP_[scenarioName]_Modellevel_2002_monthly.nc Final/so2_GEOS_EmiMIP_[scenarioName]_Modellevel_2002_monthly.nc
+cdo settunits,days -settaxis,2003-01-01,00:00,1month -setzaxis,../GEOS_zaxis so2_GEOS_EmiMIP_[scenarioName]_Modellevel_2003_monthly.nc Final/so2_GEOS_EmiMIP_[scenarioName]_Modellevel_2003_monthly.nc
+cdo settunits,days -settaxis,2004-01-01,00:00,1month -setzaxis,../GEOS_zaxis so2_GEOS_EmiMIP_[scenarioName]_Modellevel_2004_monthly.nc Final/so2_GEOS_EmiMIP_[scenarioName]_Modellevel_2004_monthly.nc
+cdo settunits,days -settaxis,2005-01-01,00:00,1month -setzaxis,../GEOS_zaxis so2_GEOS_EmiMIP_[scenarioName]_Modellevel_2005_monthly.nc Final/so2_GEOS_EmiMIP_[scenarioName]_Modellevel_2005_monthly.nc
+```
+
+Remove unnecessary directories
+```
+cd Final
+mv *monthly.nc ../..
+rm -r 3D_var
 ```
 
 Fix `od550aer` (repeat for each experiment):
