@@ -282,6 +282,24 @@ done
 ```
 
 ### GFDL
+Replace dots with underscores in filenames, leaving extension intact:
+```
+perl -e '
+         @files = grep {-f} glob "*";
+         @old_files = @files;
+         map {
+              s!(.*)\.!$1/!;
+              s!\.!_!g;
+              s!/!.!
+             } @files;
+         rename $old_files[$_] => $files[$_] for (0..$#files)
+        '
+```
+
+Print filenames and then rename:
+`ls /dir > file.txt`
+`awk -F[_.] '{print "mv " $0 " " $4 "_GFDL_[experiment]_" $3 ".nc"}' < names.txt | sh -v`
+
 For 3D variables, add variable `ps` (surface air pressure):
 ```
 for fl in `ls /pithos/projects/ceds/emissions-mip/rawdata_phase1/GFDL/base/mmrbc_*.nc` ; do
