@@ -296,8 +296,8 @@ perl -e '
         '
 ```
 
-Print filenames and then rename:
-`ls /dir > file.txt`\
+Print filenames and then rename:\
+`ls *.nc > names.txt`\
 `awk -F[_.] '{print "mv " $0 " " $4 "_GFDL_[experiment]_" $3 ".nc"}' < names.txt | sh -v`
 
 For 3D variables, add variable `ps` (surface air pressure):
