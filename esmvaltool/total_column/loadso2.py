@@ -145,6 +145,6 @@ class DerivedVariable(DerivedVariableBase):
                 message='Collapsing a non-contiguous coordinate')
             loadso2_cube = loadso2_cube.collapsed('air_pressure', iris.analysis.SUM)
         loadso2_cube.units = (so2_cube.units * p_layer_widths.units /
-                          STANDARD_GRAVITY_UNIT * MW_SO2_UNIT_UNIT / MW_AIR_UNIT)
+                          STANDARD_GRAVITY_UNIT * MW_SO2_UNIT / MW_AIR_UNIT)
 
         return loadso2_cube
