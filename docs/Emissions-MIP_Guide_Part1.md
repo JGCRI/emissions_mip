@@ -368,8 +368,8 @@ Before running the recipe, make sure to overwrite the following files in your pe
 - */people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvaltool/config-references.yml*
 
 ## Obtaining total column variables
-ESMValTool offers the ability to derive total column variables by vertically integrating the 3D variable over its layers. Details on this module can be found in the [tutorial](https://docs.esmvaltool.org/projects/ESMValCore/en/latest/recipe/preprocessor.html#variable-derivation). This is particularly useful for generating the total column BC and SO4 variables (i.e., `loadbc` and `loadso4`). The steps for setting up and running this tool are as follows:
-* Copy files *_baseclass.py*, *_shared.py*, *loadso4.py*, and *loadbc.py* from the repo (https://github.com/JGCRI/emissions_mip/tree/master/esmvaltool/total_column) to */qfs/people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvalcore/preprocessor/_derive*
+ESMValTool offers the ability to derive total column variables by vertically integrating the 3D variable over its layers. Details on this module can be found in the [tutorial](https://docs.esmvaltool.org/projects/ESMValCore/en/latest/recipe/preprocessor.html#variable-derivation). This is particularly useful for generating the total column BC, SO4, and SO2 variables (i.e., `loadbc`, `loadso4`, `loadso2`). The steps for setting up and running this tool are as follows:
+* Copy files *_baseclass.py*, *_shared.py*, *loadso4.py*, *loadso2.py*, and *loadbc.py* from the repo (https://github.com/JGCRI/emissions_mip/tree/master/esmvaltool/total_column) to */qfs/people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvalcore/preprocessor/_derive*
 * Add new variable `loadbc` to the CMIP6 Emon table here */qfs/people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvalcore/cmor/tables/cmip6/Tables/CMIP6_Emon.json* by appending the following chunk:
 ```
         "loadbc": {
@@ -389,12 +389,30 @@ ESMValTool offers the ability to derive total column variables by vertically int
             "valid_max": "", 
             "ok_min_mean_abs": "", 
             "ok_max_mean_abs": ""
+        }, 
+        "loadso2": {
+            "frequency": "mon", 
+            "modeling_realm": "atmos", 
+            "standard_name": "atmosphere_mass_content_of_sulfur_dioxide", 
+            "units": "kg m-2", 
+            "cell_methods": "area: time: mean", 
+            "cell_measures": "area: areacella", 
+            "long_name": "Load of Sulfur Dioxide", 
+            "comment": "The total mass of sulfur dioxide per unit area.", 
+            "dimensions": "longitude latitude time", 
+            "out_name": "loadso2", 
+            "type": "real", 
+            "positive": "", 
+            "valid_min": "", 
+            "valid_max": "", 
+            "ok_min_mean_abs": "", 
+            "ok_max_mean_abs": ""
         }
 ```
 * Running the diagnostic requires the 3D variable of interest (e.g., `loadbc`) as well as the pressure variable `ps` (netCDF file)
 * If the 3D variable was generated using the e3sm_to_cmip tool (e.g., CESM1, E3SM) remove *standard name* of the pressure parameter (*ps*) from the 3D variable file. For example, for `mmrso4` this would look like:\
 `ncatted -O -a standard_name,ps,d,c,"surface_air_pressure" mmrso4_AERmon_CESM-1-0_nudge-SO2-no-seas_r1i1p1f1_gr_199901-201412.nc`
-* A sample recipe for generating `loadbc` and `loadso4` for the GISS reference case would look something like this (note the `monthly_statistics` in the preprocessors section):
+* A sample recipe for generating `loadbc`, `loadso4`, and `loadso2` for the GISS reference case would look something like this (note the `monthly_statistics` in the preprocessors section):
 ```
 documentation:
   description: Analysis of reference model outputs for Emissions-MIP
@@ -430,6 +448,13 @@ diagnostics:
     realms:
       - atmos
     variables:
+      loadbc:
+        preprocessor: preproc_nolev
+        derive: true
+        force_derivation: true
+        mip: Emon
+        start_year: 2000
+        end_year: 2004
       loadso4:
         preprocessor: preproc_nolev
         derive: true
@@ -437,7 +462,7 @@ diagnostics:
         mip: Emon
         start_year: 2000
         end_year: 2004
-      loadbc:
+      loadso2:
         preprocessor: preproc_nolev
         derive: true
         force_derivation: true
