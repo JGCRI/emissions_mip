@@ -475,4 +475,5 @@ diagnostics:
         quickplot:
           plot_type: pcolormesh
 ```
-* The resulting total column files can be found in the *preproc* folder of the designated ESMValTool ouput directory. Rename the netCDF file as needed and move to the appropriate model directory.
+* The diagnostic may fail when it attempts to execute the plotting script (i.e., *initial_analysis-giss.py*), but this is fine. As long as the total column netCDF files are present in the *preproc* folder of the designated ESMValTool ouput directory (e.g., */pic/projects/GCAM/Emissions-MIP/esmvaltool_output/.../preproc/Emissions_MIP_analysis/loadbc*).
+* Rename the netCDF file as needed and move to the appropriate model directory.
