@@ -1,4 +1,4 @@
-# Emissions-MIP Guide
+# Emissions-MIP Guide: Setup and Overview
 This guide is a comprehensive list of instructions on how to perform various data processing tasks for the Emissions-MIP project. There are three components to this process: CMORizing model output data (if needed) using the e3sm_to_cmip tool, processing and extracting model data using ESMValTool, and plotting the results from ESMValTool using R.
 
 **Note:** As of the writing of this guide, there already exists a working copy of the CMOR converter (e3sm_to_cmip) and ESMValTool on a shared directory on PIC (/pic/projects/GCAM/Emissions-MIP). So the instructions below for *setting up* these tools won’t be applicable unless you want to setup them up in your own directory. (For ESMValTool however, some of the setup steps will be required in either case. These include installing the configuration file, making the required changes to the different configuration files, and the new shapefile changes.)
