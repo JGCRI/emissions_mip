@@ -21,12 +21,17 @@
     <td colspan="6">dryso2, wetso2, cltc</td>
   </tr>
   <tr>
+    <td>CESM2</td>
+    <td colspan="6"></td>
+  </tr>
+  <tr>
     <td>GISS</td>
-    <td colspan="6">loadso2</td>
+    <td>loadso2</td>
+    <td colspan="5">loadbc, loadso2</td>
   </tr>
   <tr>
     <td>NorESM</td>
-    <td colspan="6">cltc</td>
+    <td colspan="6">cltc, loadso2</td>
   </tr>
   <tr>
     <td>GFDL</td>
@@ -46,7 +51,7 @@
   </tr>
   <tr>
     <td>UKESM</td>
-    <td colspan="6">cl</td>
+    <td colspan="6">cl, loadbc, loadso2</td>
   </tr>
   <tr>
     <td>CAM5-ATRAS</td>
