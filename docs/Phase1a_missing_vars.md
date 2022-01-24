@@ -21,12 +21,16 @@
     <td colspan="6">dryso2, wetso2, cltc</td>
   </tr>
   <tr>
+    <td>GISS</td>
+    <td colspan="6">loadso2</td>
+  </tr>
+  <tr>
     <td>NorESM</td>
     <td colspan="6">cltc</td>
   </tr>
   <tr>
     <td>GFDL</td>
-    <td colspan="6">cl</td>
+    <td colspan="6">cl, loadbc, loadso2</td>
   </tr>
   <tr>
     <td>OsloCTM3</td>
@@ -38,7 +42,7 @@
   </tr>
   <tr>
     <td>GEOS</td>
-    <td colspan="6">clivi</td>
+    <td colspan="6">clivi, loadbc, loadso2</td>
   </tr>
   <tr>
     <td>UKESM</td>
@@ -46,7 +50,7 @@
   </tr>
   <tr>
     <td>CAM5-ATRAS</td>
-    <td colspan="6">bldep</td>
+    <td colspan="6">bldep, ps, loadso2</td>
   </tr>
 </tbody>
 </table>
