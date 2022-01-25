@@ -39,7 +39,7 @@
   </tr>
   <tr>
     <td>OsloCTM3</td>
-    <td colspan="6">bldep</td>
+    <td colspan="6">bldep, loadbc, loadso2</td>
   </tr>
   <tr>
     <td>MIROC</td>
