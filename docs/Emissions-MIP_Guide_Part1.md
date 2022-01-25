@@ -122,7 +122,7 @@ ncclimo -7 --dfl_lvl=1 --ypf=6 --var=bc_a1,bc_a4,bc_c1,bc_c4,so4_a1,so4_c1,so4_a
 ```
 cd native_grid
 
-for fl in `ls *.nc ; do
+for fl in `ls *.nc` ; do
 ncap2 -s ' defdim("vrt_nbr",2); lon_bnds=make_bounds(lon,$vrt_nbr); lat_bnds=make_bounds(lat,$vrt_nbr);' ${fl} ../native_add_bounds/${fl}
 done
 ```
