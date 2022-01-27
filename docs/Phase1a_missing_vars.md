@@ -14,15 +14,15 @@
 <tbody>
   <tr>
     <td>E3SM</td>
-    <td colspan="6">dms (DMS_SRF available instead)</td>
+    <td colspan="6">dms (DMS_SRF available instead), loadbc, loadso2, loadso4</td>
   </tr>
   <tr>
     <td>CESM1</td>
-    <td colspan="6">dryso2, wetso2, cltc</td>
+    <td colspan="6">dryso2, wetso2, cltc, loadbc, loadso2, loadso4</td>
   </tr>
   <tr>
     <td>CESM2</td>
-    <td colspan="6"></td>
+    <td colspan="6">loadbc, loadso2, loadso4</td>
   </tr>
   <tr>
     <td>GISS</td>
