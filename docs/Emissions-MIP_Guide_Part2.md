@@ -326,7 +326,7 @@ Change directory to experiment folder:\
 Generate a file with unique variable names (manually remove 3D and extraneous variables – only need to do this once, then use the same file for the other experiments):\
 `ls | awk -F'[_.]' '{print $3}' | sort | uniq > 2D_vars.txt`
 
-Feed each variable into the cdo merge command for each year:
+Manually move 2D_vars.txt to /UKESM. Feed each variable into the cdo merge command for each year:
 ```
 awk -F[_] '{print "cdo merge 2000jan_UKESM1_" $0 ".nc 2000feb_UKESM1_" $0 ".nc 2000mar_UKESM1_" $0 ".nc 2000apr_UKESM1_" $0 ".nc 2000may_UKESM1_" $0 ".nc 2000jun_UKESM1_" $0 ".nc 2000jul_UKESM1_" $0 ".nc 2000aug_UKESM1_" $0 ".nc 2000sep_UKESM1_" $0 ".nc 2000oct_UKESM1_" $0 ".nc 2000nov_UKESM1_" $0 ".nc 2000dec_UKESM1_" $0 ".nc ../base_merge/" $0 "_UKESM_EmiMIP_base_2000_monthly.nc"}' < ../2D_vars.txt | sh -v
 
