@@ -41,7 +41,7 @@ The table below provides a high-level overview of the steps taken to prepare mod
     </tr>
     <tr>
       <td rowspan=1>CESM2-WACCM</td>
-      <td rowspan=8>Raw: /pic/dtn/observers <br> Backup: /pithos/projects/ceds/emissions-mip/rawdata_phase1 <br> Final: /pic/projects/GCAM/Emissions-MIP/models</td>
+      <td rowspan=9>Raw: /pic/dtn/observers <br> Backup: /pithos/projects/ceds/emissions-mip/rawdata_phase1 <br> Final: /pic/projects/GCAM/Emissions-MIP/models</td>
       <td>
         <ul>
           <li>Multiplied <i>wetbc</i>, <i>wetso2</i>, and <i>wetso4</i> by -1 to get correct sign (currently handled in the R plotting scripts)</li>
@@ -50,7 +50,7 @@ The table below provides a high-level overview of the steps taken to prepare mod
     </tr>
     <tr>
       <td rowspan=1>MIROC-SPRINTARS</td>
-      <td rowspan=8>No</td>
+      <td rowspan=9>No</td>
       <td>
         <ul>
           <li>Organized files by experiment and renamed files for ESMValTool compatibility (e.g., &lt;variable&gt;_&lt;model&gt;_&lt;experiment&gt;_&lt;years&gt;.nc)</li>
@@ -118,6 +118,14 @@ The table below provides a high-level overview of the steps taken to prepare mod
     </tr>
     <tr>
       <td rowspan=1>GEOS</td>
+      <td>
+        <ul>
+          <li>See entire list of commands below</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan=1>CAM5-ATRAS</td>
       <td>
         <ul>
           <li>See entire list of commands below</li>
@@ -728,4 +736,89 @@ Fix `od550aer` (repeat for each experiment):
 ```
 for fl in `ls od550aer*.nc`; do ncks -A ../wavelength.nc ${fl}; done
 for fl in `ls od550aer*.nc`; do ncatted -O -a coordinates,od550aer,c,c,"wavelength" ${fl}; done
+```
+
+### CAM5-ATRAS
+Make empty folders that will hold the renamed files for each experiment:
+```
+mkdir renamed
+cd renamed
+mkdir base  bc-no-season  high-so4  no-so4  so2-at-height  so2-no-season 
+```
+
+Go into each experiment folder containing the raw data files and do a rename and move to new folder. For example for base (delete the areacella variable from each folder since it’s not needed):
+```
+cd ../base
+ls *.nc > names.txt
+awk -F[_] '{print "mv " $0 " ../renamed/" $4 "/" $5 "_" $2 "_EmiMIP_" $4 "_" $6 "_" $7 "_" $8}' < names.txt | sh -v
+```
+
+Follow the steps below to correct the 3D variables for each experiment. Manually move the 3D variables to “3D” directory and then move to that directory:
+```
+mkdir 3D 3D_fix
+cd 3D
+```
+
+Overwrite z-axis with height level in descending order starting from surface (i.e. 30, 29, 28,..., 1). This is not physically accurate but allows for consistency in ESMValTool pressure level extraction protocol.
+```
+for fl in `ls *.nc` ; do
+  cdo setzaxis,../../CAM5-ATRAS_zaxis ${fl} ../3D_fix/${fl}
+done
+```
+
+Correct the standard name for alt16 coordinate:
+```
+cd ../3D_fix
+
+for fl in `ls *.nc` ; do
+  ncatted -O -a standard_name,alt16,m,c,"altitude" ${fl} ../${fl}
+done
+```
+
+Remove 3D folders:
+```
+cd ../
+rm -rf 3D 
+rm -rf 3D_fix
+```
+
+Format time dimension correctly for each year:
+```
+mkdir base_timefix bc-no-season_timefix high-so4_timefix no-so4_timefix so2-at-height_timefix so2-no-season_timefix
+
+cd ./base
+
+for fl in `ls *2000_monthly.nc` ; do
+  cdo -L settunits,days -settaxis,2000-01-01,00:00,1month ${fl} ../base_timefix/${fl}
+done
+
+for fl in `ls *2001_monthly.nc` ; do
+  cdo -L settunits,days -settaxis,2001-01-01,00:00,1month ${fl} ../base_timefix/${fl}
+done
+
+for fl in `ls *2002_monthly.nc` ; do
+  cdo -L settunits,days -settaxis,2002-01-01,00:00,1month ${fl} ../base_timefix/${fl}
+done
+
+for fl in `ls *2003_monthly.nc` ; do
+  cdo -L settunits,days -settaxis,2003-01-01,00:00,1month ${fl} ../base_timefix/${fl}
+done
+
+for fl in `ls *2004_monthly.nc` ; do
+  cdo -L settunits,days -settaxis,2004-01-01,00:00,1month ${fl} ../base_timefix/${fl}
+done
+
+for fl in `ls *2005_monthly.nc` ; do
+  cdo -L settunits,days -settaxis,2005-01-01,00:00,1month ${fl} ../base_timefix/${fl}
+done
+```
+
+Add wavelength variable to od550aer:
+```
+cd ./base
+
+for fl in `ls od550aer*.nc` ; do
+  ncks -A ../wavelength.nc ${fl}
+  ncatted -O -a coordinates,od550aer,c,c,"wavelength" ${fl}
+done
 ```
