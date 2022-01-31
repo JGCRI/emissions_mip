@@ -75,6 +75,7 @@ The table below provides a high-level overview of the steps taken to prepare mod
           <li>emibc_OsloCTM3v1.02-EmiMIP_SO2-NO-SEASON is actually the BC-NO-SEASON file</li>
           <li>Added units of “kg m-2 s-1” to <i>emibc</i></li>
           <li>Removed ncomp dimension from <i>emibc</i> and <i>emiso2</i></li>
+          <li>Correct the units for latitude, longitude and burden for <i>loadso4</i></li>
           <li>For 3D variables (e.g., <i>so2</i>, <i>mmrso4</i>, <i>mmrbc</i>):
             <ul>
               <li>changed ps long_name to "Surface Air Pressure"</li>
