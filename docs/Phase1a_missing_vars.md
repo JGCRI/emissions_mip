@@ -46,7 +46,7 @@
   </tr>
   <tr>
     <td>GEOS</td>
-    <td colspan="6">clivi, loadbc, loadso2</td>
+    <td colspan="6">clivi</td>
   </tr>
   <tr>
     <td>UKESM</td>
