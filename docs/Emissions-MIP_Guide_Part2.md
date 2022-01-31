@@ -75,7 +75,7 @@ The table below provides a high-level overview of the steps taken to prepare mod
           <li>emibc_OsloCTM3v1.02-EmiMIP_SO2-NO-SEASON is actually the BC-NO-SEASON file</li>
           <li>Added units of “kg m-2 s-1” to <i>emibc</i></li>
           <li>Removed ncomp dimension from <i>emibc</i> and <i>emiso2</i></li>
-          <li>For 3D variables (<i>so2</i>, <i>mmrso4</i>, <i>mmrbc</i>):
+          <li>For 3D variables (e.g., <i>so2</i>, <i>mmrso4</i>, <i>mmrbc</i>):
             <ul>
               <li>changed ps long_name to "Surface Air Pressure"</li>
               <li>changed lev formula to "p(n,k,j,i) = ap(k) + b(k)*ps(n,j,i)"</li>
@@ -268,16 +268,33 @@ Below are examples of model-specific fixes needed prior to running through ESMVa
 ### NorESM2
 For variable `od550aer`, change units from null to 1:
 ```
-for fl in `ls /pithos/projects/ceds/emissions-mip/rawdata_phase1/NorESM2/base/od550aer_*.nc` ; do
+for fl in `ls /pic/projects/GCAM/Emissions-MIP/models/NorESM2/base/od550aer_*.nc` ; do
   ncatted -O -a units,ap_bnds,m,c,"1" ${fl}
 done
 ```
 
 ### OsloCTM3
-For 3D variables, change lev formula to "p(n,k,j,i) = ap(k) + b(k)*ps(n,j,i)":
+For 3D variables, make the following changes related to the pressure coordinate variables:
 ```
-for fl in `ls /pithos/projects/ceds/emissions-mip/rawdata_phase1/OsloCTM3/base/mmrbc_*.nc` ; do
+for fl in `ls /pic/projects/GCAM/Emissions-MIP/models/OsloCTM3/base/mmrbc_*.nc` ; do
+  ncatted -O -a long_name,ps,m,c,"Surface Air Pressure" ${fl}
   ncatted -O -a formula,lev,m,c,"p(n,k,j,i) = ap(k) + b(k)*ps(n,j,i)" ${fl}
+  ncatted -O -a formula_terms,lev,m,c,"ap: ap b: b ps: ps" ${fl}
+  ncatted -O -a standard_name,lev,m,c,"atmosphere_hybrid_sigma_pressure_coordinate" ${fl}
+  ncrename -h -O -v ap_bnd,ap_bnds ${fl}
+  ncrename -h -O -v b_bnd,b_bnds ${fl}
+  ncatted -O -a units,ap,c,c,"hPa" ${fl}
+  ncatted -O -a units,ap_bnds,c,c,"hPa" ${fl}
+  ncatted -O -a positive,lev,c,c,"down" ${fl}
+done
+```
+
+For variable `loadso4`, change the following units:
+```
+for fl in `ls /pic/projects/GCAM/Emissions-MIP/models/OsloCTM3/base/loadso4_*.nc` ; do
+  ncatted -O -a units,lat,m,c,"degrees_north" ${fl}
+  ncatted -O -a units,lon,m,c,"degrees_east" ${fl}
+  ncatted -O -a units,loadso4,m,c,"kg m-2" ${fl}
 done
 ```
 
@@ -302,14 +319,14 @@ Print filenames and then rename:\
 
 For 3D variables, add variable `ps` (surface air pressure):
 ```
-for fl in `ls /pithos/projects/ceds/emissions-mip/rawdata_phase1/GFDL/base/mmrbc_*.nc` ; do
+for fl in `ls /pic/projects/GCAM/Emissions-MIP/models/GFDL/base/mmrbc_*.nc` ; do
   ncks -A ps.nc ${fl}
 done
 ```
 
 Rename variable `dryso4_old` to `dryso4`:
 ```
-for fl in `ls /pithos/projects/ceds/emissions-mip/rawdata_phase1/GFDL/base/dryso4_*.nc` ; do
+for fl in `ls /pic/projects/GCAM/Emissions-MIP/models/GFDL/base/dryso4_*.nc` ; do
   ncrename -h -O -v dryso4_old,dryso4 ${fl}
 done
 ```
