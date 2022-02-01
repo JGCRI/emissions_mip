@@ -14,7 +14,7 @@
 <tbody>
   <tr>
     <td>E3SM</td>
-    <td colspan="6">dms (DMS_SRF available instead)</td>
+    <td colspan="6">dms (surface level dms available instead: srfdms)</td>
   </tr>
   <tr>
     <td>CESM1</td>
@@ -30,7 +30,7 @@
   </tr>
   <tr>
     <td>NorESM</td>
-    <td colspan="6">cltc, loadso2</td>
+    <td colspan="6">cltc</td>
   </tr>
   <tr>
     <td>GFDL</td>
@@ -38,7 +38,7 @@
   </tr>
   <tr>
     <td>OsloCTM3</td>
-    <td colspan="6">bldep, loadbc, loadso2</td>
+    <td colspan="6">bldep, loadbc, loadso2<br><i>LW radiation and cloud variables unavailable (no change): rsdt, rlut, rlutcs, clt, cltc, cl, clivi</i></td>
   </tr>
   <tr>
     <td>MIROC</td>
