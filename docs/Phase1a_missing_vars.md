@@ -54,7 +54,7 @@
   </tr>
   <tr>
     <td>CAM5-ATRAS</td>
-    <td colspan="6">cltc, loadso2</td>
+    <td colspan="6">cltc</td>
   </tr>
 </tbody>
 </table>
