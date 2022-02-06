@@ -11,34 +11,18 @@ documentation:
     - emissions_mip
 
 datasets:
-        - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
-                exp: nudge-ref, ensemble: r1i1p1f1, grid: gr}
-        - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
-                exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr}
         - {dataset: GISS-nudge, project: CMIP6, activity: AerChemMIP, institute:
-                NASA-GISS, exp: reference, ensemble: r1i1p5f1, grid: gn}
+                NASA-GISS, exp: reference, ensemble: r1i1p5f1, grid: gn, start_year:
+                2000, end_year: 2004}
         - {dataset: GISS-nudge, project: CMIP6, activity: AerChemMIP, institute:
-                NASA-GISS, exp: bc-no-season, ensemble: r1i1p5f1, grid: gn}
-        - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
-                RIAM, exp: BASE, ensemble: r1i1p1f1, grid: gr}
-        - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
-                RIAM, exp: BCS, ensemble: r1i1p1f1, grid: gr}
-        - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
-                exp: base, ensemble: r1i1p1f1, grid: gr}
-        - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
-                exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+                NASA-GISS, exp: bc-no-season, ensemble: r1i1p5f1, grid: gn, start_year:
+                2000, end_year: 2004}
         - {dataset: CESM2-WACCM, project: CMIP6, activity: CMIP, institute: NCAR,
-                exp: nudge-ref, ensemble: r1i1p1f1, grid: gr}
+                exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+                2004}
         - {dataset: CESM2-WACCM, project: CMIP6, activity: CMIP, institute: NCAR,
-                exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr}
-        - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
-                exp: base, ensemble: r1i1p1f1, grid: gr}
-        - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
-                exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
-        - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
-                exp: base, ensemble: r1i1p1f1, grid: gr}
-        - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
-                exp: bc_no_season, ensemble: r1i1p1f1, grid: gr}
+                exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+                end_year: 2004}
 
 preprocessors:
   preproc_mask:
@@ -71,308 +55,1131 @@ diagnostics:
       mmrso4:
         preprocessor: preproc_sfc
         mip: AERmon
-        start_year: 2001
-        end_year: 2004
         additional_datasets:
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year: 2005}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year:
+            2005}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BASE, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BCS, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc_no_season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year:
+            2000, end_year: 2004}
       mmrbc:
         preprocessor: preproc_sfc
         mip: AERmon
-        start_year: 2001
-        end_year: 2004
         additional_datasets:
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year: 2005}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year:
+            2005}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BASE, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BCS, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc_no_season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year:
+            2000, end_year: 2004}
       so2:
         preprocessor: preproc_sfc
         mip: AERmon
-        start_year: 2001
-        end_year: 2004
         additional_datasets:
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year: 2005}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year:
+            2005}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BASE, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BCS, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc_no_season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year:
+            2000, end_year: 2004}
       rlut:
         preprocessor: preproc_nolev
         mip: Amon
-        start_year: 2001
-        end_year: 2004
         additional_datasets:
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year: 2005}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year:
+            2005}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BASE, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BCS, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc_no_season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year:
+            2000, end_year: 2004}
       rsut:
         preprocessor: preproc_nolev
         mip: Amon
-        start_year: 2001
-        end_year: 2004
         additional_datasets:
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year: 2005}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year:
+            2005}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BASE, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BCS, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc_no_season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year:
+            2000, end_year: 2004}
       rsdt:
         preprocessor: preproc_nolev
         mip: Amon
-        start_year: 2001
-        end_year: 2004
         additional_datasets:
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year: 2005}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year:
+            2005}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BASE, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BCS, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc_no_season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year:
+            2000, end_year: 2004}
       rlutcs:
         preprocessor: preproc_nolev
         mip: Amon
-        start_year: 2001
-        end_year: 2004
         additional_datasets:
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year: 2005}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year:
+            2005}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BASE, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BCS, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc_no_season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year:
+            2000, end_year: 2004}
       rsutcs:
         preprocessor: preproc_nolev
         mip: Amon
-        start_year: 2001
-        end_year: 2004
         additional_datasets:
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year: 2005}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year:
+            2005}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BASE, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BCS, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc_no_season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year:
+            2000, end_year: 2004}
       emiso2:
         preprocessor: preproc_nolev
         mip: AERmon
-        start_year: 2001
-        end_year: 2004
         additional_datasets:
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year: 2005}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year:
+            2005}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BASE, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BCS, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc_no_season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year:
+            2000, end_year: 2004}
       emibc:
         preprocessor: preproc_nolev
         mip: AERmon
-        start_year: 2001
-        end_year: 2004
         additional_datasets:
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year: 2005}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year:
+            2005}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BASE, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BCS, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc_no_season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year:
+            2000, end_year: 2004}
       drybc:
         preprocessor: preproc_nolev
         mip: AERmon
-        start_year: 2001
-        end_year: 2004
         additional_datasets:
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year: 2005}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year:
+            2005}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BASE, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BCS, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc_no_season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year:
+            2000, end_year: 2004}
       wetbc:
         preprocessor: preproc_nolev
         mip: AERmon
-        start_year: 2001
-        end_year: 2004
         additional_datasets:
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year: 2005}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year:
+            2005}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BASE, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BCS, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc_no_season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year:
+            2000, end_year: 2004}
       dryso2:
         preprocessor: preproc_nolev
         mip: AERmon
-        start_year: 2001
-        end_year: 2004
         additional_datasets:
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year: 2005}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year:
+            2005}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BASE, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BCS, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc_no_season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year:
+            2000, end_year: 2004}
       wetso2:
         preprocessor: preproc_nolev
         mip: AERmon
-        start_year: 2001
-        end_year: 2004
         additional_datasets:
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year: 2005}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year:
+            2005}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BASE, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BCS, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc_no_season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year:
+            2000, end_year: 2004}
       dryso4:
         preprocessor: preproc_nolev
         mip: AERmon
-        start_year: 2001
-        end_year: 2004
         additional_datasets:
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year: 2005}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year:
+            2005}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BASE, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BCS, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc_no_season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year:
+            2000, end_year: 2004}
       wetso4:
         preprocessor: preproc_nolev
         mip: AERmon
-        start_year: 2001
-        end_year: 2004
         additional_datasets:
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year: 2005}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year:
+            2005}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BASE, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BCS, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc_no_season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year:
+            2000, end_year: 2004}
       od550aer:
         preprocessor: preproc_nolev
         mip: AERmon
-        start_year: 2001
-        end_year: 2004
         additional_datasets:
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year: 2005}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year:
+            2005}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
           - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BASE, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BCS, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc_no_season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year:
+            2000, end_year: 2004}
       cltc:
         preprocessor: preproc_nolev
         mip: AERmon
-        start_year: 2001
-        end_year: 2004
+        additional_datasets:
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BASE, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BCS, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc_no_season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
       clt:
         preprocessor: preproc_nolev
         mip: Amon
-        start_year: 2001
-        end_year: 2004
         additional_datasets:
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
           - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
-            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr}
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: base, ensemble: r1i1p1f1, grid: gr}
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year: 2005}
           - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
-            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr}
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year:
+            2005}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BASE, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BCS, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc_no_season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year:
+            2000, end_year: 2004}
+      cl:
+        preprocessor: preproc_sfc
+        mip: Amon
+        additional_datasets:
+          - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year: 2005}
+          - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year:
+            2005}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year:
+            2000, end_year: 2004}
+      clivi:
+        preprocessor: preproc_nolev
+        mip: Amon
+        additional_datasets:
+          - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year: 2005}
+          - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year:
+            2005}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BASE, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BCS, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc_no_season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year:
+            2000, end_year: 2004}
+      dms:
+        preprocessor: preproc_sfc
+        mip: AERmon
+        additional_datasets:
+          - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year: 2005}
+          - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year:
+            2005}
+          - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BASE, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BCS, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc_no_season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year:
+            2000, end_year: 2004}
+      loadso4:
+        preprocessor: preproc_nolev
+        mip: Emon
+        additional_datasets:
+          - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CESM-1-0, project: CMIP6, activity: CMIP, institute: PNNL-WACCEM,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year: 2005}
+          - {dataset: NorESM2, project: NorESM2, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2001, end_year:
+            2005}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-ref, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: E3SM-1-0, project: CMIP6, activity: CMIP, institute: E3SM-Project,
+            exp: nudge-BC-no-seas, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: OsloCTM3, project: OsloCTM3, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GFDL, project: GFDL, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BASE, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: MIROC-SPRINTARS, project: MIROC, activity: EmiMIP, institute:
+            RIAM, exp: BCS, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: GEOS, project: GEOS, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year: 2004}
+          - {dataset: UKESM, project: UKESM, activity: EmiMIP, institute: E3SM-Project,
+            exp: bc_no_season, ensemble: r1i1p1f1, grid: gr, start_year: 2000, end_year:
+            2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: base, ensemble: r1i1p1f1, grid: gr, start_year: 2000,
+            end_year: 2004}
+          - {dataset: CAM5-ATRAS, project: CAM5-ATRAS, activity: EmiMIP, institute:
+            E3SM-Project, exp: bc-no-season, ensemble: r1i1p1f1, grid: gr, start_year:
+            2000, end_year: 2004}
     scripts:
       initial_analysis_output:
         script: /pic/projects/GCAM/Emissions-MIP/ESMValTool/esmvaltool/diag_scripts/emissions_mip/initial_analysis-giss-diff.py
