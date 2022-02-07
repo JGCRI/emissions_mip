@@ -351,7 +351,7 @@ awk -F[_] '{print "cp -R ../esmvaltool_output/" $0 "/plots/Emissions_MIP_analysi
 After all recipes have been evaluated by ESMValTool, the output .csv files are used to generate timeseries and summary plots. The current results are stored on our [JGCRI/Emissions-MIP_Data](https://github.com/JGCRI/Emissions-MIP_Data) GitHub page. Browse the site for more details on generating plots.
 
 ## Running the recipe generator scripts
-All recipes for Phase 1 and the scripts used to generate them are stored on the [JGCRI/recipe-generator](https://github.com/JGCRI/recipe-generator) GitHub page.
+All recipes for Phase 1 and the scripts used to generate them are stored on this page: [recipe-generator](https://github.com/JGCRI/emissions_mip/tree/master/esmvaltool/recipe_generator).
 
 The recipe files are written in yml language and is essentially a list of instructions for ESMValTool to process the model data and produce various outputs. We generate the recipe files using a series of R scripts. These scripts use the yml R package to build the recipe in the format required by ESMValTool. There are three types of recipe outputs: reference, difference, and percent difference. A set of these recipes are generated for each region.
 
