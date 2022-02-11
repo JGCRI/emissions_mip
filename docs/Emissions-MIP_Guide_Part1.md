@@ -221,6 +221,17 @@ GEOS:
   input_file: '{short_name}_{dataset}_{activity}_{exp}*.nc'
   output_file: '{project}_{dataset}_{mip}_{exp}_{ensemble}_{short_name}'
   cmor_type: 'CMIP6'
+  
+CAM5-ATRAS:
+  cmor_strict: false
+  input_dir:
+    default: '/'
+    BADC: '{activity}/{institute}/{dataset}/{exp}/{ensemble}/{mip}/{short_name}/{grid}/{latestversion}'
+    DKRZ: '{activity}/{institute}/{dataset}/{exp}/{ensemble}/{mip}/{short_name}/{grid}/{latestversion}'
+    ETHZ: '{exp}/{mip}/{short_name}/{dataset}/{ensemble}/{grid}/'
+  input_file: '{short_name}_{dataset}_{activity}_{exp}*.nc'
+  output_file: '{project}_{dataset}_{mip}_{exp}_{ensemble}_{short_name}'
+  cmor_type: 'CMIP6'
 ```
 
 Make changes to the configuration file */qfs/people/[USER]/.esmvaltool/config-user.yml*:
@@ -235,6 +246,7 @@ Make changes to the configuration file */qfs/people/[USER]/.esmvaltool/config-us
    OsloCTM3: [/pic/projects/GCAM/Emissions-MIP/models/OsloCTM3]
    UKESM: [/pic/projects/GCAM/Emissions-MIP/models/UKESM]
    GEOS: [/pic/projects/GCAM/Emissions-MIP/models/GEOS]
+   CAM5-ATRAS: [/pic/projects/GCAM/Emissions-MIP/models/CAM5-ATRAS]
 ```
 - The directory structure should have:
 ```
@@ -264,6 +276,66 @@ Add the list of new shapefiles to */qfs/people/[USER]/.conda/envs/esmvaltool/lib
 'non-pacific': os.path.join(cwd, 'ne_masks/non-pacific.shp'),
 'non-atlantic': os.path.join(cwd, 'ne_masks/non-atlantic.shp'),
 'non-indian': os.path.join(cwd, 'ne_masks/non-indian.shp')
+```
+
+Add the variable *srfdms* to the CMIP6 table */qfs/people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvalcore/cmor/tables/cmip6/Tables/CMIP6_AERmon.json*. This variable represents the surface concentration of DMS and is exclusive to the E3SM model since it doesn't report the 3D output for DMS:
+```
+        "srfdms": {
+            "frequency": "mon", 
+            "modeling_realm": "aerosol", 
+            "standard_name": "mole_fraction_of_dimethyl_sulfide_in_air", 
+            "units": "mol mol-1", 
+            "cell_methods": "area: time: mean", 
+            "cell_measures": "area: areacella", 
+            "long_name": "Dimethyl Sulphide (DMS) Mole Fraction on Surface", 
+            "comment": "Mole fraction is used in the construction mole_fraction_of_X_in_Y, where X is a material constituent of Y.", 
+            "dimensions": "longitude latitude time", 
+            "out_name": "srfdms", 
+            "type": "real", 
+            "positive": "", 
+            "valid_min": "", 
+            "valid_max": "", 
+            "ok_min_mean_abs": "", 
+            "ok_max_mean_abs": ""
+```
+
+Add the variables *loadbc* and *loadso2* to the CMIP6 table */qfs/people/[USER]/.conda/envs/esmvaltool/lib/python3.8/site-packages/esmvalcore/cmor/tables/cmip6/Tables/CMIP6_Emon.json*. These are the column mass burden of BC and SO2:
+```
+        "loadbc": {
+            "frequency": "mon", 
+            "modeling_realm": "atmos", 
+            "standard_name": "atmosphere_mass_content_of_elemental_carbon_dry_aerosol_particles", 
+            "units": "kg m-2", 
+            "cell_methods": "area: time: mean", 
+            "cell_measures": "area: areacella", 
+            "long_name": "Load of Black Carbon Aerosol", 
+            "comment": "The total dry mass of black carbon aerosol particles per unit area.", 
+            "dimensions": "longitude latitude time", 
+            "out_name": "loadbc", 
+            "type": "real", 
+            "positive": "", 
+            "valid_min": "", 
+            "valid_max": "", 
+            "ok_min_mean_abs": "", 
+            "ok_max_mean_abs": ""
+        }, 
+        "loadso2": {
+            "frequency": "mon", 
+            "modeling_realm": "atmos", 
+            "standard_name": "atmosphere_mass_content_of_sulfur_dioxide", 
+            "units": "kg m-2", 
+            "cell_methods": "area: time: mean", 
+            "cell_measures": "area: areacella", 
+            "long_name": "Load of Sulfur Dioxide", 
+            "comment": "The total mass of sulfur dioxide per unit area.", 
+            "dimensions": "longitude latitude time", 
+            "out_name": "loadso2", 
+            "type": "real", 
+            "positive": "", 
+            "valid_min": "", 
+            "valid_max": "", 
+            "ok_min_mean_abs": "", 
+            "ok_max_mean_abs": ""
 ```
 
 ### Running ESMValTool
