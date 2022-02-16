@@ -38,7 +38,7 @@
   </tr>
   <tr>
     <td>OsloCTM3</td>
-    <td colspan="6">bldep, loadbc, loadso2<br><i>LW radiation and cloud variables unavailable (no change): rsdt, rlut, rlutcs, clt, cltc, cl, clivi</i></td>
+    <td colspan="6">bldep<br><i>LW radiation and cloud variables unavailable (no change): rsdt, rlut, rlutcs, clt, cltc, cl, clivi</i></td>
   </tr>
   <tr>
     <td>MIROC</td>
