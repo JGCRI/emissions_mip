@@ -138,7 +138,7 @@ class DerivedVariable(DerivedVariableBase):
             warnings.filterwarnings(
                 'ignore', category=UserWarning,
                 message='Collapsing a non-contiguous coordinate')
-            loadbc_cube = loadbc_cube.collapsed('air_pressure', iris.analysis.MEAN)
+            loadbc_cube = loadbc_cube.collapsed('air_pressure', iris.analysis.SUM)
         loadbc_cube.units = (mmrbc_cube.units * p_layer_widths.units /
                           STANDARD_GRAVITY_UNIT)
 
