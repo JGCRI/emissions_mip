@@ -92,6 +92,8 @@ Before CMORizing E3SM or CESM model files:
 |                          |     nudge-shp-atl-shift-1950    |
 |                          |     nudge-shp-ind-shift-1950    |
 
+We can make use of Common Workflow Language (CWL) package in python to automate the CMOR workflow. A series of scripts were written in `cwltool scripts` for running the workflow for E3SM and CESM.
+
 Run the E3SM converter using cwltool (automated workflow):\
 `cwltool scripts/cwl_workflows/atm-unified/atm-unified.cwl config_e3sm.yaml`
 
@@ -100,10 +102,12 @@ Or run the CESM converter as follows:\
 
 The final CMORized output files will be in the *CMIP6* directory.
 
+**Note**: As of 5/31/2022 the cwltool method does not work for 2D or 3D variables. It was working for 2D variables previously (3D variables resulted in an error during the CMORizing stage). So run all variables using the manual method described below.
+
 It’s good practice to clear the temp directory once in a while to make space. The following command will permanently delete all folders and files in the temp directory, so be careful how you use it!\
 `rm -rf /qfs/people/[USER]/e3sm_to_cmip/e3sm_to_cmip/temp/*`
 
-The cwltool commands work for all 2D variables and some 3D variables. There are a few 3D variables (e.g., mmrbc, mmrso4, so2) which result in an error during the CMORizing stage. These variables must be CMORized manually as follows:
+The CMORizing process is done by manually invoking a series of commands as follows:
 - Change directory:\
 `cd /qfs/people/[USER]/e3sm_to_cmip`
 - For converting 3D E3SM variables, generate the regridded time series files first:
@@ -132,7 +136,8 @@ cd /qfs/people/[USER]/e3sm_to_cmip/e3sm_to_cmip
 
 python -m e3sm_to_cmip -v [3Dvar1, 3Dvar2, 3Dvar3] -u /qfs/people/[USER]/e3sm_to_cmip/[e3sm_user_config_picontrol.json or cesm_user_config_draft.json] -i /qfs/people/[USER]/e3sm_to_cmip_test/[regrid_timeseries or native_add_bounds] -o /qfs/people/[USER]/e3sm_to_cmip/e3sm_to_cmip/CMIP6 -t /qfs/people/[USER]/e3sm_to_cmip/cmip6-cmor-tables/Tables -H /qfs/people/[USER]/e3sm_to_cmip/e3sm_to_cmip/e3sm_to_cmip/cmor_handlers
 ```
-- Again, the final CMORized output files will be in the CMIP6 directory.
+- Again, the final CMORized output files will be in the CMIP6 directory. To avoid potential errors, delete the contents of the native_grid and native_add_bounds folders in between experiment runs. Sometimes it can help to run 3D variables separately.
+- Finally, copy the CMORized files to the appropriate model directory for use by ESMValTool.
 
 ## Setting up and running ESMValTool
 ESMValTool is a climate model diagnostics and evaluation package. We use it to extract timeseries data for each climate model. Visit the [GitHub page](https://github.com/ESMValGroup/ESMValTool) for detailed documentation. It is highly recommended to view the [tutorial](https://esmvalgroup.github.io/ESMValTool_Tutorial/) alongside the following instructions.
