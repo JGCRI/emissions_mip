@@ -1,0 +1,5 @@
+dataset,project,activity,institute,ensemble,grid,start_year,end_year,fifties_start,fifties_end,variables
+GISS-nudge,CMIP6,AerChemMIP,NASA-GISS,r1i1p5f1,gn,2000,2004,1950,1954,"mmrso4,mmrbc,so2,rlut,rsut,rsdt,rlutcs,rsutcs,emiso2,emibc,drybc,wetbc,dryso4,wetso4,loadso2,loadso4,loadbc,dms,cl,clivi,od550aer,clt,cltc"
+E3SM-1-0,CMIP6,CMIP,E3SM-Project,r1i1p1f1,gr,2000,2004,1950,1954,"mmrso4,mmrbc,so2,rlut,rsut,rsdt,rlutcs,rsutcs,emiso2,emibc,drybc,wetbc,dryso4,wetso4,loadso2,loadso4,loadbc,cl,clivi,od550aer,clt,srfdms"
+CESM-1-0,CMIP6,CMIP,PNNL-WACCEM,r1i1p1f1,gr,2000,2004,1950,1954,"mmrso4,mmrbc,so2,rlut,rsut,rsdt,rlutcs,rsutcs,emiso2,emibc,drybc,wetbc,dryso4,wetso4,loadso2,loadso4,loadbc,cl,clivi,od550aer,clt"
+CAM5-ATRAS,CAM5-ATRAS,EmiMIP,E3SM-Project,r1i1p1f1,gr,2000,2005,1950,1955,"bldep,cl,clivi,clt,dms,drybc,dryso2,dryso4,emibc,emidms,emiso2,loadbc,soadso2,loadso4,mmrbc,mmrso4,od550aer,ps,rlut,rlutcs,rsdt,rsut,rsutcs,so2,wetbc,wetso2,wetso4"

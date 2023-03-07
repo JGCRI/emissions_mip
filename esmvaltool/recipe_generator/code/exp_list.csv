@@ -1,0 +1,5 @@
+model,high_SO4_at_height,CMIP5,CMIP5_1950,reference,reference_1950,shp_ind_shift,shp_atl_shift,shp_atl_shift_1950,shp_ind_shift_1950,shp_30p_red,shp_60p_red,shp_60p_red_1950
+E3SM-1-0,nudge-high-so4-at-height,nudge-CMIP5-SO2,nudge-CMIP5-SO2-1950,nudge-ref,nudge-ref-1950,nudge-shp-ind-shift,nudge-shp-atl-shift,nudge-shp-atl-shift-1950,nudge-shp-ind-1950,nudge-shp-30p-red,nudge-shp-60p-red,nudge-shp-60p-red-1950
+GISS-nudge,highSO4_so2HtBW2000,BW2000_CMIP5,BW1950_CMIP5,reference,BW1950,IOSHFT2000,AOSHFT2000,AOSHFT1950,IOSHFT1950,2000SHPdot7SO2,2000SHPdot4SO2,1950SHPdot4SO2
+CESM-1-0,,,,nudge-ref,nudge-ref-1950,nudge-shp-ind-shift,nudge-shp-atl-shift,nudge-shp-atl-shift-1950,nudge-shp-ind-1950,nudge-shp-30p-red,nudge-shp-60p-red,nudge-shp-60p-red-1950
+CAM5-ATRAS,,,,base,base-1950SO2,indian-shift,atlantic-shift,atlantic-shift-1950s,indian-shift-1950s,ship-30red,ship-60red,ship-60-red-1950s

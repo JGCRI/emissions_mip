@@ -1,0 +1,12 @@
+region_list,mask_list
+global,NULL
+land,sea
+sea,land
+arctic,non-arctic
+NH-land,sea_s-land
+NH-sea,land_s-sea
+SH-land,sea_n-land
+SH-sea,land_n-sea
+NH-pacific,non-pacific
+NH-atlantic,non-atlantic
+NH-indian,non-indian
