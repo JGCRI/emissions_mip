@@ -36,6 +36,7 @@ The table below provides a high-level overview of the steps taken to prepare mod
         <ul>
           <li>Multiplied <i>wetbc</i> and <i>wetso4</i> by -1 to get correct sign (currently applied in cmor handler but could be done in the R plotting scripts instead)</li>
           <li><i>wetso2</i> was originally in units of kg/s so needed to divide by a 1&#176; area grid cell NetCDF file to get flux</li>
+          <li>E3SM doesn't have the 3D <i>dms</i> variable, but has the 2D <i>srfdms</i> variable instead. Generate <i>srfdms</i> using the e3sm_to_cmip tool following instructions in Part 1.</li>
         </ul>
       </td>
     </tr>
